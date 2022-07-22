@@ -8,7 +8,7 @@
   Attention : les groupes ne sont pas correctement entrés dans ADE.
   Utilisez la ressource "M1 informatique" **plus votre groupe** pour voir l'emploi du temps.
 
-* Rendu du TP noté : vous devez avoir rempli le champ URL de TOMUSS avant TODO. Le rendu final est le TODO à 23h59. Voir
+* Rendu du TP noté : vous devez avoir rempli le champ URL de TOMUSS avant TODO. Le rendu final est le 11 décembre 2022 à 23h59. Voir
   [projet-note.md](projet-note.md) pour un récapitulatif des consignes.
 
 * Examen : TODO. 1h30 (sauf tiers-temps) Consignes : Seules 5
@@ -81,7 +81,7 @@ email, ce fichier en contient une copie.
 
 * Énoncé : continuer [TP2-outils/README.md](TP2-outils/README.md)
 
-## CM 3 (9/9/2022, 9h45-11h15) : Coding style, Design-patterns (début)
+## CM 3 (9/9/2022, 9h45-11h15) : Coding style, Design patterns (début)
 
 ## 9/9/2022, 11h30-13h, créneau pris par MIF03
 
@@ -100,9 +100,9 @@ email, ce fichier en contient une copie.
 
 * Vidéo du mercredi 9/9/2020 sur Youtube : [https://youtu.be/9oV0xDSrXes](https://youtu.be/9oV0xDSrXes)
 
-## CM 4 (13/9/2022, 14h) : Design-patterns (suite)
+## CM 4 (13/9/2022, 14h) : Design patterns (suite)
 
-## TD 1 (13/9/2022, 15h45): Design-patterns
+## TD 1 (13/9/2022, 15h45): Design patterns
 
 * [TD1-design-patterns](http://matthieu-moy.fr/cours/mif01/TD1-patterns/TD-design-patterns.html)
 
@@ -194,27 +194,4 @@ Cette dernière séance devrait vous permettre de boucler votre projet, qui est 
 
 ## 7/12/2022, 11h30-13h, créneau pris par MIF03
 
-# How to use this repository
-
-This repository contains course material and code skeletons. The
-recommended way to use it is:
-
-* Fork the project from
-  https://forge.univ-lyon1.fr/matthieu.moy/mif01-2022 and make it private.
-  
-* Clone your fork and work in the fork.
-
-To get updates from the teacher's repository, run once :
-
-    git remote add moy https://forge.univ-lyon1.fr/matthieu.moy/mif01-2022.git
-
-Then, each time you want to fetch updates, run :
-
-    git pull moy master
-
-This downloads and applies changes made by the teachers. You can keep
-working as usual with your private repository. In summary:
-
-    git pull            # get changes from your private fork (i.e. your co-worker)
-    git push            # send changes to your private fork
-    git pull moy master # get updates from teachers
+## 11/12/2022, date limite pour le rendu de projet.
