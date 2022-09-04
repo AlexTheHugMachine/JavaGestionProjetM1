@@ -6,7 +6,7 @@
 
 * Emploi du temps : Cf. ADE.
   Attention : les groupes ne sont pas correctement entrés dans ADE.
-  Utilisez la ressource "M1 informatique" **plus votre groupe** pour voir l'emploi du temps.
+  Utilisez la ressource "M1 informatique" **plus les groupes de TD** pour voir l'emploi du temps.
 
 * Rendu du TP noté : vous devez avoir rempli le champ URL de TOMUSS avant TODO. Le rendu final est le 11 décembre 2022 à 23h59. Voir
   [projet-note.md](projet-note.md) pour un récapitulatif des consignes.
@@ -24,10 +24,10 @@ Barème : 50% examen / 50% TP. Seul l'examen est rattrapable en session 2.
 
 ## Enseignants et contacts
 
-* A: [Matthieu Moy](https://matthieu-moy.fr/) (responsable du cours)
-* B: [Lionel Medini](https://perso.liris.cnrs.fr/lionel.medini/)
-<!-- * C: Lucien Ndjie (email : prénom.nom@ens-lyon.fr)
-* D: [Paul Iannetta](https://perso.ens-lyon.fr/paul.iannetta/research/) (email : prénom.nom@ens-lyon.fr)
+* [Matthieu Moy](https://matthieu-moy.fr/) (responsable du cours)
+* [Lionel Medini](https://perso.liris.cnrs.fr/lionel.medini/)
+* Lucien Ndjie (email : prénom.nom@ens-lyon.fr)
+<!-- * D: [Paul Iannetta](https://perso.ens-lyon.fr/paul.iannetta/research/) (email : prénom.nom@ens-lyon.fr)
 * E: Nicolas Levy (email : prénom.nom@ens-lyon.fr) -->
 
 (Lorsque ce n'est pas précisé, l'email prenom.nom@univ-lyon1.fr fonctionne)
