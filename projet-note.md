@@ -1,4 +1,4 @@
-# Rendu du Mini Projet "CV Search"
+# Rendu du Mini Projet "Mon espace santé"
 
 **Votre travail devra être rendu sous forme d’un projet déposé sur la Forge Lyon 1, au plus tard le dimanche 11 décembre 2022 à 23h59. Malus si rendu après la deadline, aucun projet accepté après le 13 décembre.**
 
