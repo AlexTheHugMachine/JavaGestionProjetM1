@@ -35,9 +35,14 @@ Le TP n'a été testé que sous Linux. Sur les machines de l'université le TP f
 ### Sur les machines du Nautibus sous Linux
 
 Sur les machines du Nautibus, les TPs ont été testés sous Linux, en
-utilisant l'environnement Java installé pour vous dans
-`/home/tpetu/m1if01/`.  Avant de démarrer le TP, ajoutez ceci dans
-votre fichier `~/.bashrc`:
+utilisant l'environnement Java par défaut (sans rien configurer).
+
+#### En cas de problème avec l'environnement par défaut
+
+En cas de besoin, il y a aussi une version installé pour vous dans
+`/home/tpetu/m1if01/` (à une époque où la version par défaut posait
+problème). Pour l'utiliser (en cas de soucis avec la version de base),
+avant de démarrer le TP, ajoutez ceci dans votre fichier `~/.bashrc`:
 
     PATH=/home/tpetu/m1if01/bin:"$PATH"
 
