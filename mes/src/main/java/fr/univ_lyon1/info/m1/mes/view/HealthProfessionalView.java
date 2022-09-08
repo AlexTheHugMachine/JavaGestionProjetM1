@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import fr.univ_lyon1.info.m1.mes.model.Dentist;
 import fr.univ_lyon1.info.m1.mes.model.Homeopath;
+import fr.univ_lyon1.info.m1.mes.model.Masseur;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription;
@@ -80,6 +81,8 @@ public class HealthProfessionalView {
         } else if (hp instanceof Homeopath) {
             predefPrescr.add("Natrum Muriaticum 30CH");
             predefPrescr.add("Sucre 200K");
+        } else if (hp instanceof Masseur) {
+            predefPrescr.add("Vaseline 1 kg");
         }
         for (final String p : predefPrescr) {
             final Button predefPrescrB = new Button(p);
