@@ -20,4 +20,5 @@ junit:
     # Useful only for debugging
     #- cat ~/.m2/settings.xml
   script:
-    - echo "Continuous integration not set up"; exit 1
+    - cd mes && mvn test --batch-mode
+
