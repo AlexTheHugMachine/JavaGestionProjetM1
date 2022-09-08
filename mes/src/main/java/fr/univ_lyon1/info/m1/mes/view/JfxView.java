@@ -67,9 +67,9 @@ public class JfxView {
         final TextField ssIDT = new TextField();
         final Button newP = new Button("New");
         patients.getChildren().addAll(
-                new HBox(nameL, nameT),
-                new HBox(ssIDL, ssIDT),
-                newP);
+            new HBox(nameL, nameT),
+            new HBox(ssIDL, ssIDT),
+            newP);
         newP.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {

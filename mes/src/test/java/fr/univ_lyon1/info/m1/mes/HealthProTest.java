@@ -29,7 +29,7 @@ public class HealthProTest {
         String name = hp.getName();
 
         // Then
-        assertThat(name, is("Dr. John")); // TODO: Obviously wrong, it should be Smith
+        assertThat(name, is("Dr. Smith"));
     }
 
     @Test
