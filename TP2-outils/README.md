@@ -118,7 +118,7 @@ mais pas comme fichiers gérés par Git (la commande ne renvoie rien) :
 
 ```sh
 $ git ls-files target
-$ 
+$
 ```
 
 Si `git ls-files target` affiche des noms de fichiers, c'est que vous (ou votre
@@ -280,7 +280,7 @@ avec deux dépôts distants :
 - https://forge.univ-lyon1.fr/matthieu.moy/mif01-2022, qui est le
   squelette fourni par les enseignants. Vous n'y avez accès qu'en
   lecture (`pull`, `clone`).
-  
+
 - `https://forge.univ-lyon1.fr/<votre-login>/mif01-2022`, qui est votre
   « fork » privé. Vous avez tous les droits dessus, y compris `push`.
 
@@ -416,7 +416,7 @@ Avant tout, vérifiez que les pipelines sont activés sur votre projet :
   puis « permissions ». (Vous devriez retrouver « project visibility =
   private », si ce n'est pas le cas relisez le début de ce document,
   c'est important).
-  
+
 - Vérifiez que l'interrupteur « pipelines » est sur « enabled ».
 
 - Si vous avez modifié quelque chose, cliquez sur « save changes ».
@@ -451,10 +451,10 @@ un peu plus que cela. Ouvrez le fichier
 - Configurer le proxy HTTP pour Maven (via le script setup-mvn-proxy.sh). Ce
   point est spécifique à notre installation GitLab, on n'a en général pas besoin
   de cela mais c'est nécessaire pour nous pour que Maven marche.
-  
+
 - Mettre en cache le répertoire `.m2/repository`, pour éviter de
   re-télécharger toutes les dépendances à chaque pipeline.
-  
+
 Ouvrez ce fichier dans votre éditeur de texte. La dernière ligne
 (derrière `script:`) ne fait pour l'instant rien d'intelligent.
 Remplacez-la par :
@@ -509,7 +509,7 @@ Il y a deux choses à corriger :
   violations de style en faisant le TP jusqu'ici, il faudra les corriger
   rapidement (mais lisez ce qui suit sur les IDE, cela peut vous faire gagner
   beaucoup de temps !)
-  
+
 Une fois ces deux corrections faites, vérifiez que `mvn test` ne lève
 plus d'erreur, faites un commit et un push, et vérifiez que
 l'intégration continue de la forge valide ce commit.
@@ -646,7 +646,7 @@ Autrement dit, si vous trouvez le style trop strict, dites-vous que le style par
 défaut de checkstyle l'est beaucoup plus.
 
 Votre [projet](../projet-note.md) devra impérativement n'avoir aucun warning avec checkstyle. Prenez l'habitude d'éliminer ces warnings au fur et à mesure (via votre IDE et/ou `mvn test`) : c'est très pénible de devoir tout corriger après coup !
-  
+
 ## Et les merge-requests (alias pull-requests sur GitHub) ?
 
 Les merge-requests sont un mécanisme **très pratique** et **très efficace** pour
@@ -658,13 +658,13 @@ organiser la revue de code. Le principe :
 
 - Le contributeur demande à fusionner cette branche depuis la forge
   (onglet « merge request », bouton « new merge request »).
-  
+
 - Si [Gitlab-CI](https://docs.gitlab.com/ee/ci/quick_start/) est
   configuré, les tests sont lancés automatiquement.
 
 - Les développeurs discutent de la demande, ajoutent et modifient les
   commits à fusionner si besoin.
-  
+
 - Le propriétaire du projet accepte la demande (bouton « merge » en
   bas de la discussion sur la page de la merge-request, ou `git` en
   ligne de commande), ou la rejette. Si un pipeline d'intégration
