@@ -281,7 +281,7 @@ avec deux dépôts distants :
   squelette fourni par les enseignants. Vous n'y avez accès qu'en
   lecture (`pull`, `clone`).
   
-- `https://forge.univ-lyon1.fr/<votre-login>/mif01-2021`, qui est votre
+- `https://forge.univ-lyon1.fr/<votre-login>/mif01-2022`, qui est votre
   « fork » privé. Vous avez tous les droits dessus, y compris `push`.
 
 Pour votre travail au quotidien, c'est votre dépôt privé que vous
@@ -293,7 +293,7 @@ Ajoutez le dépôt enseignant comme dépôt distant (à faire une fois en
 début de projet) :
 
 ```sh
-git remote add moy https://forge.univ-lyon1.fr/matthieu.moy/mif01-2021.git
+git remote add moy https://forge.univ-lyon1.fr/matthieu.moy/mif01-2022.git
 ```
 
 Votre fork est déjà enregistré comme remote `origin` au moment du `git clone`.
@@ -301,7 +301,7 @@ Votre fork est déjà enregistré comme remote `origin` au moment du `git clone`
 Pour récupérer les mises à jour du dépôt enseignant, faites (à chaque fois qu'il y a des nouveautés dans le dépôt enseignant) :
 
 ```sh
-git pull moy master  # Récupérer les modifications en local
+git pull moy main  # Récupérer les modifications en local
 git push  # Les envoyer vers votre fork privé
 ```
 
@@ -311,7 +311,7 @@ En résumé :
 git commit          # enregistrer vos modifications, localement
 git pull            # récupérer les changements depuis votre fork (de votre binôme)
 git push            # envoyer des changements à votre fork
-git pull moy master # récupérer les mises à jour du dépôt enseignant
+git pull moy main # récupérer les mises à jour du dépôt enseignant
 ```
 
 ## Maven
@@ -644,7 +644,7 @@ Les merge-requests sont un mécanisme **très pratique** et **très efficace** p
 organiser la revue de code. Le principe :
 
 - Le contributeur commite chaque nouvelle fonctionnalité dans une
-  branche (autre que master), et envoie (`push`) cette branche sur la
+  branche (autre que main), et envoie (`push`) cette branche sur la
   forge.
 
 - Le contributeur demande à fusionner cette branche depuis la forge
