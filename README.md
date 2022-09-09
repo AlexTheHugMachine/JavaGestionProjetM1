@@ -38,7 +38,7 @@ Si la situation sanitaire le permet, le cours sera en 100% présentiel, mais les
 
 Vous pouvez interagir avec les enseignants sur ce canal : [mif01-2022](https://go.rocket.chat/invite?host=chat-info.univ-lyon1.fr&path=invite%2F2JrtZP). Vous pouvez utiliser ce canal pour poser vos questions, faire des remarques, demander de l'aide, ... pendant les séances et en dehors (nous ferons notre possible pour lire les messages au moins une fois par jour en semaine). D'autres canaux pourront être créés si besoin. Il est recommandé d'avoir le tchat ouvert même si vous êtes physiquement présents au Nautibus : vous pouvez poser des questions sur le tchat si vous pensez qu'elles intéressent d'autres étudiants, et nous utiliserons peut-être ce canal pour passer des informations à tout le monde pendant les séances.
 
-`chat-info` utilise le logiciel [RocketChat](https://rocket.chat/), vous pouvez l'utiliser dans un navigateur, et/ou installer le client RocketChat sur votre PC, Mac ou smartphone. Dans tous les cas il est indispensable de suivre le lien d'invitation pour s'inscrire au canal : [mif01](https://go.rocket.chat/invite?host=chat-info.univ-lyon1.fr&path=invite%2Fi5Lsmn).
+`chat-info` utilise le logiciel [RocketChat](https://rocket.chat/), vous pouvez l'utiliser dans un navigateur, et/ou installer le client RocketChat sur votre PC, Mac ou smartphone. Dans tous les cas il est indispensable de suivre le lien d'invitation pour s'inscrire au canal : [mif01](https://go.rocket.chat/invite?host=chat-info.univ-lyon1.fr&path=invite%2F2JrtZP).
 
 ## Nouvelles du cours
 
