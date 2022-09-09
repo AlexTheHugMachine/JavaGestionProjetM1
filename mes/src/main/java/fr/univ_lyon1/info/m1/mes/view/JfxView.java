@@ -1,7 +1,6 @@
 package fr.univ_lyon1.info.m1.mes.view;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient;
-import fr.univ_lyon1.info.m1.mes.utils.EasyAlert;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -75,9 +74,9 @@ public class JfxView {
             public void handle(final ActionEvent event) {
                 String getNamePatient = nameT.getText();
                 String getSSIDPatient = ssIDT.getText();
-                final Patient NewPatient = mes.createPatient(getNamePatient, getSSIDPatient);
-                final PatientView NewPatientView = new PatientView(NewPatient);
-                patients.getChildren().add(NewPatientView.asPane());
+                final Patient newPatient = mes.createPatient(getNamePatient, getSSIDPatient);
+                final PatientView newPatientView = new PatientView(newPatient);
+                patients.getChildren().add(newPatientView.asPane());
             }
         });
     }
