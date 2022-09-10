@@ -301,9 +301,12 @@ Votre fork est déjà enregistré comme remote `origin` au moment du `git clone`
 Pour récupérer les mises à jour du dépôt enseignant, faites (à chaque fois qu'il y a des nouveautés dans le dépôt enseignant) :
 
 ```sh
-git pull moy main  # Récupérer les modifications en local
+git pull --no-rebase moy main  # Récupérer les modifications en local
 git push  # Les envoyer vers votre fork privé
 ```
+
+L'option `--no-rebase` est pertinente ici pour éviter de rebaser l'ensemble de
+votre historique par dessus l'historique du dépôt enseignant.
 
 En résumé :
 
@@ -311,7 +314,7 @@ En résumé :
 git commit          # enregistrer vos modifications, localement
 git pull            # récupérer les changements depuis votre fork (de votre binôme)
 git push            # envoyer des changements à votre fork
-git pull moy main # récupérer les mises à jour du dépôt enseignant
+git pull --no-rebase moy main # récupérer les mises à jour du dépôt enseignant
 ```
 
 ## Maven

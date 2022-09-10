@@ -1,5 +1,45 @@
 Ce fichier contiendra les nouvelles du cours. Un mail sera envoyé quand le fichier est mis à jour.
 
+# 10/09/2022 : Créneau et salle TD1, et encore un peu de Git
+
+## IMPORTANT : créneau et salle du TD1
+
+Pour le TD1, il y a deux créneaux dans la semaine, et comme il n'y a que 3
+enseignants je ne peux pas vous faire un affichage propre dans ADE.
+
+J'ai créé une case TOMUSS « MIF01:_Créneau_TD1 » qui vous donne le jour et
+l'heure de votre TD. Si vous avez TD le mardi (15h45->17h15), alors vous êtes
+libres pendant le créneau du vendredi (11h30->13h) affiché sur ADE, et
+inversement ceux qui ont TD le vendredi ne l'ont pas le mardi.
+
+Pour les étudiants MEEF ou autre cas particuliers non-inscrits en M1, venez au
+créneau du vendredi (11h30->13h, salle Nautibus C1).
+
+## Git, pull.rebase, et mises à jour
+
+Les versions récentes de Git (depuis le commit
+[278f4be80](https://github.com/git/git/commit/278f4be806f93579c64cd9993fdad2eb589f86c6))
+affichent un message d'avertissement quand vous utilisez `git pull` sans
+préciser `--rebase` ou `--no-rebase` (Exercice laissé au lecteur : comment votre
+serviteur a-t-il retrouvé le commit parmi les 67875 commits du code source de
+Git, en quelques minutes ?). Comme vous avez appris en cours les vertus de
+`git rebase`, beaucoup d'entre vous ont positionné `pull.rebase` à `true`. C'est
+une bonne chose, mais ...
+
+Il faut se souvenir de la règle d'or : « on ne rebase pas des commits déjà
+publiés ». Faire un `rebase` sur des commits que vous avez déjà partagé avec
+votre binôme, ou même des commits écrits par votre binôme, c'est chercher les
+ennuis. Autrement dit, faire un `rebase` de la branche `main`, ça a peu de
+chance d'être une bonne idée. Et il y a un cas où vous risquez de faire cela
+sans le faire exprès : en récupérant les mises à jour depuis mon dépôt. Si vous
+avez `pull.rebase=true`, alors la commande `git pull moy main` va faire un
+rebase de tous les commits qui ne sont pas dans le dépôt enseignant, et ce n'est
+pas ce que vous voulez. Pour éviter cela, utilisez l'option `--no-rebase` quand
+vous récupérez les modifications depuis le dépôt enseignants :
+
+```
+git pull --no-rebase moy main
+```
 
 # 08/09/2022 : chat-info, et encore des typos
 
@@ -26,7 +66,7 @@ Et tant qu'on y est, cette année la branche principale s'appelle `main` et pas
 commande pour récupérer les changements est :
 
 ```
-git pull moy main
+git pull --no-rebase moy main
 ```
 
 Vous pouvez expérimenter cela grandeur nature, en vérifiant que vous récupérez
