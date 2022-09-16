@@ -9,3 +9,8 @@ mes/.vscode/
 .classpath
 .project
 .settings/
+
+#Pour les fichiers de config d'Intellij
+.idea
+
+.DS_Store/**
