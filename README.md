@@ -8,7 +8,7 @@
   Attention : les groupes ne sont pas correctement entrés dans ADE.
   Utilisez la ressource "M1 informatique" **plus les groupes de TD** pour voir l'emploi du temps.
 
-* Rendu du TP noté : vous devez avoir rempli le champ URL de TOMUSS avant TODO. Le rendu final est le 11 décembre 2022 à 23h59. Voir
+* Rendu du TP noté : vous devez avoir rempli le champ URL de TOMUSS avant le 16 septembre 2022. Le rendu final est le 11 décembre 2022 à 23h59. Voir
   [projet-note.md](projet-note.md) pour un récapitulatif des consignes.
 
 * Examen : TODO. 1h30 (sauf tiers-temps) Consignes : Seules 5
