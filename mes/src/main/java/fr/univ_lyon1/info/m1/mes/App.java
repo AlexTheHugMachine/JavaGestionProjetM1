@@ -15,14 +15,11 @@ public class App extends Application {
      */
     @Override
     public void start(final Stage stage) throws Exception {
-        final MES model = new MES();
-        model.createExampleConfiguration();
         new JfxView(model, stage, 600, 600);
 
         // Second view
         new JfxView(model, stage, 600, 600);
     }
-
 
     /**
      * A main method in case the user launches the application using

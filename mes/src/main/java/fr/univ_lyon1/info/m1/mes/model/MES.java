@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
+import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
+
 public class MES {
     private final List<HealthProfessional> healthProfessionals = new ArrayList<>();
 
@@ -36,10 +39,6 @@ public class MES {
         final Patient a = createPatient("Alice Foo", "299010212345678");
         final Patient b = createPatient("Bob Bar", "199010212345678");
         createPatient("Charles Boz", "102020212345678");
-        new Masseur("Dr. Zemmour", this);
-        final HealthProfessional w = new HealthProfessional("Dr. Who", this);
-        final HealthProfessional s = new Dentist("Dr. Strange", this);
-        new Homeopath("Dr. Hahnemann", this);
         a.addPrescription(w, "One apple a day");
         a.addPrescription(w, "Sport twice a week");
         b.addPrescription(w, "Whatever placebo, you're not sick");

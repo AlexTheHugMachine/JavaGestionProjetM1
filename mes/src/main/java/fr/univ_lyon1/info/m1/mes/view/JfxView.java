@@ -1,10 +1,10 @@
 package fr.univ_lyon1.info.m1.mes.view;
 
-import fr.univ_lyon1.info.m1.mes.model.Patient;
-import fr.univ_lyon1.info.m1.mes.model.HealthProfessional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import fr.univ_lyon1.info.m1.mes.model.MES;
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
+import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

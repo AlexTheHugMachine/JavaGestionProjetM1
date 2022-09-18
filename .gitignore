@@ -4,6 +4,7 @@ mes/log
 
 #Pour les fichiers de config de vscode
 mes/.vscode/
+.vscode
 
 #Pour les fichiers de config d'Eclipse
 .classpath
