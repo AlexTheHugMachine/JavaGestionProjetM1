@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.MES;
 import fr.univ_lyon1.info.m1.mes.model.Patient;
+import fr.univ_lyon1.info.m1.mes.model.Prescription;
 
 public class MESTest {
   private MES model;
