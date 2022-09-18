@@ -28,6 +28,10 @@ public class Patient {
         prescriptions.add(new Prescription(hp, content));
     }
 
+    public void addPrescription(final Prescription prescription) {
+        prescriptions.add(prescription);
+    }
+
     public void removePrescription(final Prescription p) {
         prescriptions.remove(p);
     }
