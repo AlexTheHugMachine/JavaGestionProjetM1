@@ -1,7 +1,6 @@
 package fr.univ_lyon1.info.m1.mes.view;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient;
-import fr.univ_lyon1.info.m1.mes.utils.EasyAlert;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,11 +19,12 @@ public class JfxView {
     private Pane patients = new VBox();
     private Pane healthPro = new VBox();
     private final MES mes;
+
     /**
      * Create the main view of the application.
      */
     public JfxView(final MES mes, final Stage stage,
-    final int width, final int height) {
+            final int width, final int height) {
         this.mes = mes;
         // Name of window
         stage.setTitle("Mon Espace Santé");
@@ -33,14 +33,13 @@ public class JfxView {
 
         createPatientsWidget();
         root.getChildren().add(patients);
-        
+
         createHPWidget();
         root.getChildren().add(healthPro);
-        
+
         HBox.setHgrow(patients, Priority.SOMETIMES);
         HBox.setHgrow(healthPro, Priority.ALWAYS);
 
-        
         // Everything's ready: add it to the scene and display it
         final Scene scene = new Scene(root, width, height);
         stage.setScene(scene);
@@ -56,8 +55,8 @@ public class JfxView {
     }
 
     private void createPatientsWidget() {
-        patients.getChildren().clear();        
-            for (Patient p : mes.getPatients()) {
+        patients.getChildren().clear();
+        for (Patient p : mes.getPatients()) {
             final PatientView hpv = new PatientView(p);
             patients.getChildren().add(hpv.asPane());
         }
@@ -75,9 +74,9 @@ public class JfxView {
             public void handle(final ActionEvent event) {
                 String getNamePatient = nameT.getText();
                 String getSSIDPatient = ssIDT.getText();
-                final Patient NewPatient = mes.createPatient(getNamePatient, getSSIDPatient);
-                final PatientView NewPatientView = new PatientView(NewPatient);
-                patients.getChildren().add(NewPatientView.asPane());
+                final Patient newPatient = mes.createPatient(getNamePatient, getSSIDPatient);
+                final PatientView newPatientView = new PatientView(newPatient);
+                patients.getChildren().add(newPatientView.asPane());
             }
         });
     }

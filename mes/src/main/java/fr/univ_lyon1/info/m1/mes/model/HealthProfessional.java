@@ -2,8 +2,7 @@ package fr.univ_lyon1.info.m1.mes.model;
 
 import java.util.List;
 
-public class HealthProfessional
-{ // TODO: this brace should be on the same line as "public class"
+public class HealthProfessional {
     private final String name;
     private final MES mes;
 
