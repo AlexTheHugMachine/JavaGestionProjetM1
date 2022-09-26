@@ -360,8 +360,13 @@ mvn compile
 mvn exec:java
 ```
 
-Ou bien, on peut lancer l'application via la commande `java` après
-avoir généré le `.jar` avec `mvn package`:
+### Packaging
+
+Le plugin `maven-assembly-plugin` est configuré pour vous pour
+générer un jar exécutable incluant les bibliothèques utilisées (voir
+[ici](http://stackoverflow.com/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven)).
+
+Par défaut, Maven va refuser de packager une application qui ne passe pas les tests, mais on peut lancer le packaging pour générer un fichier `.jar` comme ceci :
 
 ```sh
 # Pour cette fois, on autorise la construction du .jar même en
@@ -369,12 +374,6 @@ avoir généré le `.jar` avec `mvn package`:
 # -Dcheckstyle.skip) :
 mvn -DskipTests  -Dcheckstyle.skip package
 ```
-
-### Packaging
-
-Le plugin `maven-assembly-plugin` est configuré pour vous pour
-générer un jar exécutable incluant les bibliothèques utilisées (voir
-[ici](http://stackoverflow.com/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven)).
 
 Tester en lancer java via (adaptez l'argument de `--module-path` à
 votre installation si besoin) :
@@ -396,6 +395,25 @@ pourrait le distribuer à l'utilisateur final qui pourrait donc lancer
 l'application avec Java et JavaFX installés sur sa machine, mais pas Maven. Bien
 sûr, pour notre TP on peut se contenter de `mvn exec:java` qui fait la même
 chose, et qui est ce que vos enseignants utiliseront pour évaluer vos TPs.
+
+### Documentation et JavaDoc
+
+Maven peut générer un site web pour votre projet, qui inclue les informations de
+base (nom, version, etc) et les dépendances en fonction du contenu du `pom.xml`.
+Le `pom.xml` fourni active également JavaDoc, la documentation d'API de votre
+projet sera donc visible dans une section « Project reports » du site web.
+
+Pour lancer la génération du site, faites simplement :
+
+```sh
+mvn site
+```
+
+Le site est visible en local dans `target/site/` :
+
+```sh
+firefox target/site/index.html
+```
 
 ## Intégration continue avec GitLab-CI
 
