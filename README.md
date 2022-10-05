@@ -127,7 +127,7 @@ email, ce fichier en contient une copie.
 
 ## CM 6 (5/10/2022, 8h) : Test
 
-* [Transparents de Sandrine Gouraud](http://matthieu-moy.fr/cours/mif01/SandrineGouraud_16092021.pdf)
+* [Transparents de Sandrine Gouraud](http://matthieu-moy.fr/cours/mif01/gouraud_20221005.pdf)
 
 * [Software Fail Watch, 5th
   edition](https://www.tricentis.com/wp-content/uploads/2019/01/Software-Fails-Watch-5th-edition.pdf)
