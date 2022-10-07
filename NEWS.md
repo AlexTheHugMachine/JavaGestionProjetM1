@@ -1,4 +1,29 @@
+<!-- LTEX: language=fr -->
 Ce fichier contiendra les nouvelles du cours. Un mail sera envoyé quand le fichier est mis à jour.
+
+# 7/10/2022 : Séance en plus, supports de cours en ligne, JavaDoc
+
+## Séance de TP en plus mercredi 12 octobre
+
+Pour compenser l'absence de Lionel Medini mercredi dernier, nous vous proposons
+une séance de TP supplémentaire mercredi prochain : après le TP « normal » de
+9h45 à 11h15, vous pourrez rester dans les salles Nautibus TP 2, 3, 6, 11 et 12
+(les autres sont prises par d'autres cours) et poser vos questions à Lionel.
+Cette séance n'est pas obligatoire, mais il n'y aura que 2 séances de TP
+encadrées après cela, donc je vous encourage très vivement à profiter de
+l'occasion pour demander de l'aide ou simplement du feedback sur votre travail.
+
+## Supports de cours en ligne
+
+Les transparents de Sandrine Gouraud sont en ligne ici :
+http://matthieu-moy.fr/cours/mif01/gouraud_20221005.pdf
+
+## JavaDoc
+
+Votre serviteur a réalisé avec stupeur que le TP sur l'outillage ne mentionnait
+pas JavaDoc ni `mvn site`. C'est maintenant réparé, si vous êtes curieux vous
+pouvez aller relire la section [Documentation et
+JavaDoc](https://forge.univ-lyon1.fr/matthieu.moy/mif01-2022/-/tree/main/TP2-outils#documentation-et-javadoc).
 
 # 10/09/2022 : Créneau et salle TD1, et encore un peu de Git
 
