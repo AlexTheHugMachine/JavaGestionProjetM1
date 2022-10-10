@@ -1,12 +1,20 @@
 <!-- LTEX: language=fr -->
 Ce fichier contiendra les nouvelles du cours. Un mail sera envoyé quand le fichier est mis à jour.
 
+# 10/10/2022 : Séance TP en plus reportée, date de l'examen
+
+La séance de TP prévue le mercredi 12 octobre est reportée au 2 novembre, même
+horaire (après le TD), les salles seront disponibles sur ADE prochainement.
+
+L'examen de fin de semestre est prévu le mardi 10 janvier 2023, 14h, sous
+réserve de disponibilité d'amphi.
+
 # 7/10/2022 : Séance en plus, supports de cours en ligne, JavaDoc
 
 ## Séance de TP en plus mercredi 12 octobre
 
 Pour compenser l'absence de Lionel Medini mercredi dernier, nous vous proposons
-une séance de TP supplémentaire mercredi prochain : après le TP « normal » de
+une séance de TP supplémentaire mercredi ~~prochain~~ 2 novembre : après le TP « normal » de
 9h45 à 11h15, vous pourrez rester dans les salles Nautibus TP 2, 3, 6, 11 et 12
 (les autres sont prises par d'autres cours) et poser vos questions à Lionel.
 Cette séance n'est pas obligatoire, mais il n'y aura que 2 séances de TP
