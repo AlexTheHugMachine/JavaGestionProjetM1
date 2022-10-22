@@ -20,6 +20,12 @@ public class Patient {
     }
 
     public Patient(final String name, final String ssID) {
+        final boolean checkThatParametersAreValid =
+            name.matches("[a-zA-Z]+") && ssID.matches("[0-9]+");
+        if (!checkThatParametersAreValid) {
+            throw new IllegalArgumentException(
+                    "Le nom doit être en lettre et le numéro de sécurité sociale en chiffre.");
+        }
         this.name = name;
         this.ssID = ssID;
     }
