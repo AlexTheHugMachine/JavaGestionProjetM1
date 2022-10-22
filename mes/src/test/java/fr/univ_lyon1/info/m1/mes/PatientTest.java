@@ -1,6 +1,8 @@
 package fr.univ_lyon1.info.m1.mes;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -42,6 +44,18 @@ public class PatientTest {
     String patientSsID = p.getSSID();
     // Then
     assertThat(patientSsID, is("102020212345678"));
+  }
+
+  @Test
+  public void showErrorMessageWhenCreatingPatientByReversingNameAndSSID() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      Patient p = new Patient("201342836674", "Alice");
+    });
+
+    String expectedMessage = "Le nom doit être en lettre et le numéro de sécurité sociale en chiffre.";
+    String actualMessage = exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
   }
 
   @Test
