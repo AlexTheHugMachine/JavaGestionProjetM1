@@ -1,6 +1,8 @@
 package fr.univ_lyon1.info.m1.mes;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import fr.univ_lyon1.info.m1.mes.model.Prescription;
 
 public class HealthProTest {
     MES model = new MES();
+    HealthProfessional hp = new HealthProfessional("Dr. Smith", model);
 
     @Test
     /**
@@ -22,9 +25,6 @@ public class HealthProTest {
      * object is correct.
      */
     public void HealthProfessionalName() {
-        // Given
-        HealthProfessional hp = new HealthProfessional("Dr. Smith", model);
-
         // When
         String name = hp.getName();
 
@@ -32,13 +32,24 @@ public class HealthProTest {
         assertThat(name, is("Dr. Smith"));
     }
 
-    @Test
+    public void checkThatHandleIncorrectHealthProfessionnalName() {
+        // Given
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            HealthProfessional hp2 = new HealthProfessional("876567827adsqsd", model);
+        });
+        // When
+        String expectedMessage = "Le nom du professionnel de santé n'est pas valide.";
+        String actualMessage = exception.getMessage();
+        // Then
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+   @Test
     /**
      * Test addPrescription, and demonstrate advanced Hamcrest assertions.
      */
     public void GetPrescriptionTest() {
         // Given
-        HealthProfessional hp = new HealthProfessional("Dr. Smith", model);
         Patient p = model.createPatient("Alice", "20123456789012");
         p.addPrescription(hp, "Do some sport");
 
@@ -58,7 +69,6 @@ public class HealthProTest {
      */
     public void GetNotPrescriptionTest() {
         // Given
-        HealthProfessional hp = new HealthProfessional("Dr. Smith", model);
         Patient p = model.createPatient("Alice", "20123456789012");
         p.addPrescription(hp, "Eat fruits");
 
@@ -78,7 +88,6 @@ public class HealthProTest {
      */
     public void GetPrescriptionFromSinglePatientTest() {
         // Given
-        HealthProfessional hp = new HealthProfessional("Dr. Smith", model);
         Patient patientWithPrescription = model.createPatient("Alice", "20123456789012");
         model.createPatient("John", "102020212345678");
         patientWithPrescription.addPrescription(hp, "Eat fruits");
@@ -98,7 +107,6 @@ public class HealthProTest {
      */
     public void GetPatientTest() {
         // Given
-        HealthProfessional hp = new HealthProfessional("Dr. Smith", model);
         Patient p = model.createPatient("Alice", "20123456789012");
         // When
         Patient p2 = hp.getPatient("20123456789012");
