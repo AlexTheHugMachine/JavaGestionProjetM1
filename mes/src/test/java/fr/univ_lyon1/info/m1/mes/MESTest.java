@@ -18,6 +18,7 @@ public class MESTest {
   @Test
   public void checkThatWeProperlyInitializePatientDatabase() {
     app.initializePatientDatabase();
+
   }
 
 }

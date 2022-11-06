@@ -9,12 +9,4 @@ public class PatientDAO extends AbstractMapDao<Patient> {
   protected Serializable getKeyForElement(final Patient element) {
     return element.getId();
   }
-
- /*  public List<Prescription> findPrescriptions(final String id) {
-    return this.getCollection().get(id).getPrescriptions();
-  } */
-
-  /* public List<Prescription> findPrescriptionsGivenByHP(final String id, final String idHP) {
-    return this.getCollection().get(id).getPrescriptions(idHP);
-  } */
 }

@@ -15,6 +15,8 @@ import java.util.Collection;
  * dans les classes terminales
  *
  * @param <T> Type des objets à prendre en charge par un DAO
+ *
+ * @author Lionel Médini
  */
 public interface Dao<T> {
   /**
@@ -40,6 +42,8 @@ public interface Dao<T> {
    *
    * @param id La clé de l'élément à supprimer
    * @throws NameNotFoundException Si l'élément à supprimer n'a pas été trouvé
+   * @throws InvalidNameException  Si la syntaxe de la clé n'est pas conforme au
+   *                               type attendu
    */
   void deleteById(Serializable id) throws NameNotFoundException, InvalidNameException;
 
@@ -48,6 +52,8 @@ public interface Dao<T> {
    *
    * @param id      La clé de l'élément à mettre à jour
    * @param element L'élément par lequel remplacer l'ancien élément
+   * @throws InvalidNameException Si la syntaxe de la clé n'est pas conforme au
+   *                              type attendu
    */
   void update(Serializable id, T element) throws InvalidNameException;
 
@@ -61,14 +67,23 @@ public interface Dao<T> {
   Serializable getId(T element) throws NameNotFoundException;
 
   /**
+   * Renvoie l'ensemble des clés des éléments non nuls stockés dans le DAO.
+   *
+   * @return L'ensemble des clés des éléments non nuls
+   */
+  Collection<? extends Serializable> getAllIds();
+
+  /**
    * Renvoie un élément à partir de sa clé.
    *
    * @param id La clé de l'élément cherché
    * @return L'élément dont la clé est celle passée en paramètre
    * @throws NameNotFoundException Si la clé de l'élément à rechercher n'a pas été
    *                               trouvée
+   * @throws InvalidNameException  Si la syntaxe de la clé n'est pas conforme au
+   *                               type attendu
    */
-  T findOne(Serializable id) throws NameNotFoundException;
+  T findOne(Serializable id) throws NameNotFoundException, InvalidNameException;
 
   /**
    * Renvoie tous les éléments.

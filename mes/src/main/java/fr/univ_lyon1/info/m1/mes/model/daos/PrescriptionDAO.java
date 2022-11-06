@@ -23,10 +23,16 @@ public class PrescriptionDAO extends AbstractMapDao<Prescription> {
     return prescriptions;
   }
 
-  public List<Prescription> findPatientPrescription(final String idPatient) {
+  /**
+   *
+   * @param idPatient L'id du patient dont on cherche les prescriptions.
+   * @return La <code>List</code> de <code>Prescription</code> dont l'id du patient est
+   *         passé en paramètre
+   */
+  public List<Prescription> findByPatient(final String idPatient) {
     List<Prescription> prescriptions = new ArrayList<Prescription>();
     this.getCollection().values().forEach(p -> {
-      if (p.getIdPatient() == idPatient) {
+      if (p.getIdPatient().equals(idPatient)) {
         prescriptions.add(p);
       }
     });

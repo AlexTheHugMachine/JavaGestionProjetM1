@@ -1,13 +1,10 @@
 package fr.univ_lyon1.info.m1.mes.model.Patient;
 
-import java.util.List;
-
-import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
-import fr.univ_lyon1.info.m1.mes.model.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.utils.UIDGenerator;
 
+// TODO : Faire la doc pour la classe et les fonctions.
 public class Patient {
-    private List<Prescription> prescriptions;
+    // List of Prescription Ids.
     private final String id;
     private final String name;
     private final String surname;
@@ -22,7 +19,6 @@ public class Patient {
         this.name = name;
         this.surname = surname;
         this.ssID = ssID;
-        this.prescriptions = null;
     }
 
     public Patient(final String name, final String surname, final String ssID,
@@ -35,23 +31,6 @@ public class Patient {
         this.ssID = ssID;
         this.adress = adress;
         this.city = city;
-        this.prescriptions = null;
-    }
-
-    public void updatePrescriptionsList(final List<Prescription> prescriptions) {
-        this.prescriptions = prescriptions;
-    }
-
-    /*
-     * public List<Prescription> getPrescriptionsGivenByHP(final PrescriptionDAO
-     * prescriptionDAO, final String idHP) {
-     * return prescriptionDAO.findPrescriptionsGivenByHp(idHP);
-     * }
-     */
-
-    public List<Prescription> getPrescriptions(final PrescriptionDAO prescriptionDAO) {
-        this.prescriptions = prescriptionDAO.findPatientPrescription(id);
-        return this.prescriptions;
     }
 
     private void checkPatientInput(final String name, final String surname, final String ssID) {

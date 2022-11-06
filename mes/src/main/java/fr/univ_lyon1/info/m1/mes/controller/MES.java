@@ -2,6 +2,7 @@ package fr.univ_lyon1.info.m1.mes.controller;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.naming.NameAlreadyBoundException;
@@ -20,28 +21,22 @@ public class MES {
 
   private final PatientDAO patientDAO;
   private final HealthProfessionalDAO healthProfessionalDAO;
+  private final 
+  private final String ressourcePath;
 
   public MES() {
     patientDAO = new PatientDAO();
     healthProfessionalDAO = new HealthProfessionalDAO();
+    ressourcePath = "./src/public/data/";
+    initializePatientDatabase();
   }
 
-  private void initializePatientDatabase() {
+  // Read file
+  // Build List of T element
+  private void initializePatientDatabase(Builder builder) {
     try {
-      ArrayList<String[]> patientListData = MESFileReader.readFile(
-          "./src/public/data/PatientList.txt");
-
-      PatientBuilder builder = new PatientBuilder();
-      patientListData.forEach(row -> {
-        Patient patient = builder.setName(row[0])
-            .setSurname(row[1])
-            .setSSID(row[2])
-            .setAdress(row[3])
-            .setCity(row[4])
-            .build();
-            // TODO : Mettre les Patiens dans une List et créer une fonction de transaction
-            // comme pour pour une bdd.
-      });
+      ArrayList<String[]> patientList = this.getListData("PatientList.txt");
+      addAllPatientToPatientDAO(patientList);
     } catch (
         FileNotFoundException
         | NullPointerException
@@ -51,7 +46,26 @@ public class MES {
       e.printStackTrace();
       throw new InternalError();
     }
+  }
 
+  private ArrayList<String[]> getListData(final String file)
+      throws FileNotFoundException,
+      NullPointerException,
+      NoSuchElementException,
+      IllegalStateException {
+    return MESFileReader.readFile(ressourcePath + file);
+  }
+
+  private void addListToCorrespondingDAO(final ArrayList<String[]> list, Builder builder) {
+    list.forEach(row -> {
+      Patient patient = builder.setName(row[0])
+          .setSurname(row[1])
+          .setSSID(row[2])
+          .setAdress(row[3])
+          .setCity(row[4])
+          .build();
+      patientDAO.add(patient);
+    });
   }
 
   public HealthProfessionalDAO getHealthProfessionalDAO() {

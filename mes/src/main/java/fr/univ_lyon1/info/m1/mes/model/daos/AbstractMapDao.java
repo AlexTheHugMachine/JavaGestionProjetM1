@@ -1,14 +1,36 @@
 package fr.univ_lyon1.info.m1.mes.model.daos;
 
+import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+/**
+ * Début d'implémentation de l'interface DAO sous forme d'une Map d'objets.
+ * Classe abstraite qui doit être instanciée en fonction du type d'objet stocké
+ * et de clé.
+ *
+ * @param <T> Le type d'objet auquel s'applique le DAO ; défini dans une
+ *            sous-classe
+ *
+ * @author Lionel Médini
+ */
 public abstract class AbstractMapDao<T> implements Dao<T> {
-  private Map<Serializable, T> collection = new HashMap<>();
+  private Map<Serializable, T> collection;
+
+  AbstractMapDao() {
+    this.collection = new HashMap<>();
+  }
+
+  protected Map<Serializable, T> getCollection() {
+    return this.collection;
+  }
 
   @Override
   public Serializable add(final T element) throws NameAlreadyBoundException {
@@ -30,16 +52,25 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   }
 
   @Override
-  public void deleteById(final Serializable id) throws NameNotFoundException {
-    if (!this.collection.containsKey(id)) {
-      throw new NameNotFoundException(id.toString());
+  public void deleteById(final Serializable id) throws NameNotFoundException, InvalidNameException {
+    try {
+      if (!this.collection.containsKey(id)) {
+        throw new NameNotFoundException(id.toString());
+      }
+      this.collection.remove(id);
+    } catch (ClassCastException e) {
+      throw new InvalidNameException(e.getMessage());
     }
-    this.collection.remove(id);
   }
 
   @Override
-  public void update(final Serializable id, final T element) {
-    this.collection.put(id, element);
+  public void update(final Serializable id, final T element) throws InvalidNameException {
+    try {
+      this.collection.put(id, element);
+    } catch (ClassCastException e) {
+      throw new InvalidNameException(e.getMessage());
+    }
+
   }
 
   @Override
@@ -48,11 +79,20 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   }
 
   @Override
-  public T findOne(final Serializable id) throws NameNotFoundException {
-    if (!this.collection.containsKey(id)) {
-      throw new NameNotFoundException(id.toString());
+  public Set<Serializable> getAllIds() {
+    return this.collection.keySet().stream().filter(Objects::nonNull).collect(Collectors.toSet());
+  }
+
+  @Override
+  public T findOne(final Serializable id) throws NameNotFoundException, InvalidNameException {
+    try {
+      if (!this.collection.containsKey(id)) {
+        throw new NameNotFoundException(id.toString());
+      }
+      return this.collection.get(id);
+    } catch (ClassCastException e) {
+      throw new InvalidNameException(e.getMessage());
     }
-    return this.collection.get(id);
   }
 
   @Override
@@ -61,7 +101,8 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   }
 
   /**
-   * Renvoie la clé correspondant au type spécifique de l'élément<br>
+   * Renvoie la clé de l'élément<br>
+   * Le type de la clé peut être choisi spécifiquement au type d'objet stocké.
    * Exemples : un champ "id" d'une classe, un hash des champs de l'objet...
    *
    * @param element élément du type de la classe à stocker dans le DAO
@@ -69,8 +110,4 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
    *         <code>Serializable</code>
    */
   protected abstract Serializable getKeyForElement(T element);
-
-  protected Map<Serializable, T> getCollection() {
-    return this.collection;
-  }
 }
