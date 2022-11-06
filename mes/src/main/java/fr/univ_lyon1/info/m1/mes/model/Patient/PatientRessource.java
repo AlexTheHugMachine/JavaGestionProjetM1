@@ -43,7 +43,8 @@ public class PatientRessource {
    * @return L'id du salon créé
    * @throws InvalidNameException      Ne doit pas arriver car les clés du DAO
    *                                   patient sont des strings (potentiellement
-   *                                   levée par <code>patientDao.readOne()</code>)
+   *                                   levée par
+   *                                   <code>patientDao.readOne()</code>)
    * @throws IllegalArgumentException  Si les params sont null ou vides.
    * @throws NameNotFoundException     Si l'id du patient ne correspond à
    *                                   aucune entrée dans le DAO patient.
@@ -53,9 +54,8 @@ public class PatientRessource {
       final String adress, final String city)
       throws IllegalArgumentException,
       InvalidNameException,
-      NameNotFoundException,
       NameAlreadyBoundException {
-    String[] check = {name, surname, ssID, adress, city};
+    String[] check = { name, surname, ssID, adress, city };
     ArgumentChecker.checkManyString(check);
 
     Patient patient = builder.setName(name)
@@ -78,7 +78,8 @@ public class PatientRessource {
    * @return L'id du salon créé
    * @throws InvalidNameException      Ne doit pas arriver car les clés du DAO
    *                                   patient sont des strings (potentiellement
-   *                                   levée par <code>patientDao.readOne()</code>)
+   *                                   levée par
+   *                                   <code>patientDao.readOne()</code>)
    * @throws IllegalArgumentException  Si les params sont null ou vides.
    * @throws NameNotFoundException     Si l'id du patient ne correspond à
    *                                   aucune entrée dans le DAO patient.
@@ -89,7 +90,7 @@ public class PatientRessource {
       InvalidNameException,
       NameNotFoundException,
       NameAlreadyBoundException {
-    String[] check = {name, surname, ssID};
+    String[] check = { name, surname, ssID };
     ArgumentChecker.checkManyString(check);
 
     Patient patient = builder.setName(name)
@@ -102,7 +103,7 @@ public class PatientRessource {
   }
 
   /**
-   * Renvoie les IDs de tous les salons présents dans le DAO.
+   * Renvoie les IDs de tous les patients présents dans le DAO.
    *
    * @return L'ensemble des IDs sous forme d'un
    *         <code>Set&lt;Serializable&gt;</code>
@@ -123,7 +124,9 @@ public class PatientRessource {
    *                                  entrée dans le DAO
    */
   public Patient readOne(final String key)
-      throws IllegalArgumentException, InvalidNameException, NameNotFoundException {
+      throws IllegalArgumentException,
+      InvalidNameException,
+      NameNotFoundException {
     ArgumentChecker.checkString(key);
     return patientDao.findOne(Integer.valueOf(key));
   }
@@ -133,22 +136,38 @@ public class PatientRessource {
    * Si l'un des paramètres est nul ou vide, le champ correspondant n'est pas mis
    * à jour.
    *
-   * @param key    L'id de l'objet <code>Patient</code> à mettre à jour
-   * @param adress L'adresse à modifier.
-   * @param city   La ville à modifier.
+   * @param key     L'id de l'objet <code>Patient</code> à mettre à jour
+   * @param name    Le nouveau Nom à modifier.
+   * @param surname Le nouveau nom de famille à modifier.
+   * @param adress  L'adresse à modifier.
+   * @param city    La ville à modifier.
    * @throws IllegalArgumentException Si l'id du patient est null ou vide
    * @throws InvalidNameException     Si l'id du patient n'est pas un Integer
    *                                  correctement formé
    * @throws NameNotFoundException    Si l'id du patient ne correspond à aucune
    *                                  entrée dans le DAO
    */
-  public void update(final String key, final String adress, final String city)
-      throws IllegalArgumentException, InvalidNameException, NameNotFoundException {
-    String[] check = {key, adress, city};
-    ArgumentChecker.checkManyString(check);
+  public void update(final String key,
+      final String name, final String surname, final String adress, final String city)
+      throws IllegalArgumentException,
+      InvalidNameException,
+      NameNotFoundException {
+    ArgumentChecker.checkString(key);
     Patient patient = readOne(key);
-    patient.setAdress(adress);
-    patient.setCity(city);
+    // Probably badly wrote but give us the opportunity to set null property and change
+    // Only certains attributes.
+    if (name != null && !name.equals("")) {
+      patient.setName(name);
+    }
+    if (surname != null && !surname.equals("")) {
+      patient.setSurname(surname);
+    }
+    if (adress != null && !adress.equals("")) {
+      patient.setAdress(adress);
+    }
+    if (city != null && !city.equals("")) {
+      patient.setCity(city);
+    }
   }
 
   /**
@@ -162,7 +181,9 @@ public class PatientRessource {
    *                                  entrée dans le DAO
    */
   public void delete(final String key)
-      throws IllegalArgumentException, InvalidNameException, NameNotFoundException {
+      throws IllegalArgumentException,
+      InvalidNameException,
+      NameNotFoundException {
     ArgumentChecker.checkString(key);
     patientDao.deleteById(Integer.valueOf(key));
   }

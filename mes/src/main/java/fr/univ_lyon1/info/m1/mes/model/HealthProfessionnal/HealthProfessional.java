@@ -4,8 +4,8 @@ import fr.univ_lyon1.info.m1.mes.utils.UIDGenerator;
 
 public class HealthProfessional {
     private final String id;
-    private final String name;
-    private final String surname;
+    private String name;
+    private String surname;
     private final HPSpeciality speciality;
 
     public HealthProfessional(final String name, final String surname,
@@ -39,5 +39,13 @@ public class HealthProfessional {
             throw new IllegalArgumentException(
                     "Le nom du professionnel de santé n'est pas valide.");
         }
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public void setSurname(final String surname) {
+        this.surname = surname;
     }
 }
