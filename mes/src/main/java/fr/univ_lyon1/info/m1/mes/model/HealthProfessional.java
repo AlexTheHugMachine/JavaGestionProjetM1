@@ -8,7 +8,7 @@ public class HealthProfessional {
 
     public HealthProfessional(final String name, final MES mes) {
         final boolean checkThatHealthProfessionnalNameIsValid =
-            name.matches("^[^.]+[a-zA-Z]\\.[^.]+$");
+            name.matches("^[a-zA-Z]+\\s[a-zA-Z]+");
 
             if (!checkThatHealthProfessionnalNameIsValid) {
             throw new IllegalArgumentException(
