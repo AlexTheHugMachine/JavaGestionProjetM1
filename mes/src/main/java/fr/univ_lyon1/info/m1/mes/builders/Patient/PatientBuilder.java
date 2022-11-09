@@ -16,6 +16,7 @@ public class PatientBuilder implements Builder<PatientBuilder> {
   public PatientBuilder getThis() {
     return this;
   }
+
   public void reset() {
     this.name = null;
     this.surname = null;
@@ -27,31 +28,31 @@ public class PatientBuilder implements Builder<PatientBuilder> {
   @Override
   public PatientBuilder setName(final String name) {
     this.name = name;
-    return this;
+    return getThis();
   }
 
   @Override
   public PatientBuilder setSurname(final String surname) {
     this.surname = surname;
-    return this;
+    return getThis();
   }
 
   @Override
   public PatientBuilder setSSID(final String ssID) {
     this.ssID = ssID;
-    return this;
+    return getThis();
   }
 
   @Override
   public PatientBuilder setAdress(final String address) {
     this.adress = address;
-    return this;
+    return getThis();
   }
 
   @Override
   public PatientBuilder setCity(final String city) {
     this.city = city;
-    return this;
+    return getThis();
   }
 
   public Patient build() {
