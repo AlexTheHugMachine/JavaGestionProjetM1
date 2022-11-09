@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.mes.model.builders.Patient;
+package fr.univ_lyon1.info.m1.mes.builders.Patient;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 

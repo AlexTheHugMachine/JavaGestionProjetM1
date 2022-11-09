@@ -7,8 +7,8 @@ import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
-import fr.univ_lyon1.info.m1.mes.model.builders.Patient.PatientBuilder;
-import fr.univ_lyon1.info.m1.mes.model.daos.PatientDAO;
+import fr.univ_lyon1.info.m1.mes.builders.Patient.PatientBuilder;
+import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 
 /**

@@ -1,8 +1,8 @@
-package fr.univ_lyon1.info.m1.mes.model.directors;
+package fr.univ_lyon1.info.m1.mes.directors;
 
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
-import fr.univ_lyon1.info.m1.mes.model.builders.HealthProfessionnal.HealthProfessionalBuilder;
+import fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal.HealthProfessionalBuilder;
 
 public class HealthProfessionalsDirector {
   public HealthProfessional constructGeneraliste(final HealthProfessionalBuilder builder,

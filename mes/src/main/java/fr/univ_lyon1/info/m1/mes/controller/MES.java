@@ -8,10 +8,10 @@ import java.util.NoSuchElementException;
 import javax.naming.NameAlreadyBoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.MESFileReader;
-import fr.univ_lyon1.info.m1.mes.model.builders.Patient.PatientBuilder;
+import fr.univ_lyon1.info.m1.mes.builders.Patient.PatientBuilder;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
-import fr.univ_lyon1.info.m1.mes.model.daos.HealthProfessionalDAO;
-import fr.univ_lyon1.info.m1.mes.model.daos.PatientDAO;
+import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 
 /**
  * Master controler of the app.
@@ -21,7 +21,7 @@ public class MES {
 
   private final PatientDAO patientDAO;
   private final HealthProfessionalDAO healthProfessionalDAO;
-  private final 
+  private final
   private final String ressourcePath;
 
   public MES() {

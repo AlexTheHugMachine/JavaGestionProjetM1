@@ -17,8 +17,8 @@ public class MES {
         return registry.get(ssID);
     }
 
-    public Patient createPatient(final String name, final String ssID) {
-        final Patient p = new Patient(name, ssID);
+    public Patient createPatient(final String name, final String surname, final String ssID) {
+        final Patient p = new Patient(name, surname, ssID);
         registry.put(ssID, p);
         return p;
     }
@@ -36,7 +36,7 @@ public class MES {
     }
 
     public void createExampleConfiguration() {
-        final Patient a = createPatient("Alice Foo", "299010212345678");
+        final Patient a = createPatient("Alice", "Foo", "299010212345678");
         final Patient b = createPatient("Bob Bar", "199010212345678");
         createPatient("Charles Boz", "102020212345678");
         a.addPrescription(w, "One apple a day");

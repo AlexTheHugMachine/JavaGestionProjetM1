@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.mes.model.builders.Patient;
+package fr.univ_lyon1.info.m1.mes.builders.Patient;
 
 public interface Builder<T extends Builder<T>> {
   T setName(String name);

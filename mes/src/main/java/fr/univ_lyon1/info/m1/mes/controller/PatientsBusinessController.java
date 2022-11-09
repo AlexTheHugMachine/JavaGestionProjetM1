@@ -5,7 +5,7 @@ import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Patient.PatientBusiness;
-import fr.univ_lyon1.info.m1.mes.model.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 
 /**
  * Contrôleur délégué aux CU concernant les opérations métier sur les patients.

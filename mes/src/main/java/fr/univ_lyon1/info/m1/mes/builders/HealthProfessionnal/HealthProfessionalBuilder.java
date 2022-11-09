@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.mes.model.builders.HealthProfessionnal;
+package fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal;
 
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;

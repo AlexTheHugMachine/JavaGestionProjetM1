@@ -7,7 +7,7 @@ import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 //import fr.univ_lyon1.info.m1.mes.model.daos.PatientDAO;
-import fr.univ_lyon1.info.m1.mes.model.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 
 /**

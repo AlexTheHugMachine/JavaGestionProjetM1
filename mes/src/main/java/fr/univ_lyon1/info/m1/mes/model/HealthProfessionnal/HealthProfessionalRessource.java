@@ -7,9 +7,9 @@ import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
-import fr.univ_lyon1.info.m1.mes.model.builders.HealthProfessionnal.HealthProfessionalBuilder;
-import fr.univ_lyon1.info.m1.mes.model.daos.HealthProfessionalDAO;
-import fr.univ_lyon1.info.m1.mes.model.directors.HealthProfessionalsDirector;
+import fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal.HealthProfessionalBuilder;
+import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
+import fr.univ_lyon1.info.m1.mes.directors.HealthProfessionalsDirector;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 
 /**

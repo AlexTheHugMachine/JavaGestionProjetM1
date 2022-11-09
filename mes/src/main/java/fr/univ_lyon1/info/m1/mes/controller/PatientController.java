@@ -7,12 +7,12 @@ import fr.univ_lyon1.info.m1.mes.view.PatientView;
 import fr.univ_lyon1.info.m1.mes.view.PrescriptionsList;
 
 // Handle all the action that the Patient trigger from the interface.
-public class Patient {
+public class PatientController {
   private fr.univ_lyon1.info.m1.mes.model.Patient.Patient currentPatient;
   private List<Prescription> listPrescriptions;
   private PatientView patientView;
 
-  Patient(MES mes) {
+  PatientController(MES mes) {
     // On doit avoir un controller encore un lvl au dessus qui a les informations
     // de la session.
     // SuperController peut pas être statique sinon on va recréer les objets à chaque fois.
