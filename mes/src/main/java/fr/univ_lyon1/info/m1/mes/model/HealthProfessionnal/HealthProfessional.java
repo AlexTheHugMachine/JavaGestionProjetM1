@@ -11,7 +11,7 @@ public class HealthProfessional {
     public HealthProfessional(final String name, final String surname,
             final HPSpeciality speciality)
             throws IllegalArgumentException {
-        checkHealthProfessionnalInput(name, surname);
+        checkHealthProfessionnalInput(name, surname, speciality);
         this.id = UIDGenerator.generate();
         this.name = name;
         this.surname = surname;
@@ -34,8 +34,8 @@ public class HealthProfessional {
         return speciality;
     }
 
-    private void checkHealthProfessionnalInput(final String name, final String surname) {
-        if (!(name.matches("[a-zA-Z]+") && surname.matches("[a-zA-Z]+"))) {
+    private void checkHealthProfessionnalInput(final String name, final String surname, final HPSpeciality spe) {
+        if (!(name.matches("[a-zA-Z]+") && surname.matches("[a-zA-Z]+") && spe != null)) {
             throw new IllegalArgumentException(
                     "Le nom du professionnel de santé n'est pas valide.");
         }

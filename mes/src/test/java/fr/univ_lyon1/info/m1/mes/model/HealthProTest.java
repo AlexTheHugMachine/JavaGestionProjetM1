@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.mes;
+package fr.univ_lyon1.info.m1.mes.model;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;

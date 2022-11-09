@@ -27,28 +27,32 @@ public class HealthProfessionnalBuilderTest {
   @Test
   @DisplayName("Tests if the professional has been created using the builder")
   public void properlyCreateAnHealthProfessional() {
-    HealthProfessional hp =
-    builder.setName("John")
+    HealthProfessional hp = builder
+        .setName("John")
         .setSurname("Cena")
         .setSpeciality(HPSpeciality.GENERALISTE)
         .build();
 
     assertAll("Check that we properly define the HealthProfessional",
-    () -> assertEquals("John", hp.getName()),
-    () -> assertEquals("Cena", hp.getSurname()),
-    () -> assertEquals(HPSpeciality.GENERALISTE, hp.getSpeciality()));
+        () -> assertEquals("John", hp.getName()),
+        () -> assertEquals("Cena", hp.getSurname()),
+        () -> assertEquals(HPSpeciality.GENERALISTE, hp.getSpeciality()));
   }
 
   @Test
   @DisplayName("Tests if the speciality has been added to the professionnal")
   public void cannotBuildAnHPWithoutSpecifyingSpeciality() {
-    assertThrows(
+    Exception exception = assertThrows(
         IllegalArgumentException.class,
         () -> {
           builder.setName("John")
               .setSurname("Doe")
               .build();
         });
+    String expMsg = "Le nom du professionnel de santé n'est pas valide.";
+    String actualMsg = exception.getMessage();
+
+    assertEquals(expMsg, actualMsg);
   }
 
 }
