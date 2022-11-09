@@ -22,6 +22,10 @@ public class Patient {
 
   }
 
+  // Avec le DAO Prescription je veux récupérer la liste des id de prescriptions du patient en fonction de l'ID du patient.
+  // Je vais appeler la fonction updateListPrescription qui est dans Patient et passer la liste que j'ai eu via le DAO Prescription en param.
+
+
   public void refreshPatientList() {
     patientView.prescriptionPane.getChildren().clear();
     patientView.showPrescriptionsList();

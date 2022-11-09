@@ -14,6 +14,7 @@ import javax.naming.NameAlreadyBoundException;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
@@ -37,6 +38,7 @@ public class PatientTest {
    * set.
    */
   @Test
+  @DisplayName("Tests if the name of the patient is correct")
   public void patientNameTest() {
     String patientName = p.getName();
     // Then
@@ -48,6 +50,7 @@ public class PatientTest {
    * the creation of the Object.
    */
   @Test
+  @DisplayName("Tests if the SSID of the patient is correct")
   public void patientSsIDTest() {
     // Given
     Patient p = new Patient("John", "DOE", "102020212345678", "", "");
@@ -58,6 +61,7 @@ public class PatientTest {
   }
 
   @Test
+  @DisplayName("Tests if the name have the right type")
   public void showErrorMessageWhenCreatingPatientByReversingNameAndSSID() {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       new Patient("201342836674", "Alice", "20123456789012");
@@ -70,6 +74,7 @@ public class PatientTest {
   }
 
   @Test
+  @DisplayName("Tests if the SSID have the right type")
   public void checkThatTheSSIDIs13NumbersLength() {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
       new Patient("Alice", "WONDERLAND", "20123456782");
@@ -88,6 +93,7 @@ public class PatientTest {
    * @throws NameAlreadyBoundException
    */
   @Test
+  @DisplayName("Tests if a prescription has been added to the patient")
   public void patientPrescriptionsGivenByHealtProfessionalTest() throws NameAlreadyBoundException {
     // Given
     HealthProfessional hp = new HealthProfessional(

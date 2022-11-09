@@ -18,6 +18,7 @@ import javax.naming.NameNotFoundException;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
@@ -45,7 +46,8 @@ public class HealthProTest {
      * object is correct.
      */
     @Test
-    public void healthProfessionalNameAndSurname() {
+    @DisplayName("Tests if the name and surname of the professionnal are correct")
+    public void healthProfessionalCorrectNameAndSurname() {
 
         String name = hp.getName();
         String surname = hp.getSurname();
@@ -55,6 +57,7 @@ public class HealthProTest {
     }
 
     @Test
+    @DisplayName("Tests if the professionnal's ID is not null or empty")
     public void healthProfessionnalUIDIsNotNullAndEmpty() {
         // Given HP
         // When
@@ -65,6 +68,7 @@ public class HealthProTest {
     }
 
     @Test
+    @DisplayName("Tests if the professionnal's name is valid")
     public void checkThatHandleIncorrectHealthProfessionnalName() {
         // Given
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -79,6 +83,7 @@ public class HealthProTest {
     }
 
     @Test
+    @DisplayName("Tests if the patient has a prescription that is added with his ID")
     public void addPrescriptionToAPatientUsingHisId() throws NameAlreadyBoundException {
         // Given
         Patient p = new Patient("Enzo", "CECILLON", "2200767612837");
@@ -91,6 +96,7 @@ public class HealthProTest {
     }
 
     @Test
+    @DisplayName("Tests if the added prescription is linked to the right patient")
     public void checkThatAPrescriptionIsGivenToTheRightPatient() throws NameAlreadyBoundException {
         // Given
         Patient p = new Patient("Alice", "WONDERLAND", "20123456789012");
@@ -117,6 +123,7 @@ public class HealthProTest {
     // respectif ?
 
     @Test
+    @DisplayName("Tests if a patient can be retrieved")
     public void checkThatAnHPCanRetrieveAPatient()
             throws NameNotFoundException, NameAlreadyBoundException {
         // Given

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
@@ -24,6 +25,7 @@ public class HealthProfessionnalBuilderTest {
   }
 
   @Test
+  @DisplayName("Tests if the professional has been created using the builder")
   public void properlyCreateAnHealthProfessional() {
     HealthProfessional hp =
     builder.setName("John")
@@ -38,6 +40,7 @@ public class HealthProfessionnalBuilderTest {
   }
 
   @Test
+  @DisplayName("Tests if the speciality has been added to the professionnal")
   public void cannotBuildAnHPWithoutSpecifyingSpeciality() {
     assertThrows(
         IllegalArgumentException.class,

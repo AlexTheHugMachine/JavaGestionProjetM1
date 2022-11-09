@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.model.MESFileReader;
@@ -27,11 +28,13 @@ public class MESFileReaderTest {
   }
 
   @Test
+  @DisplayName("Tests if the lenght of the list equals to the amount of objects in the txt")
   public void readThePatientListFileInsideDataFolder() {
     assertEquals(listContent.size(), 20);
   }
 
   @Test
+  @DisplayName("Tests if each lines of the txt have the right amount of parameters")
   public void checkThatPatientFileHasTheCorrectNumberOfElementOnEachLine() {
     for (String[] patientInfos : listContent) {
       assertEquals(3, patientInfos.length);
@@ -39,6 +42,7 @@ public class MESFileReaderTest {
   }
 
   @Test
+  @DisplayName("Tests if each paramater in each line of the txt, have the right type")
   public void checkThatPatientFileHasTheCorrectTypeForEachElement() {
     for (String[] patientInfos : listContent) {
       assertAll(

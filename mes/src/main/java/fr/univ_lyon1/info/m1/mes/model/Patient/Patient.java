@@ -6,7 +6,7 @@ import fr.univ_lyon1.info.m1.mes.utils.UIDGenerator;
 
 // TODO : Faire la doc pour la classe et les fonctions.
 public class Patient {
-    // List of Prescription Ids.
+    private List<String> prescriptions;
     private final String id;
     private String name;
     private String surname;
