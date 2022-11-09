@@ -25,8 +25,8 @@ import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
-import fr.univ_lyon1.info.m1.mes.model.daos.PatientDAO;
-import fr.univ_lyon1.info.m1.mes.model.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 
 public class HealthProTest {
     private HealthProfessional hp;

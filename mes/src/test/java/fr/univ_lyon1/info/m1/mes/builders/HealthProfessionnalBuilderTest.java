@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.mes;
+package fr.univ_lyon1.info.m1.mes.builders;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
-import fr.univ_lyon1.info.m1.mes.model.builders.HealthProfessionnal.HealthProfessionalBuilder;
+import fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal.HealthProfessionalBuilder;
 
 /**
  * Purpose : Reproduce how a developper will use this class to create new

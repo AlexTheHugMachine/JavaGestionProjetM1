@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.mes;
+package fr.univ_lyon1.info.m1.mes.model;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.equalTo;
@@ -21,7 +21,7 @@ import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
-import fr.univ_lyon1.info.m1.mes.model.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 
 public class PatientTest {
   private Patient p;

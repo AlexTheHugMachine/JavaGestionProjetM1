@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.mes;
+package fr.univ_lyon1.info.m1.mes.builders;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
-import fr.univ_lyon1.info.m1.mes.model.builders.Patient.PatientBuilder;
+import fr.univ_lyon1.info.m1.mes.builders.Patient.PatientBuilder;
 
 public class PatientBuilderTest {
   private PatientBuilder builder;
