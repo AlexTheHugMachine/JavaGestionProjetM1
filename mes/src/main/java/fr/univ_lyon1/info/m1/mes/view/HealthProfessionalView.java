@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
-import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
-import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
-import fr.univ_lyon1.info.m1.mes.utils.EasyAlert;
+//import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
+//import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
+//import fr.univ_lyon1.info.m1.mes.utils.EasyAlert;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -49,7 +49,7 @@ public class HealthProfessionalView {
                     return; // Do nothing
                 }
                 selectedPatientSSID = text;
-                showPrescriptions();
+ //               showPrescriptions();
                 t.setText("");
                 t.requestFocus();
             }
@@ -78,7 +78,7 @@ public class HealthProfessionalView {
                 }
                 tp.setText("");
                 tp.requestFocus();
-                parent.prescribe(text);
+//                parent.prescribe(text);
             }
         };
         // TODO: someone wrote some business logic within the view :-\
@@ -86,14 +86,14 @@ public class HealthProfessionalView {
         // controleur envoie la bonne string à la vue.
         List<String> predefPrescr = new ArrayList<>();
         predefPrescr.add("Paracetamol");
-        if (hp instanceof Dentist) {
+       /*  if (hp instanceof Dentist) {
             predefPrescr.add("Don't eat for one hour");
         } else if (hp instanceof Homeopath) {
             predefPrescr.add("Natrum Muriaticum 30CH");
             predefPrescr.add("Sucre 200K");
         } else if (hp instanceof Masseur) {
             predefPrescr.add("Vaseline 1 kg");
-        }
+        } */
         // Génère des boutons en fonction de la liste que l'on aura passé en paramètre.
         // Extraire dans une nouvelle fonction ou classe si ça peut aller avec autre
         // chose du même type.
@@ -102,7 +102,7 @@ public class HealthProfessionalView {
             predefPrescrB.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(final ActionEvent event) {
-                    parent.prescribe(p);
+  //                  parent.prescribe(p);
                 }
             });
             pane.getChildren().add(predefPrescrB);
@@ -111,7 +111,7 @@ public class HealthProfessionalView {
         bp.setOnAction(prescriptionHandler);
     }
 
-    void prescribe(final String prescription) {
+    /* void prescribe(final String prescription) {
         if (selectedPatientSSID == null) {
             EasyAlert.alert("Please select a patient first");
             return;
@@ -124,9 +124,9 @@ public class HealthProfessionalView {
                 .getPatient(selectedPatientSSID)
                 .addPrescription(healthProfessional, prescription);
         showPrescriptions();
-    }
+    } */
 
-    void showPrescriptions() {
+/*     void showPrescriptions() {
         prescriptions.getChildren().clear();
         // On doit passer en paramètre de cette fonction le patient.
         Patient p = healthProfessional.getPatient(selectedPatientSSID);
@@ -158,7 +158,7 @@ public class HealthProfessionalView {
             pView.getChildren().addAll(content, removeBtn);
             prescriptions.getChildren().add(pView);
         }
-    }
+    } */
 
     public Pane asPane() {
         return pane;

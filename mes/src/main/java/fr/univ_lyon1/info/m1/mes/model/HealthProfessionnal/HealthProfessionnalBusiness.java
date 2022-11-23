@@ -22,7 +22,7 @@ public class HealthProfessionnalBusiness {
 
   public Patient getPatientBySSID(final String patientSSID)
       throws NameNotFoundException {
-    ArgumentChecker.checkString(patientSSID);
+    ArgumentChecker.checkStringNotNullOrEmpty(patientSSID);
     return patientDAO.findPatientBySSID(patientSSID);
   }
 
@@ -31,7 +31,7 @@ public class HealthProfessionnalBusiness {
   public Patient getPatientInfos(final String idPatient)
       throws NameNotFoundException,
       InvalidNameException {
-    ArgumentChecker.checkString(idPatient);
+    ArgumentChecker.checkStringNotNullOrEmpty(idPatient);
     return patientDAO.findOne(idPatient);
   }
 
@@ -47,7 +47,7 @@ public class HealthProfessionnalBusiness {
   public boolean removePrescription(final String idPrescription)
       throws NameNotFoundException,
       InvalidNameException {
-    ArgumentChecker.checkString(idPrescription);
+    ArgumentChecker.checkStringNotNullOrEmpty(idPrescription);
     prescriptionDAO.deleteById(idPrescription);
     return true;
   }

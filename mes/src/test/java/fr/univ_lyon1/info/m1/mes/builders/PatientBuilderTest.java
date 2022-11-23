@@ -2,6 +2,7 @@ package fr.univ_lyon1.info.m1.mes.builders;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,7 +63,70 @@ public class PatientBuilderTest {
         () -> assertEquals("Enzo", pWithoutAdressCity.getName()),
         () -> assertEquals("CECILLON", pWithoutAdressCity.getSurname()),
         () -> assertEquals("2202202212342", pWithoutAdressCity.getSSID()),
-        () -> assertEquals(null, pWithoutAdressCity.getAdress()),
-        () -> assertEquals(null, pWithoutAdressCity.getCity()));
+        () -> assertEquals("", pWithoutAdressCity.getAdress()),
+        () -> assertEquals("", pWithoutAdressCity.getCity()));
+  }
+
+  @Test
+  public void patientBuilderHandleCreatePatientWithEmptyAdressOrCity() {
+    builder.setName("Enzo")
+        .setSurname("CECILLON")
+        .setSSID("2202202212342")
+        .setAdress("79 Jeriu Terminal")
+        .setCity("");
+    Patient pWithoutCity = builder.build();
+
+    builder.setName("Enzo")
+        .setSurname("CECILLON")
+        .setSSID("2202202212342")
+        .setAdress("")
+        .setCity("Jardin");
+    Patient pWithoutAdress = builder.build();
+
+    assertAll("The patient should be initialized with an Adress and City Empty",
+        () -> assertEquals("", pWithoutCity.getAdress()),
+        () -> assertEquals("", pWithoutCity.getCity()),
+        () -> assertEquals("", pWithoutAdress.getAdress()),
+        () -> assertEquals("", pWithoutAdress.getCity()));
+  }
+
+  @Test
+  public void patientBuilderHandleCreatePatientWithNullAdressOrCity() {
+    builder.setName("Enzo")
+        .setSurname("CECILLON")
+        .setSSID("2202202212342")
+        .setAdress("79 Jeriu Terminal")
+        .setCity(null);
+    Patient pWithoutCity = builder.build();
+
+    builder.setName("Enzo")
+        .setSurname("CECILLON")
+        .setSSID("2202202212342")
+        .setAdress(null)
+        .setCity("Jardin");
+    Patient pWithoutAdress = builder.build();
+
+    assertAll("The patient should be initialized with an Adress and City Empty",
+        () -> assertEquals("", pWithoutCity.getAdress()),
+        () -> assertEquals("", pWithoutCity.getCity()),
+        () -> assertEquals("", pWithoutAdress.getAdress()),
+        () -> assertEquals("", pWithoutAdress.getCity()));
+  }
+
+  @Test
+  public void checkThatWeThrowAnExceptionWhenWeCreateAPatientWithoutSSID() {
+    builder.setName("Enzo")
+        .setSurname("CECILLON");
+    Exception exception = assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          builder.setName("Enzo")
+              .setSurname("CECILLON")
+              .build();
+        });
+    String expectedMessage =
+    "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
   }
 }

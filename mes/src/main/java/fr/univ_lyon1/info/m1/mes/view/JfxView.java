@@ -56,10 +56,10 @@ public class JfxView {
 
     private void createPatientsWidget() {
         patients.getChildren().clear();
-        for (Patient p : mes.getPatients()) {
+        /* for (Patient p : mes.getPatients()) {
             final PatientView hpv = new PatientView(p);
             patients.getChildren().add(hpv.asPane());
-        }
+        } */
         final Label nameL = new Label("Name: ");
         final TextField nameT = new TextField();
         final Label ssIDL = new Label("ssID: ");
@@ -74,10 +74,10 @@ public class JfxView {
             public void handle(final ActionEvent event) {
                 String getNamePatient = nameT.getText();
                 String getSSIDPatient = ssIDT.getText();
-                final Patient newPatient = mes.createPatient(getNamePatient, getSSIDPatient);
+     /*            final Patient newPatient = mes.createPatient(getNamePatient, getSSIDPatient);
                 final PatientView newPatientView = new PatientView(newPatient);
                 patients.getChildren().add(newPatientView.asPane());
-            }
+      */       }
         });
     }
 }

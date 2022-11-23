@@ -4,6 +4,7 @@ import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,6 +99,31 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   @Override
   public Collection<T> findAll() {
     return this.collection.values();
+  }
+
+  @Override
+  public Collection<T> findByIds(final Collection<Serializable> ids)
+      throws NameNotFoundException,
+      IllegalArgumentException {
+    try {
+      if (ids == null || ids.isEmpty()) {
+        throw new IllegalArgumentException("List of ids is empty.");
+      }
+      Collection<T> result = new ArrayList<T>();
+      ids.forEach((id) -> {
+        T foundedMatchingElement = this.collection.get(id);
+        if (foundedMatchingElement != null) {
+          result.add(foundedMatchingElement);
+        }
+      });
+
+      if (result.isEmpty() || ids.size() != result.size()) {
+        throw new NameNotFoundException("One or multiples items aren't present.");
+      }
+      return result;
+    } catch (NullPointerException e) {
+      throw new NullPointerException(e.getMessage());
+    }
   }
 
   /**

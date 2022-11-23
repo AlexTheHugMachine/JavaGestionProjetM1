@@ -13,10 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import fr.univ_lyon1.info.m1.mes.constants.Constants;
 import fr.univ_lyon1.info.m1.mes.model.MESFileReader;
 
 public class MESFileReaderTest {
-  private String filePathToTested = "./src/public/data/";
+  private String filePathToTested = Constants.getLocalPath();
   private ArrayList<String[]> listContent;
 
   @BeforeEach
@@ -30,6 +31,7 @@ public class MESFileReaderTest {
   @Test
   @DisplayName("Tests if the lenght of the list equals to the amount of objects in the txt")
   public void readThePatientListFileInsideDataFolder() {
+
     assertEquals(listContent.size(), 20);
   }
 

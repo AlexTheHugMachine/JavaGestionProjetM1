@@ -30,6 +30,7 @@ public class HealthProfessionnalBuilderTest {
     HealthProfessional hp = builder
         .setName("John")
         .setSurname("Cena")
+        .setRPPS("80744817017")
         .setSpeciality(HPSpeciality.GENERALISTE)
         .build();
 
@@ -47,9 +48,10 @@ public class HealthProfessionnalBuilderTest {
         () -> {
           builder.setName("John")
               .setSurname("Doe")
+              .setRPPS("68686896989")
               .build();
         });
-    String expMsg = "Le nom du professionnel de santé n'est pas valide.";
+    String expMsg = "Les informations du professionnel de santé sont invalides.";
     String actualMsg = exception.getMessage();
 
     assertEquals(expMsg, actualMsg);

@@ -91,4 +91,15 @@ public interface Dao<T> {
    * @return La collection (potentiellement vide) d'éléments stockés
    */
   Collection<T> findAll();
+
+  /**
+   *
+   * @param ids Ensemble non-null d'ids que l'on souhaite trouver.
+   * @return Ensemble des élements qui correspondent à l'ensemble d'ids.
+   * @throws NameNotFoundException    Si une des clés de l'ensemble n'a pas été
+   *                                  trouvé ou nous n'avons rien trouvé.
+   * @throws IllegalArgumentException L'ensemble d'ids est vide.
+   */
+  Collection<T> findByIds(Collection<Serializable> ids)
+      throws NameNotFoundException, IllegalArgumentException;
 }

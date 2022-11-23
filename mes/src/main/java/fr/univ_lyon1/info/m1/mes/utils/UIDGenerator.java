@@ -5,6 +5,10 @@ import java.util.UUID;
 public interface UIDGenerator {
   static String generate() {
     UUID uuid = UUID.randomUUID();
-    return uuid.toString();
+    String result = uuid.toString();
+    if (Validator.isValidUUID(result)) {
+      return result;
+    }
+    throw new InternalError("UUID generator does not match expected format");
   }
 }
