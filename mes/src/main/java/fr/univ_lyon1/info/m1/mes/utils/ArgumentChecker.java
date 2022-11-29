@@ -13,6 +13,14 @@ public interface ArgumentChecker {
     }
   }
 
+  /**
+   * Vérifie que la variable passé en paramètre n'est pas null ou vide et renvoie
+   * un message adapté au cas.
+   *
+   * @param variable La variable que l'on veut checker.
+   * @throws IllegalArgumentException "ArgumentChecker Failed Null | Empty
+   *                                  variable. "
+   */
   static void checkStringNotNullOrEmpty(String variable)
       throws IllegalArgumentException {
     if (variable == null) {

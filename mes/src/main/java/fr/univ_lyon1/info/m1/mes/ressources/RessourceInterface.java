@@ -1,10 +1,13 @@
 package fr.univ_lyon1.info.m1.mes.ressources;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
+
+import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 
 /**
  * Interface que peuvent implémenter toutes les classes de gestion
@@ -18,7 +21,9 @@ public interface RessourceInterface<T, S> {
    * A partir de l'élément passé en paramètre on va aller ajouter une nouvelle
    * ressource dans le système de gestion des données que l'on utilise.
    *
-   * @param element
+   * @param element Object qui contient toutes les informations dont on a besoin
+   *                pour créer la nouvelle ressource dans le système de gestion
+   *                des données.
    * @throws NameAlreadyBoundException L'élément que l'on essaie d'ajouter est
    *                                   déjà présent.
    */
@@ -42,7 +47,7 @@ public interface RessourceInterface<T, S> {
    *
    * @return Une liste de toutes les ressources stockés.
    */
-  List<S> readAll();
+  Collection<Patient> readAll();
 
   /*
    * A partir d'une liste d'identifiant, on va pouvoir retrouver de nombreux
@@ -60,25 +65,27 @@ public interface RessourceInterface<T, S> {
    * aller mettre à jour une ressource dans le système de gestion des données que
    * l'on utilise.
    *
-   * @param element
+   * @param element Object qui contient toutes les nouvelles infos.
    */
-  void update(T element);
+  Boolean update(T element);
 
   /**
    * Va supprimer la ressource dont l'id correspont à la clé que l'on a passé en
    * paramètre.
    *
-   * @param key
+   * @param key Clé qui permet d'identifier la ressource à supprimer.
+   * @return
    * @throws NameNotFoundException La ressource que l'on essaie de supprimer
    *                               n'existe plus.
    */
-  void deleteById(Serializable key) throws NameNotFoundException;
+  Boolean deleteById(Serializable key) throws NameNotFoundException;
 
   /**
    * A partir de l'élément passé en paramètre on va aller supprimer la ressource
    * stocké dans le gestionnaire de données que l'on utilise.
    *
-   * @param element
+   * @param element Object qui représente la ressource que l'on souhaite supprimer
+   *                dans le gestionaire de données.
    * @throws NameNotFoundException Si l'élément ne correspond à aucune ressource
    *                               stocké.
    */
