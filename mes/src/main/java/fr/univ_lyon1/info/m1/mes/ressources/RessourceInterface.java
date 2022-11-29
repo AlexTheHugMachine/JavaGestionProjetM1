@@ -2,12 +2,10 @@ package fr.univ_lyon1.info.m1.mes.ressources;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
-import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 
 /**
  * Interface que peuvent implémenter toutes les classes de gestion
@@ -47,7 +45,7 @@ public interface RessourceInterface<T, S> {
    *
    * @return Une liste de toutes les ressources stockés.
    */
-  Collection<Patient> readAll();
+  Collection<S> readAll();
 
   /*
    * A partir d'une liste d'identifiant, on va pouvoir retrouver de nombreux
@@ -66,6 +64,7 @@ public interface RessourceInterface<T, S> {
    * l'on utilise.
    *
    * @param element Object qui contient toutes les nouvelles infos.
+   * @return true si mis à jour, false sinon.
    */
   Boolean update(T element);
 

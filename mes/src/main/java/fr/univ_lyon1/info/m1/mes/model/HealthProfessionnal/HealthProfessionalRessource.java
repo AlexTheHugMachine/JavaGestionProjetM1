@@ -1,7 +1,7 @@
 package fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 
 import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
@@ -67,7 +67,7 @@ public class HealthProfessionalRessource
   }
 
   @Override
-  public void update(final HealthProfessionalRequestDto element) {
+  public Boolean update(final HealthProfessionalRequestDto element) {
     String name = element.getName();
     String surname = element.getSurname();
     String rpps = element.getRPPS();
@@ -84,13 +84,16 @@ public class HealthProfessionalRessource
           hpDao.update(rpps, hp);
         } catch (InvalidNameException e) {
           System.out.println(e.getStackTrace());
+          return false;
         } catch (IllegalArgumentException e) {
           System.out.println(e.getMessage());
+          return false;
         }
+        return true;
   }
 
   @Override
-  public void deleteById(final Serializable key) throws NameNotFoundException {
+  public Boolean deleteById(final Serializable key) throws NameNotFoundException {
     try {
       ArgumentChecker.checkStringNotNullOrEmpty(key.toString());
       hpDao.deleteById(key);
@@ -100,7 +103,9 @@ public class HealthProfessionalRessource
       throw new NameNotFoundException("This Health Professinal does not exist.");
     } catch (InvalidNameException e) {
       System.out.println("Internal error: " + e.getStackTrace());
+      return false;
     }
+    return true;
   }
 
   @Override
@@ -115,7 +120,7 @@ public class HealthProfessionalRessource
   }
 
   @Override
-  public List<HealthProfessional> readAll() {
-    return (List<HealthProfessional>) hpDao.findAll();
+  public Collection<HealthProfessional> readAll() {
+    return hpDao.findAll();
   }
 }
