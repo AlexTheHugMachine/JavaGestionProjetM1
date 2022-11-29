@@ -2,7 +2,6 @@ package fr.univ_lyon1.info.m1.mes.controller;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.naming.NameAlreadyBoundException;
@@ -11,10 +10,8 @@ import fr.univ_lyon1.info.m1.mes.model.MESFileReader;
 import fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal.HealthProfessionalBuilder;
 import fr.univ_lyon1.info.m1.mes.builders.Patient.PatientBuilder;
 import fr.univ_lyon1.info.m1.mes.constants.Constants;
-import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
-import fr.univ_lyon1.info.m1.mes.directors.PatientsDirectorTest;
 
 /**
  * Master controler of the app.

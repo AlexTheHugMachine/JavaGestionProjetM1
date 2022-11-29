@@ -23,7 +23,7 @@ public class HealthProfessionnalBusiness {
   public Patient getPatientBySSID(final String patientSSID)
       throws NameNotFoundException {
     ArgumentChecker.checkStringNotNullOrEmpty(patientSSID);
-    return patientDAO.findPatientBySSID(patientSSID);
+    return (Patient) patientDAO.findByName(patientSSID);
   }
 
   // TODO : Réfléchir sur si on doit renvoyer le patient ou un dto pour avoir

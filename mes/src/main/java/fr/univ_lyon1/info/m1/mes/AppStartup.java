@@ -10,6 +10,7 @@ import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.initializer.HealthProfessionalInitializer;
 import fr.univ_lyon1.info.m1.mes.initializer.PatientInitializer;
+import fr.univ_lyon1.info.m1.mes.initializer.PrescriptionInitializer;
 
 public class AppStartup extends AbstractAppStartup {
   private HealthProfessionalDAO hpDAO;
@@ -60,18 +61,36 @@ public class AppStartup extends AbstractAppStartup {
 
   private void initializeDataWithLocalFiles() {
     // Initialise les DAOs
-    new PatientInitializer().initDAOs(
-        "PatientList.txt",
-        this.patientBuilder,
-        this.patientDAO);
-    new HealthProfessionalInitializer().initDAOs(
-        "HealthProfessionnalList.txt",
-        this.hpBuilder,
-        this.hpDAO);
-    new PrescriptionInitializer().initDAOs(
-        "PrescriptionList.txt",
-        this.prescriptionBuilder,
-        this.prescriptionDAO);
+    try {
+      new PatientInitializer().initDAOs(
+          "PatientList.txt",
+          this.patientBuilder,
+          this.patientDAO);
+    } catch (FileNotFoundException | NullPointerException | NoSuchElementException 
+    | IllegalStateException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    try {
+      new HealthProfessionalInitializer().initDAOs(
+          "HealthProfessionnalList.txt",
+          this.hpBuilder,
+          this.hpDAO);
+    } catch (FileNotFoundException | NullPointerException | NoSuchElementException 
+    | IllegalStateException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    try {
+      new PrescriptionInitializer().initDAOs(
+          "PrescriptionList.txt",
+          this.prescriptionDAO,
+          this.prescriptionDAO);
+    } catch (FileNotFoundException | NullPointerException | NoSuchElementException 
+    | IllegalStateException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
 }

@@ -21,7 +21,7 @@ public class PatientsBusinessController {
   private PatientBusiness patientBusiness;
 
   public PatientsBusinessController(final PrescriptionDAO prescriptionDAO) {
-    patientBusiness = new PatientBusiness(prescriptionDAO);
+    patientBusiness = new PatientBusiness(prescriptionDAO, null);
   }
 
   /**
@@ -48,7 +48,11 @@ public class PatientsBusinessController {
       case "getPrescription":
         return patientBusiness.getPrescriptionsPatient((Patient) args[0]);
       case "removePrescription":
-        patientBusiness.removePrescription((String) args[0]);
+        try {
+          patientBusiness.removePrescription((String) args[0], action);
+        } catch (IllegalAccessException e) {
+          e.printStackTrace();
+        }
         return true;
       case "changeLocationInformations":
         patientBusiness.changeLocationInformations(
