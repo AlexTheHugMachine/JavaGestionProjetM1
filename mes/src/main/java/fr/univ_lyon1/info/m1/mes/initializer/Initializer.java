@@ -7,7 +7,6 @@ import javax.naming.NameAlreadyBoundException;
 
 import fr.univ_lyon1.info.m1.mes.constants.Constants;
 import fr.univ_lyon1.info.m1.mes.daos.AbstractMapDao;
-import fr.univ_lyon1.info.m1.mes.model.MESFileReader;
 
 public abstract class Initializer<T, S> {
 
@@ -37,4 +36,6 @@ public abstract class Initializer<T, S> {
   }
 
   protected abstract T build(S builder, String[] row);
+
+
 }
