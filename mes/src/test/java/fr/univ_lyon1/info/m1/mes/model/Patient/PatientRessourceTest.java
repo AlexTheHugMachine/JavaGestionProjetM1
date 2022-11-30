@@ -171,10 +171,9 @@ public class PatientRessourceTest {
         eric.getAdress(),
         eric.getCity());
     try {
-      assertTrue(patientRessource.delete(patientRequest));
+      patientRessource.delete(patientRequest);
     } catch (NameNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      fail("Should not return NameNotFoundException because the patient is in the DAO.");
     }
     assertThrows(NameNotFoundException.class,
         () -> patientRessource.readOne(eric.getSSID()));
