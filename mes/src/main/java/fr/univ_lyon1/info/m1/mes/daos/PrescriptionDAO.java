@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
@@ -18,7 +17,7 @@ public class PrescriptionDAO extends AbstractMapDao<Prescription> {
 
   @Override
   public void update(final Serializable id, final Prescription element)
-      throws InvalidNameException, IllegalArgumentException {
+      throws  IllegalArgumentException {
     try {
       Prescription prescriptionStored = this.findOne(id);
 
@@ -32,7 +31,7 @@ public class PrescriptionDAO extends AbstractMapDao<Prescription> {
       deleteById(id);
       super.update(element.getId(), element);
     } catch (NameNotFoundException e) {
-      throw new InvalidNameException("Prescription does not exist");
+      throw new IllegalArgumentException("Prescription does not exist");
     }
   }
 

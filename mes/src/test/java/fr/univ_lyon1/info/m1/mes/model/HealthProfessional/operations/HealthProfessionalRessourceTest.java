@@ -1,8 +1,10 @@
 package fr.univ_lyon1.info.m1.mes.model.HealthProfessional.operations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.naming.NameAlreadyBoundException;
+import javax.naming.NameNotFoundException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,13 +46,20 @@ public class HealthProfessionalRessourceTest {
 
     @Test
     void createHealthProfessionalProperly() throws NameAlreadyBoundException {
-        HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
-            "john", "doe", "123456789", HPSpeciality.GENERALISTE.toString());
-        HealthProfessional hp = (HealthProfessional) hpRessource.create(hpRequest);
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+            "john", "doe", "12345678919", HPSpeciality.GENERALISTE.toString());
+
+        String rppsOfJohn = (String) hpRessource.create(hpRequest);
     
-        assertEquals(hpRequest.getName(), hp.getName());
-        assertEquals(hpRequest.getSurname(), hp.getSurname());
-        assertEquals(hpRequest.getRPPS(), hp.getRPPS());
-        assertEquals(hpRequest.getSpeciality(), hp.getSpeciality());
+        try {
+          HealthProfessional hp = hpRessource.readOne(rppsOfJohn);
+          assertEquals("12345678919", rppsOfJohn);
+          assertEquals(hpRequest.getName(), hp.getName());
+          assertEquals(hpRequest.getSurname(), hp.getSurname());
+          assertEquals(hpRequest.getRPPS(), hp.getRPPS());
+          assertEquals(hpRequest.getSpeciality(), hp.getSpeciality().toString());
+        } catch (NameNotFoundException e) {
+          fail("The health professional was not created properly");
+        }
     }
 }

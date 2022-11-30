@@ -5,6 +5,14 @@ public interface Validator {
     return input.matches("[a-zA-Z]+");
   }
 
+  static Boolean isNumber(String input) {
+    if (input.matches("[0-9]+")) {
+      return input.matches("[0-9]+");
+    } else {
+      throw new IllegalArgumentException("ArgumentChecker Failed Not a number. ");
+    }
+  }
+
   static Boolean isNumberOfLength(String input, int lenghtExpected) {
     return input.matches("^[0-9]{" + lenghtExpected + "}$");
   }

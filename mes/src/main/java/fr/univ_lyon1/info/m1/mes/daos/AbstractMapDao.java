@@ -1,6 +1,5 @@
 package fr.univ_lyon1.info.m1.mes.daos;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 import java.io.Serializable;
@@ -56,25 +55,16 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   }
 
   @Override
-  public void deleteById(final Serializable id) throws NameNotFoundException, InvalidNameException {
-    try {
+  public void deleteById(final Serializable id) throws NameNotFoundException {
       if (!this.collection.containsKey(id)) {
         throw new NameNotFoundException(id.toString());
       }
       this.collection.remove(id);
-    } catch (ClassCastException e) {
-      throw new InvalidNameException(e.getMessage());
-    }
   }
 
   @Override
-  public void update(final Serializable id, final T element) throws InvalidNameException {
-    try {
+  public void update(final Serializable id, final T element) {
       this.collection.put(id, element);
-    } catch (ClassCastException e) {
-      throw new InvalidNameException(e.getMessage());
-    }
-
   }
 
   @Override
@@ -88,15 +78,11 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   }
 
   @Override
-  public T findOne(final Serializable id) throws NameNotFoundException, InvalidNameException {
-    try {
+  public T findOne(final Serializable id) throws NameNotFoundException {
       if (!this.collection.containsKey(id)) {
         throw new NameNotFoundException(id.toString());
       }
       return this.collection.get(id);
-    } catch (ClassCastException e) {
-      throw new InvalidNameException(e.getMessage());
-    }
   }
 
   @Override

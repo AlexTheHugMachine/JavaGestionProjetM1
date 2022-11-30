@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
@@ -18,7 +17,7 @@ public class HealthProfessionalDAO extends AbstractMapDao<HealthProfessional> {
 
   @Override
   public void update(final Serializable id, final HealthProfessional element)
-      throws InvalidNameException, IllegalArgumentException {
+      throws IllegalArgumentException {
     if (id.equals(element.getRPPS())) {
       super.update(id, element);
     } else {

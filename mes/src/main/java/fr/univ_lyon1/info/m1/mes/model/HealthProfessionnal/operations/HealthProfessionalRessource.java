@@ -4,7 +4,6 @@ package fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.operations;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
@@ -63,9 +62,6 @@ public class HealthProfessionalRessource
       return hpDao.findOne(key);
     } catch (NameNotFoundException e) {
       throw new NameNotFoundException("No health professional found.");
-    } catch (InvalidNameException e) {
-      System.out.println(e.getStackTrace());
-      return null;
     }
   }
 
@@ -85,9 +81,6 @@ public class HealthProfessionalRessource
 
     try {
       hpDao.update(rpps, hp);
-    } catch (InvalidNameException e) {
-      System.out.println(e.getStackTrace());
-      return false;
     } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());
       return false;
@@ -104,9 +97,6 @@ public class HealthProfessionalRessource
       throw new IllegalArgumentException("The id provided is null or empty");
     } catch (NameNotFoundException e) {
       throw new NameNotFoundException("This Health Professinal does not exist.");
-    } catch (InvalidNameException e) {
-      System.out.println("Internal error: " + e.getStackTrace());
-      return false;
     }
     return true;
   }
@@ -117,7 +107,7 @@ public class HealthProfessionalRessource
     try {
       HealthProfessional storedHP = hpDao.findOne(element.getRPPS());
       hpDao.delete(storedHP);
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       throw new NameNotFoundException("This Health Professional does not exist.");
     }
   }

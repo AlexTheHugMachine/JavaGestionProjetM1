@@ -3,7 +3,6 @@ package fr.univ_lyon1.info.m1.mes.model.Patient.operations;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
@@ -13,6 +12,7 @@ import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.ressources.RessourceInterface;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
+import fr.univ_lyon1.info.m1.mes.utils.Validator;
 
 /**
  * Réalise les opérations "simples" (CRUD) de gestion des ressources de type
@@ -65,9 +65,6 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
       throw new NameNotFoundException("No patient found.");
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("The key is null or empty.");
-    } catch (InvalidNameException e) {
-      System.out.println(e.getStackTrace());
-      return null;
     }
   }
 
@@ -94,9 +91,6 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
     try {
       patientDao.update(ssID, patient);
       return true;
-    } catch (InvalidNameException e) {
-      e.printStackTrace();
-      return false;
     } catch (IllegalArgumentException e) {
       throw e;
     }
@@ -106,6 +100,7 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
   public Boolean deleteById(final Serializable key)
       throws NameNotFoundException {
     try {
+      Validator.isNumber(key.toString());
       ArgumentChecker.checkStringNotNullOrEmpty(key.toString());
       patientDao.deleteById(key);
       return true;
@@ -113,9 +108,6 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
       throw new IllegalArgumentException("The id provided is null or empty");
     } catch (NameNotFoundException e) {
       throw new NameNotFoundException("This patient does not exist.");
-    } catch (InvalidNameException e) {
-      System.out.println("Internal error: " + e.getStackTrace());
-      return false;
     }
   }
 
@@ -125,7 +117,7 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
     try {
       Patient storedPatient = patientDao.findOne(patient.getSSID());
       patientDao.delete(storedPatient);
-    } catch (NameNotFoundException | InvalidNameException | NullPointerException e) {
+    } catch (NameNotFoundException | NullPointerException e) {
       throw new NameNotFoundException("This patient does not exist.");
     }
   }

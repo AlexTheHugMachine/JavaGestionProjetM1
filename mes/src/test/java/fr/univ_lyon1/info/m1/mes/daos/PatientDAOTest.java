@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
@@ -91,8 +90,6 @@ public class PatientDAOTest {
       patientDAO.findOne("0862183792365");
     } catch (NameNotFoundException e) {
       assert (true);
-    } catch (InvalidNameException e) {
-      fail("Should not trow InvalidNameException");
     }
   }
 
@@ -115,15 +112,13 @@ public class PatientDAOTest {
   public void deleteById() {
     try {
       patientDAO.deleteById(eric.getSSID());
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       fail("Patient not existing " + e.getMessage());
     }
     try {
       patientDAO.findOne("0862183792365");
     } catch (NameNotFoundException e) {
       assert (true);
-    } catch (InvalidNameException e) {
-      fail("Should not trow InvalidNameException");
     }
   }
 
@@ -136,24 +131,11 @@ public class PatientDAOTest {
   }
 
   @Test
-  @DisplayName("Throw InvalidNameException when we want to delete with a non String id")
-  void throwInvalidNameExceptionWhenPassingAnIntToDeleteByIdDAO() {
-    Integer castErrorInteger = 696868678;
-    assertThrows(ClassCastException.class, () -> {
-      patientDAO.deleteById(castErrorInteger);
-    });
-  }
-
-  @Test
   @DisplayName("Assert that DAOs properly update the Patient informations")
   public void update() {
     Patient toto = new Patient("toto", "titi",
         eric.getSSID(), "1410 avenue jean dupont", "Jardin");
-    try {
-      patientDAO.update(eric.getSSID(), toto);
-    } catch (InvalidNameException e) {
-      fail("Error while updating Patient informationis");
-    }
+    patientDAO.update(eric.getSSID(), toto);
     Patient newEric;
     try {
       newEric = patientDAO.findOne(toto.getSSID());
@@ -163,7 +145,7 @@ public class PatientDAOTest {
           () -> assertEquals(newEric.getSSID(), "0862183792365"),
           () -> assertEquals(newEric.getAdress(), "1410 avenue jean dupont"),
           () -> assertEquals(newEric.getCity(), "Jardin"));
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       fail("Fail to retrieve the updated patient");
     }
   }
@@ -208,13 +190,13 @@ public class PatientDAOTest {
       assertNotEquals(patientDAO.findOne(eric.getSSID()), john);
       assertNotEquals(patientDAO.findOne(john.getSSID()), eric);
 
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       fail("Can't access or retrieve Patient " + e.getMessage());
     }
     try {
       patientDAO.findOne("133274329");
       fail("Should throw NameNotFoundException because id does not exist");
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       assert (true);
     }
   }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
@@ -18,7 +17,7 @@ public class PatientDAO extends AbstractMapDao<Patient> {
 
   @Override
   public void update(final Serializable key, final Patient element)
-      throws IllegalArgumentException, InvalidNameException {
+      throws IllegalArgumentException {
     try {
       Patient patientStored = findOne(element.getSSID());
       if (patientStored.getSSID().equals(element.getSSID())) {

@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
@@ -92,8 +91,6 @@ public class HealthProfessionalDAOTest {
             hpDAO.findOne("08621837923");
         } catch (NameNotFoundException e) {
             assert (true);
-        } catch (InvalidNameException e) {
-            fail("Should not trow InvalidNameException");
         }
     }
 
@@ -115,15 +112,13 @@ public class HealthProfessionalDAOTest {
     public void deleteById() {
         try {
             hpDAO.deleteById(eric.getRPPS());
-        } catch (NameNotFoundException | InvalidNameException e) {
+        } catch (NameNotFoundException e) {
             fail("HP not existing " + e.getMessage());
         }
         try {
             hpDAO.findOne("08621837923");
         } catch (NameNotFoundException e) {
             assert (true);
-        } catch (InvalidNameException e) {
-            fail("Should not trow InvalidNameException");
         }
     }
 
@@ -149,11 +144,7 @@ public class HealthProfessionalDAOTest {
     public void update() {
         HealthProfessional toto = new HealthProfessional("toto", "titi",
                 eric.getRPPS(), HPSpeciality.GENERALISTE);
-        try {
-            hpDAO.update(eric.getRPPS(), toto);
-        } catch (InvalidNameException e) {
-            fail("Error while updating HP informationis");
-        }
+        hpDAO.update(eric.getRPPS(), toto);
         HealthProfessional newEric;
         try {
             newEric = hpDAO.findOne(toto.getRPPS());
@@ -162,7 +153,7 @@ public class HealthProfessionalDAOTest {
                     () -> assertEquals(newEric.getSurname(), "titi"),
                     () -> assertEquals(newEric.getRPPS(), "08621837923"),
                     () -> assertEquals(newEric.getSpeciality(), HPSpeciality.GENERALISTE));
-        } catch (NameNotFoundException | InvalidNameException e) {
+        } catch (NameNotFoundException e) {
             fail("Fail to retrieve the updated patient");
         }
     }
@@ -207,13 +198,13 @@ public class HealthProfessionalDAOTest {
             assertNotEquals(hpDAO.findOne(eric.getRPPS()), john);
             assertNotEquals(hpDAO.findOne(john.getRPPS()), eric);
 
-        } catch (NameNotFoundException | InvalidNameException e) {
+        } catch (NameNotFoundException e) {
             fail("Can't access or retrieve HP " + e.getMessage());
         }
         try {
             hpDAO.findOne("133274329");
             fail("Should throw NameNotFoundException because id does not exist");
-        } catch (NameNotFoundException | InvalidNameException e) {
+        } catch (NameNotFoundException e) {
             assert (true);
         }
     }

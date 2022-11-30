@@ -93,16 +93,6 @@ public class PatientRessourceTest {
   }
 
   @Test
-  void readOneThrowIllegalArgumentWhenKeyIsNotAValidSSID() {
-    Exception e = assertThrows(IllegalArgumentException.class,
-        () -> patientRessource.readOne("f968686fffff"));
-    String actualMessage = e.getMessage();
-    String expectedMessage = "No patient found.";
-
-    assertEquals(expectedMessage, actualMessage);
-  }
-
-  @Test
   void readAllReturnAllThePatientsStoredInDAO() {
     Collection<Patient> expectedCollectionOfPatient = new ArrayList<Patient>();
     expectedCollectionOfPatient.add(john);
@@ -200,7 +190,7 @@ public class PatientRessourceTest {
     Exception e = assertThrows(IllegalArgumentException.class,
         () -> patientRessource.deleteById("0862183792365a"));
     String actualMessage = e.getMessage();
-    String expectedMessage = "The id provided is illegal.";
+    String expectedMessage = "The id provided is null or empty";
     assertEquals(expectedMessage, actualMessage);
   }
 

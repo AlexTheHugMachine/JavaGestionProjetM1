@@ -278,24 +278,15 @@ public class HealthProfessionalBusinessTest {
   /*@Test
   void removePrescriptionProperlyRemoveThePrescription() {
     try {
-      hpBusiness.removePrescription(john.getSSID(), doliprane1000.getId());
-      hpBusiness.removePrescription(john.getSSID(), eatFruit.getId());
-      hpBusiness.removePrescription(jack.getSSID(), doliprane1000.getId());
-      hpBusiness.removePrescription(jack.getSSID(), eatFruit.getId());
+      hpBusiness.removePrescription(doliprane1000.getId());
+      hpBusiness.removePrescription(eatFruit.getId());
+      hpBusiness.removePrescription(doliprane1000.getId());
+      hpBusiness.removePrescription(eatFruit.getId());
     } catch (NameNotFoundException e) {
       fail("Should not throw this error because the patient with this SSID has Prescriptions.");
     } catch (IllegalArgumentException e) {
       fail("Should not throw this error because the patient with this SSID has Prescriptions.");
     }
-  }
-
-  @Test
-  void removePrescriptionThrowNameNotFoundWhenPatientSSIDIsNotDefinedInDAO() {
-    Exception e = assertThrows(NameNotFoundException.class,
-        () -> hpBusiness.removePrescription("0987654321234", doliprane1000.getId()));
-
-    String expectedMessage = "No patient found.";
-    assertEquals(expectedMessage, e.getMessage());
   }
 
   @Test

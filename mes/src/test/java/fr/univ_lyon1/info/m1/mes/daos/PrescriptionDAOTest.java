@@ -104,8 +104,6 @@ public class PrescriptionDAOTest {
       prescriptionDAO.findOne("0862183792365");
     } catch (NameNotFoundException e) {
       assert (true);
-    } catch (InvalidNameException e) {
-      fail("Should not trow InvalidNameException");
     }
   }
 
@@ -127,15 +125,13 @@ public class PrescriptionDAOTest {
   public void deleteById() {
     try {
       prescriptionDAO.deleteById(doliprane1000.getId());
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       fail("Prescription not existing " + e.getMessage());
     }
     try {
       prescriptionDAO.findOne(doliprane1000.getId());
     } catch (NameNotFoundException e) {
       assert (true);
-    } catch (InvalidNameException e) {
-      fail("Should not trow InvalidNameException");
     }
   }
 
@@ -155,11 +151,7 @@ public class PrescriptionDAOTest {
         "",
         "12345678901",
         "1234567890987");
-    try {
-      prescriptionDAO.update(doliprane1000.getId(), stuff);
-    } catch (InvalidNameException e) {
-      fail("Error while updating Prescription informationis");
-    }
+    prescriptionDAO.update(doliprane1000.getId(), stuff);
     try {
       Prescription newPrescription = prescriptionDAO.findOne(stuff.getId());
       assertAll(
@@ -167,7 +159,7 @@ public class PrescriptionDAOTest {
           () -> assertEquals(newPrescription.getQuantite(), ""),
           () -> assertEquals(newPrescription.getIdHealthProfessional(), "12345678901"),
           () -> assertEquals(newPrescription.getIdPatient(), "1234567890987"));
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       fail("Fail to retrieve the updated Prescription");
     }
   }
@@ -210,21 +202,9 @@ public class PrescriptionDAOTest {
           () -> prescriptionDAO.findOne(doliprane500.getId()));
 
       assertEquals(newPrescription, prescriptionDAO.findOne(newPrescription.getId()));
-    } catch (InvalidNameException | IllegalArgumentException | NameNotFoundException e) {
+    } catch (IllegalArgumentException | NameNotFoundException e) {
       fail("The Prescription is not using the old ID in the collection DAO");
     }
-  }
-
-  @Test
-  void updateThrowInvalidNameWhenUpdatingAnonExistantPrescription() {
-    Prescription newPrescription = new Prescription(
-        "Eat Banana",
-        "",
-        "12345678901",
-        "1234567890987");
-
-    assertThrows(InvalidNameException.class,
-        () -> prescriptionDAO.update(eatFruit.getId(), newPrescription));
   }
 
   @Test
@@ -246,13 +226,13 @@ public class PrescriptionDAOTest {
       assertNotEquals(prescriptionDAO.findOne(doliprane500.getId()), doliprane1000);
       assertNotEquals(prescriptionDAO.findOne(paracetamol.getId()), doliprane500);
 
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       fail("Can't access or retrieve Prescription " + e.getMessage());
     }
     try {
       prescriptionDAO.findOne("133274329");
       fail("Should throw NameNotFoundException because id does not exist");
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException e) {
       assert (true);
     }
   }

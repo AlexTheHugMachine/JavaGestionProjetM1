@@ -62,4 +62,18 @@ public class ValidatorTest {
         () -> assertFalse(Validator.startWithNumbersAndEndWithLetters(
             stringThatEndWithNumber)));
   }
+
+  @Test
+  void isNumberCheckIfStringIsOnlyNumbers() {
+    String stringWithLetters = "8982168219a69";
+    String stringWithOnlyLetters = "DZGJAKGDKGDSL";
+    String stringWithSymbols = "6/%*8271-8521";
+    String stringWithLettersAndSymbols = "9769a£8652Z*";
+
+    assertAll(
+        () -> assertFalse(Validator.isNumber(stringWithLetters)),
+        () -> assertFalse(Validator.isNumber(stringWithOnlyLetters)),
+        () -> assertFalse(Validator.isNumber(stringWithSymbols)),
+        () -> assertFalse(Validator.isNumber(stringWithLettersAndSymbols)));
+  }
 }
