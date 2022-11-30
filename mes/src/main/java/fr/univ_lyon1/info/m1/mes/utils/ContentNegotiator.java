@@ -3,9 +3,7 @@ package fr.univ_lyon1.info.m1.mes.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Constructor;
 import java.util.Map;
-import java.util.function.Function;
 
 import org.yaml.snakeyaml.Yaml;
 import java.io.File;
@@ -32,9 +30,6 @@ public interface ContentNegotiator {
    *
    * @param contentType Le type de contenu qui sera utilisé pour récupérer les
    *                    données.
-   * @param dtoType     le type du DTO dans lequel on veut utiliser le contenu de
-   *                    la
-   *                    requête
    * @return une instance de la classe <code>dtoType</code> ou null si le type de
    *         contenu n'est pas spécifié.
    * @throws IOException                   si le payload de la requête ne peut pas
@@ -56,7 +51,7 @@ public interface ContentNegotiator {
     }
   }
 
-  private Object getDtoFromRequest(Class<?> dtoType, String contentType, String filename)
+  static Object getDtoFromRequest(Class<?> dtoType, String contentType, String filename)
       throws UnsupportedOperationException, IOException {
     String dtoTypeName = dtoType.getSimpleName();
     switch (dtoTypeName) {
