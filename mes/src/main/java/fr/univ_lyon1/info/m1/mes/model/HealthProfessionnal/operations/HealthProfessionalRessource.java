@@ -1,7 +1,8 @@
 package fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.operations;
 
+
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 
 import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
@@ -10,7 +11,6 @@ import javax.naming.NameNotFoundException;
 import fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal.HealthProfessionalBuilder;
 import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.dto.healthprofessional.HealthProfessionalRequestDto;
-import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.ressources.RessourceInterface;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
@@ -69,7 +69,7 @@ public class HealthProfessionalRessource
   }
 
   @Override
-  public void update(final HealthProfessionalRequestDto element) {
+  public Boolean update(final HealthProfessionalRequestDto element) {
     String name = element.getName();
     String surname = element.getSurname();
     String rpps = element.getRPPS();
@@ -82,17 +82,20 @@ public class HealthProfessionalRessource
         .setSpeciality(speciality)
         .build();
 
-        try {
-          hpDao.update(rpps, hp);
-        } catch (InvalidNameException e) {
-          System.out.println(e.getStackTrace());
-        } catch (IllegalArgumentException e) {
-          System.out.println(e.getMessage());
-        }
+    try {
+      hpDao.update(rpps, hp);
+    } catch (InvalidNameException e) {
+      System.out.println(e.getStackTrace());
+      return false;
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
+    return true;
   }
 
   @Override
-  public void deleteById(final Serializable key) throws NameNotFoundException {
+  public Boolean deleteById(final Serializable key) throws NameNotFoundException {
     try {
       ArgumentChecker.checkStringNotNullOrEmpty(key.toString());
       hpDao.deleteById(key);
@@ -102,12 +105,14 @@ public class HealthProfessionalRessource
       throw new NameNotFoundException("This Health Professinal does not exist.");
     } catch (InvalidNameException e) {
       System.out.println("Internal error: " + e.getStackTrace());
+      return false;
     }
+    return true;
   }
 
   @Override
   public void delete(final HealthProfessionalRequestDto element)
-  throws NameNotFoundException {
+      throws NameNotFoundException {
     try {
       HealthProfessional storedHP = hpDao.findOne(element.getRPPS());
       hpDao.delete(storedHP);
@@ -117,7 +122,7 @@ public class HealthProfessionalRessource
   }
 
   @Override
-  public List<HealthProfessional> readAll() {
-    return (List<HealthProfessional>) hpDao.findAll();
+  public Collection<HealthProfessional> readAll() {
+    return hpDao.findAll();
   }
 }

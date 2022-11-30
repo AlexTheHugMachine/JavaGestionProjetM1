@@ -1,5 +1,6 @@
 package fr.univ_lyon1.info.m1.mes.model.Patient.operations;
 
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -128,30 +129,69 @@ public class PatientRessourceTest {
 
   @Test
   void updateThrowIllegalArgumentWhenSSIDArentTheSame() {
-
+    PatientRequestDto newInformationsOnEric = new PatientRequestDto(
+        eric.getName(),
+        eric.getSurname(),
+        "0862134542365",
+        "76 avenue Guichard",
+        "Lyon");
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.update(newInformationsOnEric));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "SSID must be the same.";
+    assertEquals(expectedMessage, actualMessage);
   }
 
   @Test
   void deleteByIdProperlyRemovePatientAndReturnTrue() {
-
-  }
-
-  @Test
-  void deletByIdThrowIllegalArgumentWhenIdIsNull() {
+    try {
+      assertTrue(patientRessource.deleteById(eric.getSSID()));
+    } catch (NameNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    assertThrows(NameNotFoundException.class,
+        () -> patientRessource.readOne(eric.getSSID()));
   }
 
   @Test
   void deleteByIdThrowNameNotFoundWhenPatientIsNotExistingInDAO() {
-
+    Exception e = assertThrows(NameNotFoundException.class,
+        () -> patientRessource.deleteById("0862183792366"));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "This patient does not exist.";
+    assertEquals(expectedMessage, actualMessage);
   }
 
   @Test
   void deleteProperlyRemovePatientWhenGivingPatientRequest() {
-
+    PatientRequestDto patientRequest = new PatientRequestDto(
+        eric.getName(),
+        eric.getSurname(),
+        eric.getSSID(),
+        eric.getAdress(),
+        eric.getCity());
+    try {
+      patientRessource.delete(patientRequest);
+    } catch (NameNotFoundException e) {
+      fail("Should not return NameNotFoundException because the patient is in the DAO.");
+    }
+    assertThrows(NameNotFoundException.class,
+        () -> patientRessource.readOne(eric.getSSID()));
   }
 
   @Test
   void deleteThrowNameNotFoundWhenGivenPatientRequestIsIncorrect() {
-
+    PatientRequestDto patientRequest = new PatientRequestDto(
+        eric.getName(),
+        eric.getSurname(),
+        "0862183792366",
+        eric.getAdress(),
+        eric.getCity());
+    Exception e = assertThrows(NameNotFoundException.class,
+        () -> patientRessource.delete(patientRequest));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "This patient does not exist.";
+    assertEquals(expectedMessage, actualMessage);
   }
 }

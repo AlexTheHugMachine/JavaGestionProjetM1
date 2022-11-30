@@ -17,11 +17,13 @@ public class PatientDAO extends AbstractMapDao<Patient> {
   }
 
   @Override
-  public void update(final Serializable id, final Patient element)
+  public void update(final Serializable key, final Patient element)
       throws IllegalArgumentException, InvalidNameException {
     try {
-      findOne(id);
-      super.update(id, element);
+      Patient patientStored = findOne(element.getSSID());
+      if (patientStored.getSSID().equals(element.getSSID())) {
+        super.update(element.getSSID(), element);
+      }
     } catch (NameNotFoundException e) {
       throw new IllegalArgumentException("SSID must be the same.");
     }

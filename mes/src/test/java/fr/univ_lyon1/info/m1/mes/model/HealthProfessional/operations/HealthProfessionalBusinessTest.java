@@ -123,20 +123,15 @@ public class HealthProfessionalBusinessTest {
     Exception exceptionNull = assertThrows(IllegalArgumentException.class,
         () -> hpBusiness.getPrescriptionsPatient(null));
 
-    Exception prescriptionEmpty = assertThrows(
+    Exception exceptionEmpty = assertThrows(
         IllegalArgumentException.class,
-        () -> new Prescription("",
-            "500g",
-            "20123417965",
-            "8689621985291"));
+        () -> hpBusiness.getPrescriptionsPatient(""));
 
-    String actualMessageNull = prescriptionNull.getMessage();
-    String actualMessageEmpty = prescriptionEmpty.getMessage();
+    String actualMessageNull = exceptionNull.getMessage();
+    String actualMessageEmpty = exceptionEmpty.getMessage();
 
-    String argumentCheckerMessageNull = "ArgumentChecker Failed Null element. ";
-    String argumentCheckerMessageEmpty = "ArgumentChecker Failed Empty element. ";
-    String expectedMessageNull = argumentCheckerMessageNull + "Les informations de Prescription sont invalides.";
-    String expectedMessageEmpty = argumentCheckerMessageEmpty + "Les informations de Prescription sont invalides.";
+    String expectedMessageNull = "ArgumentChecker Failed Null variable. ";
+    String expectedMessageEmpty = "ArgumentChecker Failed Empty variable. ";
 
     assertAll(
         () -> assertEquals(expectedMessageEmpty, actualMessageEmpty),
