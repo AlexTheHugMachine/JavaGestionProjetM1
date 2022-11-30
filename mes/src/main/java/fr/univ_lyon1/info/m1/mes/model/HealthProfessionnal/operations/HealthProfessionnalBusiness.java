@@ -57,7 +57,11 @@ public class HealthProfessionnalBusiness {
       throws NameNotFoundException,
       InvalidNameException {
     ArgumentChecker.checkStringNotNullOrEmpty(idPatient);
-    return patientDAO.findOne(idPatient);
+    try {
+      return patientDAO.findOne(idPatient);
+    } catch (NameNotFoundException e) {
+      throw new NameNotFoundException("No patient found.");
+    }
   }
 
   // TODO : Checker dans le BusinessController que prescription n'est pas null.
@@ -78,9 +82,12 @@ public class HealthProfessionnalBusiness {
   }
 
   // TODO : voir si on ne met pas l'update pour l'Observer ici :D .
-  public boolean createPatient(final Patient patient)
-      throws NameAlreadyBoundException {
-    patientDAO.add(patient);
+  public boolean createPatient(final Patient patient) throws NameAlreadyBoundException {
+    try {
+      patientDAO.add(patient);
+    } catch (NameAlreadyBoundException e) {
+      throw new NameAlreadyBoundException("Patient already exists.");
+    }
     return true;
   }
 
