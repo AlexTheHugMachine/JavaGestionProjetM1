@@ -4,8 +4,10 @@ import javax.naming.InvalidNameException;
 import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
-import fr.univ_lyon1.info.m1.mes.model.Patient.PatientBusiness;
+import fr.univ_lyon1.info.m1.mes.model.Patient.operations.PatientBusiness;
+import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 
 /**
  * Contrôleur délégué aux CU concernant les opérations métier sur les patients.
@@ -20,8 +22,8 @@ import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 public class PatientsBusinessController {
   private PatientBusiness patientBusiness;
 
-  public PatientsBusinessController(final PrescriptionDAO prescriptionDAO) {
-    patientBusiness = new PatientBusiness(prescriptionDAO, null);
+  public PatientsBusinessController(final PrescriptionDAO prescriptionDAO, final PatientDAO patientDAO) {
+    patientBusiness = new PatientBusiness(prescriptionDAO, patientDAO);
   }
 
   /**
@@ -46,13 +48,9 @@ public class PatientsBusinessController {
       InvalidNameException {
     switch (action) {
       case "getPrescription":
-        return patientBusiness.getPrescriptionsPatient((Patient) args[0]);
+        return patientBusiness.getPrescriptionsPatient(patient);
       case "removePrescription":
-        try {
-          patientBusiness.removePrescription((String) args[0], action);
-        } catch (IllegalAccessException e) {
-          e.printStackTrace();
-        }
+        patientBusiness.removePrescription((String) args[0]);
         return true;
       case "changeLocationInformations":
         patientBusiness.changeLocationInformations(

@@ -1,4 +1,4 @@
-package fr.univ_lyon1.info.m1.mes.model.Patient;
+package fr.univ_lyon1.info.m1.mes.model.Patient.operations;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
+import fr.univ_lyon1.info.m1.mes.model.Patient.operations.PatientBusiness;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 
 public class PatientBusinessTest {

@@ -4,8 +4,8 @@ import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
-import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessionnalBusiness;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.operations.HealthProfessionnalBusiness;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 
 /**

@@ -194,7 +194,7 @@ public class PatientDAOTest {
     Exception message = assertThrows(IllegalArgumentException.class, () -> {
       patientDAO.update(eric.getSSID(), titi);
     });
-    String expectedMessage = "SSID are not the same.";
+    String expectedMessage = "SSID must be the same.";
     String actualMessage = message.getMessage();
 
     assertEquals(expectedMessage, actualMessage);

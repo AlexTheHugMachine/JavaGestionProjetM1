@@ -26,7 +26,7 @@ public class PrescriptionDAO extends AbstractMapDao<Prescription> {
       String idHpStored = prescriptionStored.getIdHealthProfessional();
 
       if (!(idPatientStored.equals(element.getIdPatient())
-      && idHpStored.equals(element.getIdHealthProfessional()))) {
+          && idHpStored.equals(element.getIdHealthProfessional()))) {
         throw new IllegalArgumentException("Prescription does not match stored ids.");
       }
       deleteById(id);
@@ -39,12 +39,13 @@ public class PrescriptionDAO extends AbstractMapDao<Prescription> {
   /**
    *
    * @param idPatient L'id du patient dont on veut les prescriptions.
-   * @param idHp Le professionnel de santé qui a prescris ces dernieres.
-   * @return Toutes les prescriptions qu'un professionnel de santé à donner à un patient.
-   * @throws NameNotFoundException
+   * @param idHp      Le professionnel de santé qui a prescris ces dernieres.
+   * @return Toutes les prescriptions qu'un professionnel de santé à donner à un
+   *         patient.
+   * @throws NameNotFoundException "No prescriptions found."
    */
   public List<Prescription> findByHpIdGivenThePatientId(final String idPatient, final String idHp)
-   throws NameNotFoundException {
+      throws NameNotFoundException {
     List<Prescription> prescriptions = new ArrayList<Prescription>();
     this.getCollection().values().forEach(p -> {
       if (p.getIdHealthProfessional() == idHp && p.getIdPatient() == idPatient) {
@@ -63,7 +64,8 @@ public class PrescriptionDAO extends AbstractMapDao<Prescription> {
    * @return Toutes les prescriptions donnés à un patient.
    * @throws NameNotFoundException
    */
-  public List<Prescription> findByPatientId(final String idPatient) throws NameNotFoundException {
+  public List<Prescription> findByPatientId(final String idPatient)
+      throws NameNotFoundException {
     List<Prescription> prescriptions = new ArrayList<Prescription>();
     this.getCollection().values().forEach(p -> {
       if (p.getIdPatient().equals(idPatient)) {

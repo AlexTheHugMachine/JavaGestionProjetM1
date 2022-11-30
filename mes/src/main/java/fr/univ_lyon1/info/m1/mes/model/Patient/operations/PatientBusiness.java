@@ -1,13 +1,13 @@
-package fr.univ_lyon1.info.m1.mes.model.Patient;
+package fr.univ_lyon1.info.m1.mes.model.Patient.operations;
 
 import java.util.List;
 
 import javax.naming.InvalidNameException;
 import javax.naming.NameNotFoundException;
 
+import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
-//import fr.univ_lyon1.info.m1.mes.model.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 
