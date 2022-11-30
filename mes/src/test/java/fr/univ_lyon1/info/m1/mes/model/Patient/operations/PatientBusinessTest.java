@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
-import fr.univ_lyon1.info.m1.mes.model.Patient.operations.PatientBusiness;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 
 public class PatientBusinessTest {
@@ -141,6 +140,16 @@ public class PatientBusinessTest {
     String actualMessage = e.getMessage();
 
     assertEquals("No prescription found for this id.", actualMessage);
+  }
+
+  @Test
+  void removePrescriptionOfAnUnExistingPatientThrowException() {
+    final Exception e = assertThrows(IllegalAccessException.class,
+        () -> patientBusiness.removePrescription(doliprane500.getId(), jean.getSSID()));
+
+    String actualMessage = e.getMessage();
+
+    assertEquals("This prescription is not assign to you.", actualMessage);
   }
 
   @Test

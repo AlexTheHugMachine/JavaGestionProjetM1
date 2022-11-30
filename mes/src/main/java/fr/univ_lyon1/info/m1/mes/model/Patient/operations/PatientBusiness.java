@@ -53,8 +53,6 @@ public class PatientBusiness {
       }
     } catch (NameNotFoundException e) {
       throw new NameNotFoundException("No prescription found for this id.");
-    } catch (InvalidNameException e) {
-      throw new InvalidNameException("Internal error");
     }
 
   }

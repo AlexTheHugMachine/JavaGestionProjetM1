@@ -87,9 +87,19 @@ public class PatientRessourceTest {
         () -> patientRessource.readOne(""));
 
     String actualMessageEmpty = eEmpty.getMessage();
-    String expectedMessageEmpty = "ArgumentChecker Failed Empty variable. ";
+    String expectedMessageEmpty = "The key is null or empty.";
 
     assertEquals(expectedMessageEmpty, actualMessageEmpty);
+  }
+
+  @Test
+  void readOneThrowIllegalArgumentWhenKeyIsNotAValidSSID() {
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.readOne("f968686fffff"));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "No patient found.";
+
+    assertEquals(expectedMessage, actualMessage);
   }
 
   @Test
@@ -143,6 +153,15 @@ public class PatientRessourceTest {
   }
 
   @Test
+  void updateThrowIllegalArgumentWhenPatientRequestIsNull() {
+    Exception e = assertThrows(NullPointerException.class,
+        () -> patientRessource.update(null));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "ArgumentChecker Failed Null variable. ";
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
   void deleteByIdProperlyRemovePatientAndReturnTrue() {
     try {
       assertTrue(patientRessource.deleteById(eric.getSSID()));
@@ -160,6 +179,28 @@ public class PatientRessourceTest {
         () -> patientRessource.deleteById("0862183792366"));
     String actualMessage = e.getMessage();
     String expectedMessage = "This patient does not exist.";
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  void deleteByIdThrowIllegalArgumentWhenKeyIsNullOrEmpty() {
+    assertThrows(NullPointerException.class,
+        () -> patientRessource.deleteById(null));
+    Exception eEmpty = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.deleteById(""));
+
+    String actualMessageEmpty = eEmpty.getMessage();
+    String expectedMessageEmpty = "The id provided is null or empty";
+
+    assertEquals(expectedMessageEmpty, actualMessageEmpty);
+  }
+
+  @Test
+  void deleteByIdThrowIllegalArgumentWhenKeyIsNotNumeric() {
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.deleteById("0862183792365a"));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "The id provided is illegal.";
     assertEquals(expectedMessage, actualMessage);
   }
 
@@ -192,6 +233,114 @@ public class PatientRessourceTest {
         () -> patientRessource.delete(patientRequest));
     String actualMessage = e.getMessage();
     String expectedMessage = "This patient does not exist.";
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  void deleteThrowIllegalArgumentWhenGivenPatientRequestIsNull() {
+    Exception e = assertThrows(NameNotFoundException.class,
+        () -> patientRessource.delete(null));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "This patient does not exist.";
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  void createPatientProperlyCreateThePatient() {
+    PatientRequestDto patientRequest = new PatientRequestDto(
+        "John",
+        "Doe",
+        "0862183792366",
+        "76 avenue Guichard",
+        "Lyon");
+    try {
+      patientRessource.create(patientRequest);
+    } catch (NameAlreadyBoundException e) {
+      fail("Should not throw this exception because the patient does not exist.");
+    }
+    try {
+      Patient patientCreated = patientRessource.readOne("0862183792366");
+      assertAll(
+          () -> assertEquals(patientCreated.getName(), "John"),
+          () -> assertEquals(patientCreated.getSurname(), "Doe"),
+          () -> assertEquals(patientCreated.getSSID(), "0862183792366"),
+          () -> assertEquals(patientCreated.getAdress(),
+              "76 avenue Guichard"),
+          () -> assertEquals(patientCreated.getCity(), "Lyon"));
+    } catch (NameNotFoundException e) {
+      fail("Should not throw this exception because the patient is in the DAO.");
+    }
+  }
+
+  @Test
+  void createPatientThrowNameAlreadyBoundWhenPatientAlreadyExist() {
+    PatientRequestDto patientRequest = new PatientRequestDto(
+        eric.getName(),
+        eric.getSurname(),
+        eric.getSSID(),
+        eric.getAdress(),
+        eric.getCity());
+    Exception e = assertThrows(NameAlreadyBoundException.class,
+        () -> patientRessource.create(patientRequest));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "This patient already exist.";
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  void createPatientThrowIllegalArgumentWhenGivenPatientRequestIsNull() {
+    Exception e = assertThrows(NullPointerException.class,
+        () -> patientRessource.create(null));
+    String actualMessage = e.getMessage();
+    String expectedMessage = "SSID cannot be null.";
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  void createPatientThrowIllegalArgumentWhenGivenPatientRequestSSIDIsNull() {
+    PatientRequestDto patientRequest = new PatientRequestDto(
+        eric.getName(),
+        eric.getSurname(),
+        null,
+        eric.getAdress(),
+        eric.getCity());
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.create(patientRequest));
+    String actualMessage = e.getMessage();
+    String expectedMessage = 
+      "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  void createPatientThrowIllegalArgumentWhenGivenPatientRequestNameIsNull() {
+    PatientRequestDto patientRequest = new PatientRequestDto(
+        null,
+        eric.getSurname(),
+        eric.getSSID(),
+        eric.getAdress(),
+        eric.getCity());
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.create(patientRequest));
+    String actualMessage = e.getMessage();
+    String expectedMessage = 
+      "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    assertEquals(expectedMessage, actualMessage);
+  }
+
+  @Test
+  void createPatientThrowIllegalArgumentWhenGivenPatientRequestSurnameIsNull() {
+    PatientRequestDto patientRequest = new PatientRequestDto(
+        eric.getName(),
+        null,
+        eric.getSSID(),
+        eric.getAdress(),
+        eric.getCity());
+    Exception e = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.create(patientRequest));
+    String actualMessage = e.getMessage();
+    String expectedMessage = 
+      "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
     assertEquals(expectedMessage, actualMessage);
   }
 }

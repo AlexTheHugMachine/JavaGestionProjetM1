@@ -64,7 +64,7 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
     } catch (NameNotFoundException e) {
       throw new NameNotFoundException("No patient found.");
     } catch (IllegalArgumentException e) {
-      throw e;
+      throw new IllegalArgumentException("The key is null or empty.");
     } catch (InvalidNameException e) {
       System.out.println(e.getStackTrace());
       return null;
@@ -125,7 +125,7 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
     try {
       Patient storedPatient = patientDao.findOne(patient.getSSID());
       patientDao.delete(storedPatient);
-    } catch (NameNotFoundException | InvalidNameException e) {
+    } catch (NameNotFoundException | InvalidNameException | NullPointerException e) {
       throw new NameNotFoundException("This patient does not exist.");
     }
   }
