@@ -18,8 +18,11 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.operations.HealthProfessionnalBusiness;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
@@ -27,6 +30,8 @@ import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 public class HealthProfessionalBusinessTest {
   private Patient john;
   private Patient jack;
+
+  private HealthProfessional lebron;
 
   private Prescription doliprane500;
   private Prescription doliprane1000;
@@ -39,9 +44,11 @@ public class HealthProfessionalBusinessTest {
   void setUp() {
     PatientDAO patientDAO = new PatientDAO();
     PrescriptionDAO prescriptionDAO = new PrescriptionDAO();
+    HealthProfessionalDAO hpDAO = new HealthProfessionalDAO();
 
     john = new Patient("John", "Wick", "6968686787598", "", "");
     jack = new Patient("Jack", "Sparrow", "0975310954209", "", "");
+    lebron = new HealthProfessional("Lebron", "James", "12345678919", HPSpeciality.CHIRURGIEN);
 
     doliprane500 = new Prescription("Doliprane", "500mg", "12345678901", "6968686787598");
     paracetamol = new Prescription("Paracetamol", "1000mg", "12345678901", "6968686787598");
@@ -55,6 +62,7 @@ public class HealthProfessionalBusinessTest {
       prescriptionDAO.add(paracetamol);
       prescriptionDAO.add(doliprane1000);
       prescriptionDAO.add(eatFruit);
+      hpDAO.add(lebron);
     } catch (NameAlreadyBoundException e) {
       e.printStackTrace();
     } catch (IllegalArgumentException e) {
@@ -63,7 +71,8 @@ public class HealthProfessionalBusinessTest {
 
     hpBusiness = new HealthProfessionnalBusiness(
         patientDAO,
-        prescriptionDAO);
+        prescriptionDAO,
+        hpDAO);
   }
 
   @Test
@@ -275,13 +284,15 @@ public class HealthProfessionalBusinessTest {
     });
   }
 
-  /*@Test
-  void removePrescriptionProperlyRemoveThePrescription() {
+  //================================================================================================
+
+  @Test
+  void removePrescriptionProperlyRemoveThePrescription() throws InvalidNameException {
     try {
       hpBusiness.removePrescription(doliprane1000.getId());
       hpBusiness.removePrescription(eatFruit.getId());
-      hpBusiness.removePrescription(doliprane1000.getId());
-      hpBusiness.removePrescription(eatFruit.getId());
+      hpBusiness.removePrescription(doliprane500.getId());
+      hpBusiness.removePrescription(paracetamol.getId());
     } catch (NameNotFoundException e) {
       fail("Should not throw this error because the patient with this SSID has Prescriptions.");
     } catch (IllegalArgumentException e) {
@@ -290,81 +301,31 @@ public class HealthProfessionalBusinessTest {
   }
 
   @Test
-  void removePrescriptionThrowNameNotFoundWhenWeReverseHpAndPatientId() {
-    Exception exceptionNull = assertThrows(IllegalArgumentException.class,
-        () -> hpBusiness.removePrescription(null, doliprane1000.getId()));
-
-    Exception exceptionEmpty = assertThrows(
-        IllegalArgumentException.class,
-        () -> hpBusiness.removePrescription("", doliprane1000.getId()));
-
-    String actualMessageNull = exceptionNull.getMessage();
-    String actualMessageEmpty = exceptionEmpty.getMessage();
-
-    String expectedMessageNull = "ArgumentChecker Failed Null element. ";
-    String expectedMessageEmpty = "ArgumentChecker Failed Empty element. ";
-
-    assertAll(
-        () -> assertEquals(expectedMessageEmpty, actualMessageEmpty),
-        () -> assertEquals(expectedMessageNull, actualMessageNull));
-  }
-
-  @Test
-  void removePrescriptionThrowIllegalArguementWhenPatientSSIDIsNullOrEmpty() {
+  void removePrescriptionThrowIllegalArguementWhenPrescriptionSSIDIsNullOrEmpty() {
     assertThrows(IllegalArgumentException.class, () -> {
-      hpBusiness.removePrescription("", doliprane1000.getId());
+      hpBusiness.removePrescription("");
     });
     assertThrows(IllegalArgumentException.class, () -> {
-      hpBusiness.removePrescription(null, doliprane1000.getId());
+      hpBusiness.removePrescription(null);
     });
   }
 
   @Test
   void removePrescriptionThrowNameNotFoundWhenPrescriptionIdIsNotDefinedInDAO() {
     Exception e = assertThrows(NameNotFoundException.class,
-        () -> hpBusiness.removePrescription(john.getSSID(), 123456789));
+        () -> hpBusiness.removePrescription("123456789"));
 
     String expectedMessage = "No prescription found.";
     assertEquals(expectedMessage, e.getMessage());
   }
 
   @Test
-  void removePrescriptionThrowNameNotFoundWhenWeReverseHpAndPrescriptionId() {
-    Exception exceptionNull = assertThrows(IllegalArgumentException.class,
-        () -> hpBusiness.removePrescription(john.getSSID(), null));
-
-    Exception exceptionEmpty = assertThrows(
-        IllegalArgumentException.class,
-        () -> hpBusiness.removePrescription(john.getSSID(), 0));
-
-    String actualMessageNull = exceptionNull.getMessage();
-    String actualMessageEmpty = exceptionEmpty.getMessage();
-
-    String expectedMessageNull = "ArgumentChecker Failed Null element. ";
-    String expectedMessageEmpty = "ArgumentChecker Failed Empty element. ";
-
-    assertAll(
-        () -> assertEquals(expectedMessageEmpty, actualMessageEmpty),
-        () -> assertEquals(expectedMessageNull, actualMessageNull));
-  }
-
-  @Test
-  void removePrescriptionThrowIllegalArguementWhenPrescriptionIdIsNullOrEmpty() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      hpBusiness.removePrescription(john.getSSID(), 0);
-    });
-    assertThrows(IllegalArgumentException.class, () -> {
-      hpBusiness.removePrescription(john.getSSID(), null);
-    });
-  }
-
-  @Test
-  void addPrescriptionProperlyAddThePrescription() {
+  void addPrescriptionProperlyAddThePrescription() 
+    throws InvalidNameException, NameAlreadyBoundException {
+      Prescription doliprane1500 = new Prescription(
+          "Doliprane", "1500mg", "22225678901", "6968686787598");
     try {
-      hpBusiness.addprescription(john.getSSID(), doliprane1000);
-      hpBusiness.addprescription(john.getSSID(), eatFruit);
-      hpBusiness.addprescription(jack.getSSID(), doliprane1000);
-      hpBusiness.addprescription(jack.getSSID(), eatFruit);
+      hpBusiness.addprescription(doliprane1500);
     } catch (NameNotFoundException e) {
       fail("Should not throw this error because the patient with this SSID has Prescriptions.");
     } catch (IllegalArgumentException e) {
@@ -372,6 +333,25 @@ public class HealthProfessionalBusinessTest {
     }
   }
 
+  @Test
+  void addPrescriptionThrowNameNotFoundWhenPatientSSIDIsNotDefinedInDAO() {
+    Prescription doliprane1500 = new Prescription(
+          "Doliprane", "1500mg", "22225678901", "6968686789999");
+    Exception e = assertThrows(NameNotFoundException.class,
+        () -> hpBusiness.addprescription(doliprane1500));
+
+    String expectedMessage = "No patient or health professional found.";
+    assertEquals(expectedMessage, e.getMessage());
+  }
+
+  /*@Test
+  void addPrescriptionThrowIllegalArguementWhenPrescriptionSSIDIsNullOrEmpty() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      hpBusiness.addprescription(null);
+    });
+  }*/
+
+  /* 
   @Test
   void addPrescriptionThrowNameNotFoundWhenPatientSSIDIsNotDefinedInDAO() {
     Exception e = assertThrows(NameNotFoundException.class,
@@ -449,6 +429,8 @@ public class HealthProfessionalBusinessTest {
       hpBusiness.addprescription(john.getSSID(), null);
     });
   }*/
+
+  //======================
 
   @Test
   void createPatientProperlyCreateThePatient() {

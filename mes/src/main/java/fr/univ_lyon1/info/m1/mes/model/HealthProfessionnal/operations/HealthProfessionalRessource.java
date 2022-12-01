@@ -66,7 +66,8 @@ public class HealthProfessionalRessource
   }
 
   @Override
-  public Boolean update(final HealthProfessionalRequestDto element) {
+  public Boolean update(final HealthProfessionalRequestDto element) 
+    throws IllegalArgumentException {
     String name = element.getName();
     String surname = element.getSurname();
     String rpps = element.getRPPS();
@@ -79,12 +80,7 @@ public class HealthProfessionalRessource
         .setSpeciality(speciality)
         .build();
 
-    try {
-      hpDao.update(rpps, hp);
-    } catch (IllegalArgumentException e) {
-      System.out.println(e.getMessage());
-      return false;
-    }
+    hpDao.update(rpps, hp);
     return true;
   }
 

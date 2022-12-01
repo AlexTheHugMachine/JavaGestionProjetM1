@@ -35,9 +35,6 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   @Override
   public Serializable add(final T element) throws NameAlreadyBoundException {
     Serializable key = getKeyForElement(element);
-    if (key == null) {
-      throw new NullPointerException("The key is null.");
-    }
     if (this.collection.containsKey(key)) {
       throw new NameAlreadyBoundException("This patient already exist.");
     }
@@ -57,7 +54,7 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   @Override
   public void deleteById(final Serializable id) throws NameNotFoundException {
       if (!this.collection.containsKey(id)) {
-        throw new NameNotFoundException(id.toString());
+        throw new NameNotFoundException("No prescription found.");
       }
       this.collection.remove(id);
   }

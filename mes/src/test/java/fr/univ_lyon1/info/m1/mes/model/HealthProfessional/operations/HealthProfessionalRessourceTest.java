@@ -62,4 +62,156 @@ public class HealthProfessionalRessourceTest {
           fail("The health professional was not created properly");
         }
     }
+
+    @Test
+    void createHealthProfessionalWithExistingRPPS() {
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+            "john", "doe", "82837180785", HPSpeciality.GENERALISTE.toString());
+
+        try {
+          hpRessource.create(hpRequest);
+          fail("The health professional was created with an existing RPPS");
+        } catch (NameAlreadyBoundException e) {
+          assertEquals(NameAlreadyBoundException.class, e.getClass());
+        }
+    }
+
+    @Test
+    void createHealthProfessionalWithInvalidRPPS() {
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+            "john", "doe", "1234567891", HPSpeciality.GENERALISTE.toString());
+
+        try {
+          hpRessource.create(hpRequest);
+          fail("The health professional was created with an invalid RPPS");
+        } catch (NameAlreadyBoundException e) {
+          fail("The health professional was created with an invalid RPPS");
+        } catch (IllegalArgumentException e) {
+          assertEquals(IllegalArgumentException.class, e.getClass());
+        }
+    }
+
+    @Test
+    void createHealthProfessionalWithInvalidSpeciality() {
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+            "john", "doe", "12345678919", "invalid");
+
+        try {
+          hpRessource.create(hpRequest);
+          fail("The health professional was created with an invalid speciality");
+        } catch (NameAlreadyBoundException e) {
+          fail("The health professional was created with an invalid speciality");
+        } catch (IllegalArgumentException e) {
+          assertEquals(IllegalArgumentException.class, e.getClass());
+        }
+    }
+
+    @Test
+    void readOneHealthProfessionalProperly() throws NameNotFoundException {
+      HealthProfessional hp = hpRessource.readOne("55334108515");
+      assertEquals(eric.getName(), hp.getName());
+      assertEquals(eric.getSurname(), hp.getSurname());
+      assertEquals(eric.getRPPS(), hp.getRPPS());
+      assertEquals(eric.getSpeciality(), hp.getSpeciality());
+    }
+
+    @Test
+    void readOneHealthProfessionalWithInvalidRPPS() {
+      try {
+        hpRessource.readOne("12345678919");
+        fail("The health professional was read with an invalid RPPS");
+      } catch (NameNotFoundException e) {
+        assertEquals(NameNotFoundException.class, e.getClass());
+      }
+    }
+
+    @Test
+    void readAllHealthProfessionalsProperly() {
+      assertEquals(2, hpRessource.readAll().size());
+    }
+
+    @Test
+    void updateHealthProfessionalProperly() throws NameNotFoundException {
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+            "john", "doe", "82837180785", HPSpeciality.GENERALISTE.toString());
+
+        hpRessource.update(hpRequest);
+        HealthProfessional hp = hpRessource.readOne("82837180785");
+        assertEquals(hpRequest.getName(), hp.getName());
+        assertEquals(hpRequest.getSurname(), hp.getSurname());
+        assertEquals(hpRequest.getRPPS(), hp.getRPPS());
+        assertEquals(hpRequest.getSpeciality(), hp.getSpeciality().toString());
+    }
+
+    @Test
+    void updateHealthProfessionalWithInvalidRPPS() {
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+            "john", "doe", "123456789192", HPSpeciality.GENERALISTE.toString());
+
+        try {
+          hpRessource.update(hpRequest);
+          fail("The health professional was updated with an invalid RPPS");
+        } catch (IllegalArgumentException e) {
+          assertEquals(IllegalArgumentException.class, e.getClass());
+        }
+    }
+
+    @Test
+    void updateHealthProfessionalWithEmptyRPPS() {
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+            "john", "doe", "", HPSpeciality.GENERALISTE.toString());
+
+        try {
+          hpRessource.update(hpRequest);
+          fail("The health professional was updated with an empty RPPS");
+        } catch (IllegalArgumentException e) {
+          assertEquals(IllegalArgumentException.class, e.getClass());
+        }
+    }
+
+    @Test
+    void deleteByIdHealthProfessionalProperly() throws NameNotFoundException {
+      hpRessource.deleteById("55334108515");
+      assertEquals(1, hpRessource.readAll().size());
+    }
+
+    @Test
+    void deleteByIdHealthProfessionalWithInvalidRPPS() {
+      try {
+        hpRessource.deleteById("12345678919");
+        fail("The health professional was deleted with an invalid RPPS");
+      } catch (NameNotFoundException e) {
+        assertEquals(NameNotFoundException.class, e.getClass());
+      }
+    }
+
+    @Test
+    void deleteByIdHealthProfessionalWithEmptyRPPS() throws NameNotFoundException {
+      try {
+        hpRessource.deleteById("");
+        fail("The health professional was deleted with an invalid RPPS");
+      } catch (IllegalArgumentException e) {
+        assertEquals(IllegalArgumentException.class, e.getClass());
+      }
+    }
+
+    @Test
+    void deleteHealthProfessionalProperly() throws NameNotFoundException {
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+        "eric", "zemmour", "55334108515", HPSpeciality.CHIRURGIEN.toString());
+      hpRessource.delete(hpRequest);
+      assertEquals(1, hpRessource.readAll().size());
+    }
+
+    @Test
+    void deleteHealthProfessionalWithInvalidRPPS() {
+      HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
+        "eric", "zemmour", "12345678919", HPSpeciality.CHIRURGIEN.toString());
+      try {
+        hpRessource.delete(hpRequest);
+        fail("The health professional was deleted with an invalid RPPS");
+      } catch (NameNotFoundException e) {
+        assertEquals(NameNotFoundException.class, e.getClass());
+      }
+    }
 }

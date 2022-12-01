@@ -9,6 +9,7 @@ import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
+import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
@@ -22,6 +23,7 @@ import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 public class HealthProfessionnalBusiness {
   private final PatientDAO patientDAO;
   private final PrescriptionDAO prescriptionDAO;
+  private final HealthProfessionalDAO hpDAO;
 
   public Patient getPatientBySSID(final String patientSSID)
       throws NameNotFoundException, InvalidNameException {
@@ -69,8 +71,18 @@ public class HealthProfessionnalBusiness {
       throws NameNotFoundException,
       InvalidNameException,
       NameAlreadyBoundException {
-    prescriptionDAO.add(prescription);
-    return true;
+        try {
+          hpDAO.findOne(prescription.getIdHealthProfessional());
+          patientDAO.findOne(prescription.getIdPatient());
+          prescriptionDAO.add(prescription);
+          return true;
+        } catch (NameNotFoundException e) {
+          throw new NameNotFoundException(
+            "No patient or health professional found.");
+        } catch (NameAlreadyBoundException e) {
+          throw new NameAlreadyBoundException(
+            "Prescription already exists.");
+        }
   }
 
   public boolean removePrescription(final String idPrescription)
@@ -91,8 +103,10 @@ public class HealthProfessionnalBusiness {
     return true;
   }
 
-  public HealthProfessionnalBusiness(final PatientDAO pDao, final PrescriptionDAO prescriptionDAO) {
+  public HealthProfessionnalBusiness(final PatientDAO pDao, final PrescriptionDAO prescriptionDAO, 
+  final HealthProfessionalDAO hpDAO) {
     this.patientDAO = pDao;
     this.prescriptionDAO = prescriptionDAO;
+    this.hpDAO = hpDAO;
   }
 }
