@@ -1,7 +1,9 @@
 package fr.univ_lyon1.info.m1.mes.utils;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -70,10 +72,19 @@ public class ValidatorTest {
     String stringWithSymbols = "6/%*8271-8521";
     String stringWithLettersAndSymbols = "9769a£8652Z*";
 
+    Exception e1 = assertThrows(IllegalArgumentException.class,
+        () -> Validator.isNumber(stringWithLetters));
+    Exception e2 = assertThrows(IllegalArgumentException.class,
+        () -> Validator.isNumber(stringWithOnlyLetters));
+    Exception e3 = assertThrows(IllegalArgumentException.class,
+        () -> Validator.isNumber(stringWithSymbols));
+    Exception e4 = assertThrows(IllegalArgumentException.class,
+        () -> Validator.isNumber(stringWithLettersAndSymbols));
+
     assertAll(
-        () -> assertFalse(Validator.isNumber(stringWithLetters)),
-        () -> assertFalse(Validator.isNumber(stringWithOnlyLetters)),
-        () -> assertFalse(Validator.isNumber(stringWithSymbols)),
-        () -> assertFalse(Validator.isNumber(stringWithLettersAndSymbols)));
+        () -> assertEquals("ArgumentChecker Failed Not a number. ", e1.getMessage()),
+        () -> assertEquals("ArgumentChecker Failed Not a number. ", e2.getMessage()),
+        () -> assertEquals("ArgumentChecker Failed Not a number. ", e3.getMessage()),
+        () -> assertEquals("ArgumentChecker Failed Not a number. ", e4.getMessage()));
   }
 }
