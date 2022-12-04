@@ -1,5 +1,5 @@
 FROM adoptopenjdk/maven-openjdk11:latest
-VOLUME [ "/tmp/.X11-unix:/tmp/.X11-unix" ]
+VOLUME [ "/tmp/.X11-unix:/tmp/.X11-unix", "$HOME/.Xauthority:/root/.Xauthority:rw"]
 
 WORKDIR /app
 COPY . /app

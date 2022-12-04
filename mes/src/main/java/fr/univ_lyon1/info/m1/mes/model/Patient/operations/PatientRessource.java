@@ -12,7 +12,6 @@ import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.ressources.RessourceInterface;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
-import fr.univ_lyon1.info.m1.mes.utils.Validator;
 
 /**
  * Réalise les opérations "simples" (CRUD) de gestion des ressources de type

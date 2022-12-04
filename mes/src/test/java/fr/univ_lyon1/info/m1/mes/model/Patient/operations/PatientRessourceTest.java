@@ -57,12 +57,12 @@ public class PatientRessourceTest {
     patientRessource = new PatientRessource(patientDAO, builder);
   }
 
-  // TODO : ReadOne
   @Test
   void readOneReturnTheExpectedPatientResponse() {
     String johnSSID = "6968686787598";
     try {
-      patientRessource.readOne(johnSSID);
+      Patient result = patientRessource.readOne(johnSSID);
+      assertEquals(result, john);
     } catch (NameNotFoundException e) {
       fail("Should not throw this error because the patient exist.");
     }
@@ -142,6 +142,70 @@ public class PatientRessourceTest {
   }
 
   @Test
+  void updateThrowIllegalArgumentWhenNewNameIsNullOrEmpty() {
+    PatientRequestDto newInformationsOnEric = new PatientRequestDto(
+        "",
+        eric.getSurname(),
+        eric.getSSID(),
+        "76 avenue Guichard",
+        "Lyon");
+    PatientRequestDto newInfosWithNull = new PatientRequestDto(
+        null,
+        eric.getSurname(),
+        eric.getSSID(),
+        "76 avenue Guichard",
+        "Lyon");
+    String argCheckerEmpty = "ArgumentChecker Failed Empty element. ";
+    String argCheckerNull = "ArgumentChecker Failed Null element. ";
+
+    Exception eEmpty = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.update(newInformationsOnEric));
+    Exception eNull = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.update(newInfosWithNull));
+
+    String actualEmptyMessage = eEmpty.getMessage();
+    String actualNullMessage = eNull.getMessage();
+
+    String expectedEmptyMsg = argCheckerEmpty + "Les informations du patient sont invalides.";
+    String expectedNullMsg = argCheckerNull + "Les informations du patient sont invalides.";
+
+    assertEquals(expectedEmptyMsg, actualEmptyMessage);
+    assertEquals(expectedNullMsg, actualNullMessage);
+  }
+
+  @Test
+  void updateThrowIllegalArgumentWhenNewSurnameIsNullOrEmpty() {
+    PatientRequestDto newInformationsOnEric = new PatientRequestDto(
+        "Enzo",
+        "",
+        eric.getSSID(),
+        "76 avenue Guichard",
+        "Lyon");
+    PatientRequestDto newInfosWithNull = new PatientRequestDto(
+        "Enzo",
+        null,
+        eric.getSSID(),
+        "76 avenue Guichard",
+        "Lyon");
+    String argCheckerEmpty = "ArgumentChecker Failed Empty element. ";
+    String argCheckerNull = "ArgumentChecker Failed Null element. ";
+
+    Exception eEmpty = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.update(newInformationsOnEric));
+    Exception eNull = assertThrows(IllegalArgumentException.class,
+        () -> patientRessource.update(newInfosWithNull));
+
+    String actualEmptyMessage = eEmpty.getMessage();
+    String actualNullMessage = eNull.getMessage();
+
+    String expectedEmptyMsg = argCheckerEmpty + "Les informations du patient sont invalides.";
+    String expectedNullMsg = argCheckerNull + "Les informations du patient sont invalides.";
+
+    assertEquals(expectedEmptyMsg, actualEmptyMessage);
+    assertEquals(expectedNullMsg, actualNullMessage);
+  }
+
+  @Test
   void updateThrowIllegalArgumentWhenPatientRequestIsNull() {
     assertThrows(NullPointerException.class,
         () -> patientRessource.update(null));
@@ -152,8 +216,7 @@ public class PatientRessourceTest {
     try {
       assertTrue(patientRessource.deleteById(eric.getSSID()));
     } catch (NameNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      fail("Should not throw this exception because the patient exist.");
     }
     assertThrows(NameNotFoundException.class,
         () -> patientRessource.readOne(eric.getSSID()));
@@ -186,7 +249,7 @@ public class PatientRessourceTest {
     Exception e = assertThrows(NameNotFoundException.class,
         () -> patientRessource.deleteById("08ff62183792365a"));
     String actualMessage = e.getMessage();
-    String expectedMessage = "The id is not a number.";
+    String expectedMessage = "This patient does not exist.";
     assertEquals(expectedMessage, actualMessage);
   }
 
@@ -290,7 +353,8 @@ public class PatientRessourceTest {
     Exception e = assertThrows(IllegalArgumentException.class,
         () -> patientRessource.create(patientRequest));
     String actualMessage = e.getMessage();
-    String expectedMessage = "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    String expectedMessage =
+    "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
     assertEquals(expectedMessage, actualMessage);
   }
 
@@ -305,7 +369,8 @@ public class PatientRessourceTest {
     Exception e = assertThrows(IllegalArgumentException.class,
         () -> patientRessource.create(patientRequest));
     String actualMessage = e.getMessage();
-    String expectedMessage = "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    String expectedMessage =
+    "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
     assertEquals(expectedMessage, actualMessage);
   }
 
@@ -320,7 +385,8 @@ public class PatientRessourceTest {
     Exception e = assertThrows(IllegalArgumentException.class,
         () -> patientRessource.create(patientRequest));
     String actualMessage = e.getMessage();
-    String expectedMessage = "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    String expectedMessage =
+    "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
     assertEquals(expectedMessage, actualMessage);
   }
 }

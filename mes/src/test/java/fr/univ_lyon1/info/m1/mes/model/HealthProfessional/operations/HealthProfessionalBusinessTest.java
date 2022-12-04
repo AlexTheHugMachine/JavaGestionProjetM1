@@ -38,6 +38,7 @@ public class HealthProfessionalBusinessTest {
   private Prescription doliprane1000;
   private Prescription paracetamol;
   private Prescription eatFruit;
+  private Prescription doSomeSports;
 
   private HealthProfessionnalBusiness hpBusiness;
 
@@ -52,9 +53,14 @@ public class HealthProfessionalBusinessTest {
     lebron = new HealthProfessional("Lebron", "James", "12345678919", HPSpeciality.CHIRURGIEN);
 
     doliprane500 = new Prescription("Doliprane", "500mg", "12345678919", "0975310954209");
-    paracetamol = new Prescription("Paracetamol", "1000mg", "12345678901", "6968686787598");
+    paracetamol = new Prescription("Paracetamol", "1000mg", "12345678901", "0975310954209");
     doliprane1000 = new Prescription("Doliprane", "1000mg", "12345678919", "0975310954209");
-    eatFruit = new Prescription("Eat Fruit", "", "12345678901", "0975310954209");
+    eatFruit = new Prescription("Eat Fruit", "", "12345678919", "6968686787598");
+    doSomeSports = new Prescription(
+        "Do some sports",
+        "2 days a week",
+        "12345678919",
+        "6968686787598");
 
     try {
       patientDAO.add(john);
@@ -63,6 +69,7 @@ public class HealthProfessionalBusinessTest {
       prescriptionDAO.add(paracetamol);
       prescriptionDAO.add(doliprane1000);
       prescriptionDAO.add(eatFruit);
+      prescriptionDAO.add(doSomeSports);
       hpDAO.add(lebron);
     } catch (NameAlreadyBoundException e) {
       e.printStackTrace();
@@ -112,8 +119,8 @@ public class HealthProfessionalBusinessTest {
       List<Prescription> actualList = hpBusiness.getPrescriptionsPatient(john.getSSID());
 
       List<Prescription> expectedList = new ArrayList<Prescription>();
-      expectedList.add(doliprane500);
-      expectedList.add(paracetamol);
+      expectedList.add(doSomeSports);
+      expectedList.add(eatFruit);
 
       assertAll(
           () -> assertEquals(actualList.size(), expectedList.size()),
@@ -304,14 +311,5 @@ public class HealthProfessionalBusinessTest {
 
     String expectedMessage = "Patient already exists.";
     assertEquals(expectedMessage, e.getMessage());
-  }
-
-  @Test
-  void createPatientThrowIllegalArguementWhenGivenIncorrectArgument() {
-    assertAll(
-        () -> hpBusiness.createPatient(new Patient("", "", "", "", "")));
-    assertThrows(IllegalArgumentException.class, () -> {
-      hpBusiness.createPatient(new Patient("", "", "", "", ""));
-    });
   }
 }
