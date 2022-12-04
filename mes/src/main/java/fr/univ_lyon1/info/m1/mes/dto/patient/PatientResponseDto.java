@@ -1,63 +1,79 @@
 package fr.univ_lyon1.info.m1.mes.dto.patient;
 
+import java.util.List;
+
+import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
+
 public class PatientResponseDto {
-  private String idPrescription;
-  private String idPatient;
-  private String idHealthProfessionnal;
-  private String content;
-  private String quantite;
 
-  public PatientResponseDto(
-      final String content,
-      final String quantite,
-      final String idPrescription,
-      final String idHP,
-      final String idPatient) {
-    this.content = content;
-    this.quantite = quantite;
-    this.idPrescription = idPrescription;
-    this.idHealthProfessionnal = idHP;
-    this.idPatient = idPatient;
+  private String name;
+  private String surname;
+  private String ssid;
+  private String adress;
+  private String city;
+  private List<Prescription> prescriptions;
+
+  PatientResponseDto(
+      final String name,
+      final String surname,
+      final String ssid,
+      final String adress,
+      final String city,
+      final List<Prescription> prescriptions) {
+    this.name = name;
+    this.surname = surname;
+    this.ssid = ssid;
+    this.adress = adress;
+    this.city = city;
+    this.prescriptions = prescriptions;
   }
 
-  public String getContent() {
-    return this.content;
+  public String getName() {
+    return name;
   }
 
-  public String getQuantite() {
-    return this.quantite;
+  public void setName(final String name) {
+    this.name = name;
   }
 
-  public String getId() {
-    return this.idPrescription;
+  public String getSurname() {
+    return surname;
   }
 
-  public String getIdHealthProfessional() {
-    return this.idHealthProfessionnal;
+  public void setSurname(final String surname) {
+    this.surname = surname;
   }
 
-  public String getIdPatient() {
-    return this.idPatient;
+  public String getSsid() {
+    return ssid;
   }
 
-  public void setContent(final String content) {
-    this.content = content;
+  public void setSsid(final String ssid) {
+    this.ssid = ssid;
   }
 
-  public void setQuantite(final String quantite) {
-    this.quantite = quantite;
+  public String getAdress() {
+    return adress;
   }
 
-  public void setId(final String id) {
-    this.idPrescription = id;
+  public void setAdress(final String adress) {
+    this.adress = adress;
   }
 
-  public void setIdHealthProfessional(final String idHP) {
-    this.idHealthProfessionnal = idHP;
+  public String getCity() {
+    return city;
   }
 
-  public void setIdPatient(final String idPatient) {
-    this.idPatient = idPatient;
+  public void setCity(final String city) {
+    this.city = city;
+  }
+
+  public List<Prescription> getPrescriptions() {
+    return prescriptions;
+  }
+
+  public void setPrescription(final List<Prescription> prescriptions) {
+    this.prescriptions = prescriptions;
   }
 
 }

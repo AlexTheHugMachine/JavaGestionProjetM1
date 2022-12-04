@@ -57,4 +57,37 @@ public class HealthProfessionnalBuilderTest {
     assertEquals(expMsg, actualMsg);
   }
 
+  @Test
+  void buildFailWhenRPPSIsNullOrEmptyDuringBuild() {
+    Exception exceptionNull = assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          builder.setName("John")
+              .setSurname("Doe")
+              .setSpeciality(HPSpeciality.CHIRURGIEN)
+              .build();
+        });
+    Exception exceptionEmpty = assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          builder.setName("John")
+              .setSurname("Doe")
+              .setRPPS("")
+              .setSpeciality(HPSpeciality.CHIRURGIEN)
+              .build();
+        });
+    String argCheckerMsgNull = "ArgumentChecker Failed Null element. ";
+    String argCheckerMsgEmpty = "ArgumentChecker Failed Empty element. ";
+
+    String expectedNullMsg = argCheckerMsgNull
+        + "Les informations du professionnel de santé sont invalides.";
+    String expectedEmptyMsg = argCheckerMsgEmpty
+        + "Les informations du professionnel de santé sont invalides.";
+
+    String actualNullMsg = exceptionNull.getMessage();
+    String actualEmptyMsg = exceptionEmpty.getMessage();
+
+    assertEquals(expectedNullMsg, actualNullMsg);
+    assertEquals(expectedEmptyMsg, actualEmptyMsg);
+  }
 }

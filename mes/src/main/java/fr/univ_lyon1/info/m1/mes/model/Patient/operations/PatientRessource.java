@@ -98,9 +98,8 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
 
   @Override
   public Boolean deleteById(final Serializable key)
-      throws NameNotFoundException {
+      throws NameNotFoundException, IllegalArgumentException {
     try {
-      Validator.isNumber(key.toString());
       ArgumentChecker.checkStringNotNullOrEmpty(key.toString());
       patientDao.deleteById(key);
       return true;

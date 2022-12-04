@@ -25,7 +25,9 @@ import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 public class PatientsBusinessController {
   private PatientBusiness patientBusiness;
 
-  public PatientsBusinessController(final PrescriptionDAO prescriptionDAO, final PatientDAO patientDAO) {
+  public PatientsBusinessController(
+      final PrescriptionDAO prescriptionDAO,
+      final PatientDAO patientDAO) {
     patientBusiness = new PatientBusiness(prescriptionDAO, patientDAO);
   }
 
@@ -33,9 +35,9 @@ public class PatientsBusinessController {
       throws NameNotFoundException {
     Patient patient = new Patient(
       patientDto.getName(),
-      patientDto.getSurname(), 
-      patientDto.getSSID(), 
-      patientDto.getAdress(), 
+      patientDto.getSurname(),
+      patientDto.getSSID(),
+      patientDto.getAdress(),
       patientDto.getCity());
     return patientBusiness.getPrescriptionsPatient(patient);
   }

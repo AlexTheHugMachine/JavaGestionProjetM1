@@ -49,9 +49,9 @@ public class HealthProfessionnalBusinessController {
   public boolean addPrescription(final PrescriptionRequestDto prescriptionDto)
       throws NameNotFoundException, NameAlreadyBoundException, InvalidNameException {
     Prescription prescription = new Prescription(
-      prescriptionDto.getContent(), 
-      prescriptionDto.getQuantite(), 
-      prescriptionDto.getIdHealthProfessional(), 
+      prescriptionDto.getContent(),
+      prescriptionDto.getQuantite(),
+      prescriptionDto.getIdHealthProfessional(),
       prescriptionDto.getIdPatient());
     return hpBusiness.addprescription(prescription);
   }
@@ -64,10 +64,10 @@ public class HealthProfessionnalBusinessController {
   public boolean createPatient(final PatientRequestDto patientDto)
       throws NameAlreadyBoundException {
     Patient patient = new Patient(
-      patientDto.getName(), 
-      patientDto.getSurname(), 
+      patientDto.getName(),
+      patientDto.getSurname(),
       patientDto.getSSID(),
-      patientDto.getAdress(), 
+      patientDto.getAdress(),
       patientDto.getCity());
     return hpBusiness.createPatient(patient);
   }

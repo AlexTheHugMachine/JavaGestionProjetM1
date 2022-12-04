@@ -28,7 +28,11 @@ public class HealthProfessionnalBusiness {
   public Patient getPatientBySSID(final String patientSSID)
       throws NameNotFoundException, InvalidNameException {
     ArgumentChecker.checkStringNotNullOrEmpty(patientSSID);
-    return patientDAO.findOne(patientSSID);
+    try {
+      return patientDAO.findOne(patientSSID);
+    } catch (NameNotFoundException e) {
+      throw new NameNotFoundException("No patient found.");
+    }
   }
 
   public List<Prescription> getPrescriptionsPatient(final String patientSSID)
@@ -53,36 +57,22 @@ public class HealthProfessionnalBusiness {
     return prescriptionDAO.findByHpIdGivenThePatientId(patientSSID, hpRPPS);
   }
 
-  // TODO : Réfléchir sur si on doit renvoyer le patient ou un dto pour avoir
-  // Une représentation précise de ces infos.
-  public Patient getPatientInfos(final String idPatient)
-      throws NameNotFoundException,
-      InvalidNameException {
-    ArgumentChecker.checkStringNotNullOrEmpty(idPatient);
-    try {
-      return patientDAO.findOne(idPatient);
-    } catch (NameNotFoundException e) {
-      throw new NameNotFoundException("No patient found.");
-    }
-  }
-
-  // TODO : Checker dans le BusinessController que prescription n'est pas null.
-  public boolean addprescription(final Prescription prescription)
+  public boolean addPrescription(final Prescription prescription)
       throws NameNotFoundException,
       InvalidNameException,
       NameAlreadyBoundException {
-        try {
-          hpDAO.findOne(prescription.getIdHealthProfessional());
-          patientDAO.findOne(prescription.getIdPatient());
-          prescriptionDAO.add(prescription);
-          return true;
-        } catch (NameNotFoundException e) {
-          throw new NameNotFoundException(
-            "No patient or health professional found.");
-        } catch (NameAlreadyBoundException e) {
-          throw new NameAlreadyBoundException(
-            "Prescription already exists.");
-        }
+    try {
+      hpDAO.findOne(prescription.getIdHealthProfessional());
+      patientDAO.findOne(prescription.getIdPatient());
+      prescriptionDAO.add(prescription);
+      return true;
+    } catch (NameNotFoundException e) {
+      throw new NameNotFoundException(
+          "No patient or health professional found.");
+    } catch (NameAlreadyBoundException e) {
+      throw new NameAlreadyBoundException(
+          "Prescription already exists.");
+    }
   }
 
   public boolean removePrescription(final String idPrescription)
@@ -103,8 +93,8 @@ public class HealthProfessionnalBusiness {
     return true;
   }
 
-  public HealthProfessionnalBusiness(final PatientDAO pDao, final PrescriptionDAO prescriptionDAO, 
-  final HealthProfessionalDAO hpDAO) {
+  public HealthProfessionnalBusiness(final PatientDAO pDao, final PrescriptionDAO prescriptionDAO,
+      final HealthProfessionalDAO hpDAO) {
     this.patientDAO = pDao;
     this.prescriptionDAO = prescriptionDAO;
     this.hpDAO = hpDAO;

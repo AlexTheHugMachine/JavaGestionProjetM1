@@ -1,14 +1,8 @@
 package fr.univ_lyon1.info.m1.mes.utils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
-
-import org.yaml.snakeyaml.Yaml;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.constants.Constants;
 import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
@@ -19,14 +13,15 @@ import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
  * un langage universel dans le code entre la partie client et serveur.
  */
 public interface ContentNegotiator {
+
   /**
-   * Renvoie un DTO en fonction du contenu de la requête, si son type MIME est
+   * Renvoie un DTO en fonction du contenu de la requête, si son type est
    * supporté.<br>
-   * Supporte 3 types MIME : <code>application/json</code>,
-   * <code>application/xml</code> et
-   * <code>application/x-www-form-urlencoded</code>.
-   * Méthode utilisée par les contrôleurs traitant des requêtes contenant un
-   * payload sous différents types MIME.
+   * Supporte 3 types possibles : <code>json</code>,
+   * <code>xml</code> et
+   * <code>yml</code>.
+   * Méthode utilisée par les contrôleurs permettant de lire des fichiers locaux
+   * en fonction de différent types.
    *
    * @param contentType Le type de contenu qui sera utilisé pour récupérer les
    *                    données.
@@ -35,22 +30,8 @@ public interface ContentNegotiator {
    * @throws IOException                   si le payload de la requête ne peut pas
    *                                       être lu ou s'il ne correspond pas à la
    *                                       classe du DTO
-   * @throws UnsupportedOperationException si le type MIME n'est pas supporté
+   * @throws UnsupportedOperationException si le type de fichier spécifié n'est pas supporté
    */
-  static Map<String, Object> getParsedMapOfTheRequestedFile(String contentType, String filename)
-      throws IOException, UnsupportedOperationException {
-    switch (contentType) {
-      case "yml":
-        return ymlSpecificReadProcess(filename);
-      case "xml":
-        return xmlSpecificReadProcess(filename); // WIP
-      case "json":
-        return jsonSpecificReadProcess(filename); // WIP
-      default:
-        throw new UnsupportedEncodingException("Type " + contentType + " non supporté.");
-    }
-  }
-
   static Object getDtoFromRequest(Class<?> dtoType, String contentType, String filename)
       throws UnsupportedOperationException, IOException {
     String dtoTypeName = dtoType.getSimpleName();
@@ -93,7 +74,20 @@ public interface ContentNegotiator {
       default:
         throw new UnsupportedOperationException(
             "La classe " + dtoTypeName + " n'est pas reconnue par cette application.");
+    }
+  }
 
+  static Map<String, Object> getParsedMapOfTheRequestedFile(String contentType, String filename)
+      throws IOException, UnsupportedOperationException {
+    switch (contentType) {
+      case "yml":
+        return YmlFileHandler.readToMap(filename);
+      case "xml":
+        return xmlSpecificReadProcess(filename); // WIP
+      case "json":
+        return jsonSpecificReadProcess(filename); // WIP
+      default:
+        throw new UnsupportedEncodingException("Type " + contentType + " non supporté.");
     }
   }
 
@@ -103,15 +97,6 @@ public interface ContentNegotiator {
 
   static Map<String, Object> xmlSpecificReadProcess(String simpleName) {
     return null;
-  }
-
-  static Map<String, Object> ymlSpecificReadProcess(String fileName)
-      throws FileNotFoundException {
-    InputStream inputStream = new FileInputStream(
-        new File(fileName));
-    Yaml yaml = new Yaml();
-    Map<String, Object> data = yaml.load(inputStream);
-    return data;
   }
 
 }

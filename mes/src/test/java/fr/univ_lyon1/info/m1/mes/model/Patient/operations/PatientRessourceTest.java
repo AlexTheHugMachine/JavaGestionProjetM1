@@ -1,6 +1,5 @@
 package fr.univ_lyon1.info.m1.mes.model.Patient.operations;
 
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -144,11 +143,8 @@ public class PatientRessourceTest {
 
   @Test
   void updateThrowIllegalArgumentWhenPatientRequestIsNull() {
-    Exception e = assertThrows(NullPointerException.class,
+    assertThrows(NullPointerException.class,
         () -> patientRessource.update(null));
-    String actualMessage = e.getMessage();
-    String expectedMessage = "ArgumentChecker Failed Null variable. ";
-    assertEquals(expectedMessage, actualMessage);
   }
 
   @Test
@@ -186,11 +182,11 @@ public class PatientRessourceTest {
   }
 
   @Test
-  void deleteByIdThrowIllegalArgumentWhenKeyIsNotNumeric() {
-    Exception e = assertThrows(IllegalArgumentException.class,
-        () -> patientRessource.deleteById("0862183792365a"));
+  void deleteByIdThrowNameNotFoundGivenAnIdWithLetters() {
+    Exception e = assertThrows(NameNotFoundException.class,
+        () -> patientRessource.deleteById("08ff62183792365a"));
     String actualMessage = e.getMessage();
-    String expectedMessage = "The id provided is null or empty";
+    String expectedMessage = "The id is not a number.";
     assertEquals(expectedMessage, actualMessage);
   }
 
@@ -278,12 +274,9 @@ public class PatientRessourceTest {
   }
 
   @Test
-  void createPatientThrowIllegalArgumentWhenGivenPatientRequestIsNull() {
-    Exception e = assertThrows(NullPointerException.class,
+  void createPatientThrowNullPointerWhenGivenNullPatientRequest() {
+    assertThrows(NullPointerException.class,
         () -> patientRessource.create(null));
-    String actualMessage = e.getMessage();
-    String expectedMessage = "SSID cannot be null.";
-    assertEquals(expectedMessage, actualMessage);
   }
 
   @Test
@@ -297,8 +290,7 @@ public class PatientRessourceTest {
     Exception e = assertThrows(IllegalArgumentException.class,
         () -> patientRessource.create(patientRequest));
     String actualMessage = e.getMessage();
-    String expectedMessage = 
-      "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    String expectedMessage = "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
     assertEquals(expectedMessage, actualMessage);
   }
 
@@ -313,8 +305,7 @@ public class PatientRessourceTest {
     Exception e = assertThrows(IllegalArgumentException.class,
         () -> patientRessource.create(patientRequest));
     String actualMessage = e.getMessage();
-    String expectedMessage = 
-      "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    String expectedMessage = "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
     assertEquals(expectedMessage, actualMessage);
   }
 
@@ -329,8 +320,7 @@ public class PatientRessourceTest {
     Exception e = assertThrows(IllegalArgumentException.class,
         () -> patientRessource.create(patientRequest));
     String actualMessage = e.getMessage();
-    String expectedMessage = 
-      "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
+    String expectedMessage = "ArgumentChecker Failed Null element. Les informations du patient sont invalides.";
     assertEquals(expectedMessage, actualMessage);
   }
 }

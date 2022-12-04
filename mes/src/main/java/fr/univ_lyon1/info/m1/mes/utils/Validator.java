@@ -2,15 +2,11 @@ package fr.univ_lyon1.info.m1.mes.utils;
 
 public interface Validator {
   static Boolean isLetter(String input) {
-    return input.matches("[a-zA-Z]+");
+    return input.matches("^[a-zA-Z]+$");
   }
 
   static Boolean isNumber(String input) {
-    if (input.matches("[0-9]+")) {
-      return input.matches("[0-9]+");
-    } else {
-      throw new IllegalArgumentException("ArgumentChecker Failed Not a number. ");
-    }
+    return input.matches("^[0-9]+$");
   }
 
   static Boolean isNumberOfLength(String input, int lenghtExpected) {

@@ -68,7 +68,7 @@ public class PatientBuilderTest {
   }
 
   @Test
-  public void patientBuilderHandleCreatePatientWithEmptyAdressOrCity() {
+  public void patientBuilderCanCreatePatientWithEmptyAdressOrCity() {
     builder.setName("Enzo")
         .setSurname("CECILLON")
         .setSSID("2202202212342")
@@ -91,7 +91,7 @@ public class PatientBuilderTest {
   }
 
   @Test
-  public void patientBuilderHandleCreatePatientWithNullAdressOrCity() {
+  public void patientBuilderCanCreatePatientWithNullAdressOrCity() {
     builder.setName("Enzo")
         .setSurname("CECILLON")
         .setSSID("2202202212342")
