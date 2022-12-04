@@ -189,7 +189,7 @@ public class HealthProfessionalRessourceTest {
     void deleteByIdHealthProfessionalWithEmptyRPPS() throws NameNotFoundException {
       try {
         hpRessource.deleteById("");
-        fail("The health professional was deleted with an invalid RPPS");
+        fail("The health professional was deleted with an empty RPPS");
       } catch (IllegalArgumentException e) {
         assertEquals(IllegalArgumentException.class, e.getClass());
       }
