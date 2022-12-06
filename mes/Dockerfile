@@ -1,5 +1,5 @@
 FROM adoptopenjdk/maven-openjdk11:latest
-VOLUME [ "/tmp/.X11-unix:/tmp/.X11-unix", "$HOME/.Xauthority:/root/.Xauthority:rw"]
+VOLUME [ "/tmp/.X11-unix:/tmp/.X11-unix", "$HOME/.Xauthority:/root/.Xauthority"]
 
 WORKDIR /app
 COPY . /app
@@ -10,6 +10,6 @@ RUN apt update \
   && CLASSPATH="$CLASSPATH":/usr/share/java/openjfx/jre/lib/jfxswt.jar \
   && export CLASSPATH
 
-RUN mvn clean install compile
+RUN mvn install compile
 
 CMD mvn exec:java
