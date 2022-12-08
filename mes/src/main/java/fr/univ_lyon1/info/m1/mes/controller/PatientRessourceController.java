@@ -16,24 +16,7 @@ public class PatientRessourceController {
         this.patientRessource = new PatientRessource(patientDAO, patientBuilder);
     }
 
-    public void removePatient(String patientId) {
-    }
-
-    public Patient getPatient(String patientId) {
-        return null;
-    }
-
-    public ArrayList<Patient> getPatients() {
-        return null;
-    }
-
-    public void createDto(String name, String surname, String ssid, String adress, String city) {
-    }
-
-    public void updatePatient(String patientId, String name, String surname, String ssid, String adress, String city) {
-    }
-
-    public void removePrescription(String prescriptionId) {
-    }
-
+    public void createPatient(Patient patient) throws NameAlreadyBoundException {
+        patientRessource.createPatient(patient);
+    } 
 }

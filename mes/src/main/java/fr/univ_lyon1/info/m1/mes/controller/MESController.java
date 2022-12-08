@@ -4,6 +4,8 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.naming.InvalidNameException;
+import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal.HealthProfessionalBuilder;
@@ -11,6 +13,8 @@ import fr.univ_lyon1.info.m1.mes.builders.Patient.PatientBuilder;
 import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.dto.healthprofessional.HealthProfessionalRequestDto;
+import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
@@ -24,8 +28,8 @@ import javafx.print.Collation;
  */
 public class MESController {
 
-  private final PatientController patientController;
-  private final HealthProfessionalController healthProfessionalController;
+  private final PatientRessourceController patientRessourceController;
+  private final HealthProfessionalRessourceController healthProfessionalRessourceController;
   private final PatientsBusinessController patientBusinessController;
   private final HealthProfessionnalBusinessController healthProfessionalBusinessController;
 
@@ -35,99 +39,73 @@ public class MESController {
     final PrescriptionDAO prescriptionDAO,
     final PatientBuilder patientBuilder,
     final HealthProfessionalBuilder healthProfessionalBuilder) {
-      this.patientController = new PatientController(patientDAO, prescriptionDAO,  patientBuilder);
-      this.healthProfessionalController = new 
-        HealthProfessionalController(healthProfessionalDAO, healthProfessionalBuilder);
+      this.patientRessourceController = new PatientRessourceController(patientDAO, patientBuilder);
+      this.healthProfessionalRessourceController = new 
+        HealthProfessionalRessourceController(healthProfessionalDAO, healthProfessionalBuilder);
       this.patientBusinessController = new PatientsBusinessController(patientDAO, prescriptionDAO);
       this.healthProfessionalBusinessController = new 
-        HealthProfessionnalBusinessController(healthProfessionalDAO, prescriptionDAO, patientDAO);
+        HealthProfessionnalBusinessController(healthProfessionalDAO, patientDAO, prescriptionDAO);
     }
 
-  /*public MESController(
-      final PatientController patientController,
-      final HealthProfessionalController healthProfessionalController,
-      final PrescriptionController prescriptionController) {
-    this.patientController = patientController;
-    this.healthProfessionalController = healthProfessionalController;
-    this.prescriptionController = prescriptionController;
-  }*/
-
   public void addPatientFromHP(final String name, final String surname, final String ssid,
-      final String adress, final String city) {
-    healthProfessionalController.createDtoPatient(name, surname, ssid, adress, city);
+      final String adress, final String city) throws NameAlreadyBoundException {
+    PatientRequestDto patientRequestDto = new PatientRequestDto(name, surname, ssid, adress, city);
+    healthProfessionalBusinessController.createPatient(patientRequestDto);
   }
 
   public void addHealthProfessional(final String name, final String surname, final String rpps,
-      final String speciality) {
-    healthProfessionalController.createDtoHealthProfessional(name, surname, rpps, speciality);
+      final String speciality) throws NameAlreadyBoundException {
+    HealthProfessionalRequestDto healthProfessionalRequestDto = new HealthProfessionalRequestDto(
+      name, surname, rpps, speciality);
+    healthProfessionalRessourceController.createHealthProfessional(healthProfessionalRequestDto);
   }
 
   public void addPrescription(final String content, final String quantite,
-      final String idPrescription, final String idHP, final String idPatient) {
+      final String idPrescription, final String idHP, final String idPatient) throws 
+        NameNotFoundException, NameAlreadyBoundException, InvalidNameException {
     PrescriptionRequestDto prescriptionRequestDto = new PrescriptionRequestDto(content, quantite, 
     idPrescription, idHP, idPatient);
     healthProfessionalBusinessController.addPrescription(prescriptionRequestDto);
   }
 
-  public void removePatient(final String patientId) {
-    patientController.removePatient(patientId);
+  public void removeHealthProfessional(final String name, final String surname, final String rpps,
+  final String speciality) throws NameNotFoundException {
+    HealthProfessionalRequestDto healthProfessionalRequestDto = new HealthProfessionalRequestDto(
+      name, surname, rpps, speciality);
+    healthProfessionalRessourceController.removeHealthProfessional(healthProfessionalRequestDto);
   }
 
-  public void removeHealthProfessional(final String healthProfessionalId) {
-    healthProfessionalController.removeHealthProfessional(healthProfessionalId);
+  public void removeHealthProfessionalById(final String healthProfessionalId) throws 
+    NameNotFoundException {
+    healthProfessionalRessourceController.removeHealthProfessionalById(healthProfessionalId);
   }
 
-  public void removePrescriptionFromHP(final String prescriptionId) {
-    healthProfessionalController.removePrescription(prescriptionId);
+  public void removePrescriptionFromHP(final String prescriptionId) throws 
+      NameNotFoundException, InvalidNameException {
+    healthProfessionalBusinessController.removePrescription(prescriptionId);
   }
 
-  public void removePrescriptionFromPatient(final String prescriptionId) {
-    patientController.removePrescription(prescriptionId);
+  public void updateHealthProfessional(final String name, final String surname, final String rpps,
+      final String speciality) {
+    HealthProfessionalRequestDto healthProfessionalRequestDto = new HealthProfessionalRequestDto(
+      name, surname, rpps, speciality);
+    healthProfessionalRessourceController.updateHealthProfessional(healthProfessionalRequestDto);
   }
 
-  public Patient getgetPrescriptionsPatientFromPatient(final String patientId) {
-    return patientController.getPatient(patientId);
+  public void getHealthProfessional(final String healthProfessionalId) throws NameNotFoundException {
+    healthProfessionalRessourceController.getHealthProfessional(healthProfessionalId);
   }
 
-  public ArrayList<Patient> getPatients() {
-    return patientController.getPatients();
+  public void getHealthProfessionals() {
+    healthProfessionalRessourceController.getHealthProfessionals();
   }
 
-  public HealthProfessional getHealthProfessional(final String healthProfessionalId) throws NameNotFoundException {
-    return healthProfessionalController.getHealthProfessional(healthProfessionalId);
+  public void getPatientBySSID(final String ssid) throws NameNotFoundException, InvalidNameException {
+    healthProfessionalBusinessController.getPatientBySSID(ssid);
   }
 
-  public Collection<HealthProfessional> getHealthProfessionals() {
-    return healthProfessionalController.getHealthProfessionals();
-  }
-
-  public void updatePatient(final String patientId, final String name, final String surname,
-      final String ssid, final String adress, final String city) {
-    patientController.updatePatient(patientId, name, surname, ssid, adress, city);
-  }
-
-  public void updateHealthProfessional(final String healthProfessionalId, final String name,
-      final String surname, final String rpps, final HPSpeciality speciality) {
-    healthProfessionalController.updateHealthProfessional(healthProfessionalId, name, surname,
-        rpps, speciality);
-  }
-
-  public void updatePrescription(final String prescriptionId, final String content,
-      final String quantite, final String idPrescription, 
-      final String idHP, final String idPatient) {
-    prescriptionController.updatePrescription(prescriptionId, content, quantite, idPrescription,
-        idHP, idPatient);
-  }
-
-  public HealthProfessionalController getHealthProfessionalController() {
-    return healthProfessionalController;
-  }
-
-  public PatientController getPatientController() {
-    return patientController;
-  }
-
-  public PrescriptionController getPrescriptionController() {
-    return prescriptionController;
+  public void getPatientInfos(final String patientId) throws NameNotFoundException, 
+    InvalidNameException {
+    healthProfessionalBusinessController.getPatientInfos(patientId);
   }
 }

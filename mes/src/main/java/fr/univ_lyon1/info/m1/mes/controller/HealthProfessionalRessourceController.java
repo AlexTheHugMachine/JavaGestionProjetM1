@@ -29,7 +29,7 @@ public class HealthProfessionalRessourceController {
         healthProfessionalRessource.delete(hPDto);
     }
 
-    public void createDtoHealthProfessional(final HealthProfessionalRequestDto hPDto) throws NameAlreadyBoundException {
+    public void createHealthProfessional(final HealthProfessionalRequestDto hPDto) throws NameAlreadyBoundException {
         healthProfessionalRessource.create(hPDto);
     }
 
