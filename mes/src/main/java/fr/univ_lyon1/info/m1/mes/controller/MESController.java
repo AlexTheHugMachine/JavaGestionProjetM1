@@ -1,17 +1,17 @@
 package fr.univ_lyon1.info.m1.mes.controller;
 
-import java.io.FileNotFoundException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
-import javax.naming.NameAlreadyBoundException;
-
-import fr.univ_lyon1.info.m1.mes.model.MESFileReader;
 import fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal.HealthProfessionalBuilder;
 import fr.univ_lyon1.info.m1.mes.builders.Patient.PatientBuilder;
-import fr.univ_lyon1.info.m1.mes.constants.Constants;
 import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
+import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
+import fr.univ_lyon1.info.m1.mes.model.Patient.operations.PatientBusiness;
 
 /**
  * Master controler of the app.
@@ -19,53 +19,107 @@ import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
  */
 public class MESController {
 
-  private final PatientBuilder patientBuilder;
-  private final HealthProfessionalBuilder hpBuilder;
-  private final PatientDAO patientDAO;
-  private final HealthProfessionalDAO healthProfessionalDAO;
+  private final PatientController patientController;
+  private final HealthProfessionalController healthProfessionalController;
+  private final PatientsBusinessController patientBusinessController;
+  private final HealthProfessionnalBusinessController healthProfessionalBusinessController;
 
   public MESController(
-      final PatientBuilder patientBuilder,
-      final HealthProfessionalBuilder healthProfessionalBuilder,
-      final PatientDAO patientDAO,
-      final HealthProfessionalDAO healthProfessionalDAO) {
-    this.hpBuilder = healthProfessionalBuilder;
-    this.patientBuilder = patientBuilder;
-    this.patientDAO = patientDAO;
-    this.healthProfessionalDAO = healthProfessionalDAO;
-  }
-
-  // Read file
-  // Build List of T element
-  private void initializeLocalDatabase(final PatientBuilder builder, final String filename)
-      throws NameAlreadyBoundException {
-    this.initializePatientDAO(filename, builder);
-    //this.initializeHealthProfessionnalDAO(filename, builder);
-  }
-
-  private void initializePatientDAO(final String filename, final PatientBuilder builder)
-      throws NameAlreadyBoundException {
-    ArrayList<String[]> list;
-    try {
-      list = MESFileReader.readFile(Constants.getLocalPath() + filename);
-      list.forEach(row -> {
-
-        //patientDAO.add(patient);
-      });
-    } catch (FileNotFoundException
-        | NullPointerException
-        | NoSuchElementException
-        | IllegalStateException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    final PatientDAO patientDAO,
+    final HealthProfessionalDAO healthProfessionalDAO,
+    final PrescriptionDAO prescriptionDAO,
+    final PatientBuilder patientBuilder,
+    final HealthProfessionalBuilder healthProfessionalBuilder) {
+      this.patientController = new PatientController(patientDAO, prescriptionDAO,  patientBuilder);
+      this.healthProfessionalController = new 
+        HealthProfessionalController(healthProfessionalDAO, 
+          prescriptionDAO, healthProfessionalBuilder);
     }
+
+  /*public MESController(
+      final PatientController patientController,
+      final HealthProfessionalController healthProfessionalController,
+      final PrescriptionController prescriptionController) {
+    this.patientController = patientController;
+    this.healthProfessionalController = healthProfessionalController;
+    this.prescriptionController = prescriptionController;
+  }*/
+
+  public void addPatientFromHP(final String name, final String surname, final String ssid,
+      final String adress, final String city) {
+    healthProfessionalController.createDtoPatient(name, surname, ssid, adress, city);
   }
 
-  public HealthProfessionalDAO getHealthProfessionalDAO() {
-    return healthProfessionalDAO;
+  public void addHealthProfessional(final String name, final String surname, final String rpps,
+      final String speciality) {
+    healthProfessionalController.createDtoHealthProfessional(name, surname, rpps, speciality);
   }
 
-  public PatientDAO getPatientDAO() {
-    return patientDAO;
+  public void addPrescription(final String content, final String quantite,
+      final String idPrescription, final String idHP, final String idPatient) {
+    healthProfessionalController.createDtoPrescription(content, quantite, 
+      idPrescription, idHP, idPatient);
+  }
+
+  public void removePatient(final String patientId) {
+    patientController.removePatient(patientId);
+  }
+
+  public void removeHealthProfessional(final String healthProfessionalId) {
+    healthProfessionalController.removeHealthProfessional(healthProfessionalId);
+  }
+
+  public void removePrescriptionFromHP(final String prescriptionId) {
+    healthProfessionalController.removePrescription(prescriptionId);
+  }
+
+  public void removePrescriptionFromPatient(final String prescriptionId) {
+    patientController.removePrescription(prescriptionId);
+  }
+
+  public Patient getgetPrescriptionsPatientFromPatient(final String patientId) {
+    return patientController.getPatient(patientId);
+  }
+
+  public ArrayList<Patient> getPatients() {
+    return patientController.getPatients();
+  }
+
+  public HealthProfessional getHealthProfessional(final String healthProfessionalId) {
+    return healthProfessionalController.getHealthProfessional(healthProfessionalId);
+  }
+
+  public ArrayList<HealthProfessional> getHealthProfessionals() {
+    return healthProfessionalController.getHealthProfessionals();
+  }
+
+  public void updatePatient(final String patientId, final String name, final String surname,
+      final String ssid, final String adress, final String city) {
+    patientController.updatePatient(patientId, name, surname, ssid, adress, city);
+  }
+
+  public void updateHealthProfessional(final String healthProfessionalId, final String name,
+      final String surname, final String rpps, final HPSpeciality speciality) {
+    healthProfessionalController.updateHealthProfessional(healthProfessionalId, name, surname,
+        rpps, speciality);
+  }
+
+  public void updatePrescription(final String prescriptionId, final String content,
+      final String quantite, final String idPrescription, 
+      final String idHP, final String idPatient) {
+    prescriptionController.updatePrescription(prescriptionId, content, quantite, idPrescription,
+        idHP, idPatient);
+  }
+
+  public HealthProfessionalController getHealthProfessionalController() {
+    return healthProfessionalController;
+  }
+
+  public PatientController getPatientController() {
+    return patientController;
+  }
+
+  public PrescriptionController getPrescriptionController() {
+    return prescriptionController;
   }
 }

@@ -9,6 +9,7 @@ import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 
 /**
@@ -30,7 +31,7 @@ public class PatientBusiness {
    * @throws NameNotFoundException Si on ne trouve pas de prescription
    *                               correspondant à ce patient.
    */
-  public List<Prescription> getPrescriptionsPatient(final Patient patient)
+  public List<Prescription> getPrescriptionsPatient(final PatientRequestDto patient)
       throws NameNotFoundException {
     try {
       return prescriptionDao.findByPatientId(patient.getSSID());
@@ -64,7 +65,7 @@ public class PatientBusiness {
    * @throws InvalidNameException     Si la syntaxe de la clé n'est pas valide.
    * @throws IllegalArgumentException message = "SSID are not the same".
    */
-  public void changeLocationInformations(final Patient patient,
+  public void changeLocationInformations(final PatientRequestDto patient,
       final String adress, final String city)
       throws InvalidNameException, IllegalArgumentException {
     ArgumentChecker.checkStringNotNullOrEmpty(city);
@@ -76,7 +77,7 @@ public class PatientBusiness {
     patientDAO.update(patient.getSSID(), patientWithUpdatedInfo);
   }
 
-  public void changeSurname(final Patient patient, final String surname)
+  public void changeSurname(final PatientRequestDto patient, final String surname)
    throws InvalidNameException, IllegalArgumentException {
     ArgumentChecker.checkStringNotNullOrEmpty(surname);
     Patient patientWithUpdatedInfo = new Patient(

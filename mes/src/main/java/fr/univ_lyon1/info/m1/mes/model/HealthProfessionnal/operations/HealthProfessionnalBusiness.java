@@ -12,6 +12,7 @@ import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 
 /**
@@ -67,7 +68,7 @@ public class HealthProfessionnalBusiness {
   }
 
   // TODO : Checker dans le BusinessController que prescription n'est pas null.
-  public boolean addprescription(final Prescription prescription)
+  public boolean addprescription(final PrescriptionRequestDto prescription)
       throws NameNotFoundException,
       InvalidNameException,
       NameAlreadyBoundException {
