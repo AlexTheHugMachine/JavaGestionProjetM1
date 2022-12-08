@@ -12,16 +12,16 @@ import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 public class PatientDAO extends AbstractMapDao<Patient> {
   @Override
   protected Serializable getKeyForElement(final Patient element) {
-    return element.getSSID();
+    return element.getSsID();
   }
 
   @Override
   public void update(final Serializable key, final Patient element)
       throws IllegalArgumentException {
     try {
-      Patient patientStored = findOne(element.getSSID());
-      if (patientStored.getSSID().equals(element.getSSID())) {
-        super.update(element.getSSID(), element);
+      Patient patientStored = findOne(element.getSsID());
+      if (patientStored.getSsID().equals(element.getSsID())) {
+        super.update(element.getSsID(), element);
       }
     } catch (NameNotFoundException e) {
       throw new IllegalArgumentException("SSID must be the same.");

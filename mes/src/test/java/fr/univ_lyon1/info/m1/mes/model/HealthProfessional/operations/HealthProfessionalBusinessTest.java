@@ -90,7 +90,7 @@ public class HealthProfessionalBusinessTest {
       assertAll(
           () -> assertEquals("John", patient.getName()),
           () -> assertEquals("Wick", patient.getSurname()),
-          () -> assertEquals("6968686787598", patient.getSSID()));
+          () -> assertEquals("6968686787598", patient.getSsID()));
     } catch (NameNotFoundException e) {
       fail("Patient not found");
     }
@@ -116,7 +116,7 @@ public class HealthProfessionalBusinessTest {
   @Test
   void getPrescriptionsPatientReturnAllTheExpectedPrescriptionsGivenToAPatient() {
     try {
-      List<Prescription> actualList = hpBusiness.getPrescriptionsPatient(john.getSSID());
+      List<Prescription> actualList = hpBusiness.getPrescriptionsPatient(john.getSsID());
 
       List<Prescription> expectedList = new ArrayList<Prescription>();
       expectedList.add(doSomeSports);
@@ -167,7 +167,7 @@ public class HealthProfessionalBusinessTest {
       String hpOfThePatient = "12345678919";
       List<Prescription> actualList = hpBusiness.getPrescriptionsGivenByHP(
           hpOfThePatient,
-          jack.getSSID());
+          jack.getSsID());
 
       List<Prescription> expectedList = new ArrayList<Prescription>();
       expectedList.add(doliprane1000);

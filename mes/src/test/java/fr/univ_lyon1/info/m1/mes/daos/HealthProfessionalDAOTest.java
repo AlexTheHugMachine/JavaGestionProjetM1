@@ -29,6 +29,11 @@ import org.junit.jupiter.api.Test;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 
+/**
+ * Nous testons toutes les instances de AbstractDAO car c'est un anti pattern de
+ * tester seuelemnt la classe abstraite.
+ * https://enterprisecraftsmanship.com/posts/how-to-unit-test-an-abstract-class/
+ */
 public class HealthProfessionalDAOTest {
     private HealthProfessionalDAO hpDAO;
 

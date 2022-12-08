@@ -9,7 +9,7 @@ import fr.univ_lyon1.info.m1.mes.utils.Validator;
 public class Patient {
     private String name;
     private String surname;
-    private final String ssID;
+    private String ssID;
     private String adress;
     private String city;
 
@@ -47,7 +47,7 @@ public class Patient {
         return name;
     }
 
-    public String getSSID() {
+    public String getSsID() {
         return ssID;
     }
 
@@ -61,5 +61,27 @@ public class Patient {
 
     public String getCity() {
         return city;
+    }
+
+    // Never actually used except for write purpose to local file.
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public void setSsID(final String ssID) {
+        this.ssID = ssID;
+    }
+
+    public void setSurname(final String surname) {
+        this.surname = surname;
+    }
+
+    public void setAdress(final String adress) {
+        this.adress = adress;
+    }
+
+    public void setCity(final String city) {
+        this.city = city;
     }
 }

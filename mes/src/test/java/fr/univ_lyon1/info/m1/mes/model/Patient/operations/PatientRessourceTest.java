@@ -108,16 +108,16 @@ public class PatientRessourceTest {
     PatientRequestDto newInformationsOnEric = new PatientRequestDto(
         eric.getName(),
         eric.getSurname(),
-        eric.getSSID(),
+        eric.getSsID(),
         "76 avenue Guichard",
         "Lyon");
     assertTrue(patientRessource.update(newInformationsOnEric));
     try {
-      Patient newPatientStored = patientRessource.readOne(eric.getSSID());
+      Patient newPatientStored = patientRessource.readOne(eric.getSsID());
       assertAll(
           () -> assertEquals(newPatientStored.getName(), "Eric"),
           () -> assertEquals(newPatientStored.getSurname(), "Zemmour"),
-          () -> assertEquals(newPatientStored.getSSID(), "0862183792365"),
+          () -> assertEquals(newPatientStored.getSsID(), "0862183792365"),
           () -> assertEquals(newPatientStored.getAdress(),
               "76 avenue Guichard"),
           () -> assertEquals(newPatientStored.getCity(), "Lyon"));
@@ -146,13 +146,13 @@ public class PatientRessourceTest {
     PatientRequestDto newInformationsOnEric = new PatientRequestDto(
         "",
         eric.getSurname(),
-        eric.getSSID(),
+        eric.getSsID(),
         "76 avenue Guichard",
         "Lyon");
     PatientRequestDto newInfosWithNull = new PatientRequestDto(
         null,
         eric.getSurname(),
-        eric.getSSID(),
+        eric.getSsID(),
         "76 avenue Guichard",
         "Lyon");
     String argCheckerEmpty = "ArgumentChecker Failed Empty element. ";
@@ -178,13 +178,13 @@ public class PatientRessourceTest {
     PatientRequestDto newInformationsOnEric = new PatientRequestDto(
         "Enzo",
         "",
-        eric.getSSID(),
+        eric.getSsID(),
         "76 avenue Guichard",
         "Lyon");
     PatientRequestDto newInfosWithNull = new PatientRequestDto(
         "Enzo",
         null,
-        eric.getSSID(),
+        eric.getSsID(),
         "76 avenue Guichard",
         "Lyon");
     String argCheckerEmpty = "ArgumentChecker Failed Empty element. ";
@@ -214,12 +214,12 @@ public class PatientRessourceTest {
   @Test
   void deleteByIdProperlyRemovePatientAndReturnTrue() {
     try {
-      assertTrue(patientRessource.deleteById(eric.getSSID()));
+      assertTrue(patientRessource.deleteById(eric.getSsID()));
     } catch (NameNotFoundException e) {
       fail("Should not throw this exception because the patient exist.");
     }
     assertThrows(NameNotFoundException.class,
-        () -> patientRessource.readOne(eric.getSSID()));
+        () -> patientRessource.readOne(eric.getSsID()));
   }
 
   @Test
@@ -258,7 +258,7 @@ public class PatientRessourceTest {
     PatientRequestDto patientRequest = new PatientRequestDto(
         eric.getName(),
         eric.getSurname(),
-        eric.getSSID(),
+        eric.getSsID(),
         eric.getAdress(),
         eric.getCity());
     try {
@@ -267,7 +267,7 @@ public class PatientRessourceTest {
       fail("Should not return NameNotFoundException because the patient is in the DAO.");
     }
     assertThrows(NameNotFoundException.class,
-        () -> patientRessource.readOne(eric.getSSID()));
+        () -> patientRessource.readOne(eric.getSsID()));
   }
 
   @Test
@@ -312,7 +312,7 @@ public class PatientRessourceTest {
       assertAll(
           () -> assertEquals(patientCreated.getName(), "John"),
           () -> assertEquals(patientCreated.getSurname(), "Doe"),
-          () -> assertEquals(patientCreated.getSSID(), "0862183792366"),
+          () -> assertEquals(patientCreated.getSsID(), "0862183792366"),
           () -> assertEquals(patientCreated.getAdress(),
               "76 avenue Guichard"),
           () -> assertEquals(patientCreated.getCity(), "Lyon"));
@@ -326,7 +326,7 @@ public class PatientRessourceTest {
     PatientRequestDto patientRequest = new PatientRequestDto(
         eric.getName(),
         eric.getSurname(),
-        eric.getSSID(),
+        eric.getSsID(),
         eric.getAdress(),
         eric.getCity());
     Exception e = assertThrows(NameAlreadyBoundException.class,
@@ -363,7 +363,7 @@ public class PatientRessourceTest {
     PatientRequestDto patientRequest = new PatientRequestDto(
         null,
         eric.getSurname(),
-        eric.getSSID(),
+        eric.getSsID(),
         eric.getAdress(),
         eric.getCity());
     Exception e = assertThrows(IllegalArgumentException.class,
@@ -379,7 +379,7 @@ public class PatientRessourceTest {
     PatientRequestDto patientRequest = new PatientRequestDto(
         eric.getName(),
         null,
-        eric.getSSID(),
+        eric.getSsID(),
         eric.getAdress(),
         eric.getCity());
     Exception e = assertThrows(IllegalArgumentException.class,

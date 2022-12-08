@@ -39,7 +39,7 @@ public class PatientBuilderTest {
 
   @Test
   public void patientBuilderCorrectlySetSSID() {
-    assertEquals("2032321312321", p.getSSID());
+    assertEquals("2032321312321", p.getSsID());
   }
 
   @Test
@@ -62,7 +62,7 @@ public class PatientBuilderTest {
     assertAll("The patient should be initialized with an Adress and City Empty",
         () -> assertEquals("Enzo", pWithoutAdressCity.getName()),
         () -> assertEquals("CECILLON", pWithoutAdressCity.getSurname()),
-        () -> assertEquals("2202202212342", pWithoutAdressCity.getSSID()),
+        () -> assertEquals("2202202212342", pWithoutAdressCity.getSsID()),
         () -> assertEquals("", pWithoutAdressCity.getAdress()),
         () -> assertEquals("", pWithoutAdressCity.getCity()));
   }

@@ -39,7 +39,7 @@ public class PatientTest {
     // Given
     Patient p = new Patient("John", "DOE", "2020212345678", "", "");
     // When
-    String patientSsID = p.getSSID();
+    String patientSsID = p.getSsID();
     // Then
     assertThat(patientSsID, is("2020212345678"));
   }

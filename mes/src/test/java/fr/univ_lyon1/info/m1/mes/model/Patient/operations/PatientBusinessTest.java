@@ -113,7 +113,7 @@ public class PatientBusinessTest {
     try {
       // Integration
       getPrescriptionsPatientReturnTheListOfPresctionGivenAPatientObject();
-      patientBusiness.removePrescription(doliprane500.getId(), john.getSSID());
+      patientBusiness.removePrescription(doliprane500.getId(), john.getSsID());
       assertThat("Dolprane 500 is not in the prescriptions list of the patient anymore",
           patientBusiness.getPrescriptionsPatient(john), not(hasItem(doliprane500)));
     } catch (InvalidNameException | NameNotFoundException | IllegalAccessException e) {
@@ -124,7 +124,7 @@ public class PatientBusinessTest {
   @Test
   void removePrescriptionThrowIllegalAccessWhenRemovingAPrescriptionWithDifferentPatientId() {
     final Exception e = assertThrows(IllegalAccessException.class,
-        () -> patientBusiness.removePrescription(doliprane500.getId(), jack.getSSID()));
+        () -> patientBusiness.removePrescription(doliprane500.getId(), jack.getSsID()));
 
     String actualMessage = e.getMessage();
     String expectedMessage = "This prescription is not assign to you.";
@@ -135,7 +135,7 @@ public class PatientBusinessTest {
   @Test
   void removePrescriptionOfAnUnExistingPrescriptionThrowException() {
     final Exception e = assertThrows(NameNotFoundException.class,
-        () -> patientBusiness.removePrescription("123456789098", john.getSSID()));
+        () -> patientBusiness.removePrescription("123456789098", john.getSsID()));
 
     String actualMessage = e.getMessage();
 
@@ -145,7 +145,7 @@ public class PatientBusinessTest {
   @Test
   void removePrescriptionOfAnUnExistingPatientThrowException() {
     final Exception e = assertThrows(IllegalAccessException.class,
-        () -> patientBusiness.removePrescription(doliprane500.getId(), jean.getSSID()));
+        () -> patientBusiness.removePrescription(doliprane500.getId(), jean.getSsID()));
 
     String actualMessage = e.getMessage();
 

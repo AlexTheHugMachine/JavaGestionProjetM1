@@ -25,11 +25,7 @@ public class AppStartup extends AbstractAppStartup {
       NullPointerException,
       NoSuchElementException,
       IllegalStateException {
-    this.prescriptionDAO = new PrescriptionDAO();
-    this.patientBuilder = new PatientBuilder();
-    this.hpBuilder = new HealthProfessionalBuilder();
-    this.patientDAO = new PatientDAO();
-    this.hpDAO = new HealthProfessionalDAO();
+
 
     initializeDataWithLocalFiles();
     // Créer l'objet MES avec tous les objects.
@@ -66,7 +62,7 @@ public class AppStartup extends AbstractAppStartup {
           "PatientList.txt",
           this.patientBuilder,
           this.patientDAO);
-    } catch (FileNotFoundException | NullPointerException | NoSuchElementException 
+    } catch (FileNotFoundException | NullPointerException | NoSuchElementException
     | IllegalStateException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -76,7 +72,7 @@ public class AppStartup extends AbstractAppStartup {
           "HealthProfessionnalList.txt",
           this.hpBuilder,
           this.hpDAO);
-    } catch (FileNotFoundException | NullPointerException | NoSuchElementException 
+    } catch (FileNotFoundException | NullPointerException | NoSuchElementException
     | IllegalStateException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -86,7 +82,7 @@ public class AppStartup extends AbstractAppStartup {
           "PrescriptionList.txt",
           this.prescriptionDAO,
           this.prescriptionDAO);
-    } catch (FileNotFoundException | NullPointerException | NoSuchElementException 
+    } catch (FileNotFoundException | NullPointerException | NoSuchElementException
     | IllegalStateException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

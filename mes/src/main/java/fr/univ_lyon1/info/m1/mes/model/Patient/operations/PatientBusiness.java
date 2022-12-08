@@ -34,7 +34,7 @@ public class PatientBusiness {
   public List<Prescription> getPrescriptionsPatient(final Patient patient)
       throws NameNotFoundException {
     try {
-      return prescriptionDao.findByPatientId(patient.getSSID());
+      return prescriptionDao.findByPatientId(patient.getSsID());
     } catch (NameNotFoundException e) {
       throw new NameNotFoundException("No prescriptions have been found.");
     }

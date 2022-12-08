@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
@@ -28,6 +27,11 @@ import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 
+/**
+ * Nous testons toutes les instances de AbstractDAO car c'est un anti pattern de
+ * tester seuelemnt la classe abstraite.
+ * https://enterprisecraftsmanship.com/posts/how-to-unit-test-an-abstract-class/
+ */
 public class PrescriptionDAOTest {
   private Prescription doliprane500;
   private Prescription doliprane1000;

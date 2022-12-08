@@ -39,7 +39,7 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
       throws NameAlreadyBoundException {
     String name = element.getName();
     String surname = element.getSurname();
-    String ssID = element.getSSID();
+    String ssID = element.getSsID();
     String adress = element.getAdress();
     String city = element.getCity();
 
@@ -51,7 +51,7 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
         .build();
 
     patientDao.add(patient);
-    return patient.getSSID();
+    return patient.getSsID();
   }
 
   @Override
@@ -76,7 +76,7 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
   public Boolean update(final PatientRequestDto element) {
     String name = element.getName();
     String surname = element.getSurname();
-    String ssID = element.getSSID();
+    String ssID = element.getSsID();
     String adress = element.getAdress();
     String city = element.getCity();
 
@@ -113,7 +113,7 @@ public class PatientRessource implements RessourceInterface<PatientRequestDto, P
   public void delete(final PatientRequestDto patient)
       throws NameNotFoundException {
     try {
-      Patient storedPatient = patientDao.findOne(patient.getSSID());
+      Patient storedPatient = patientDao.findOne(patient.getSsID());
       patientDao.delete(storedPatient);
     } catch (NameNotFoundException | NullPointerException e) {
       throw new NameNotFoundException("This patient does not exist.");

@@ -9,7 +9,7 @@ import fr.univ_lyon1.info.m1.mes.utils.Validator;
 public class HealthProfessional {
     private String name;
     private String surname;
-    private final String rpps;
+    private String rpps;
     private final HPSpeciality speciality;
 
     public HealthProfessional(final String name, final String surname, final String rpps,

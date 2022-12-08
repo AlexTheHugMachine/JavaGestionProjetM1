@@ -5,8 +5,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import fr.univ_lyon1.info.m1.mes.constants.Constants;
-import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
-import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
 
 /**
  * Parse une requête passé en paramètre selon son type dans des DTO afin d'avoir
@@ -30,46 +28,29 @@ public interface ContentNegotiator {
    * @throws IOException                   si le payload de la requête ne peut pas
    *                                       être lu ou s'il ne correspond pas à la
    *                                       classe du DTO
-   * @throws UnsupportedOperationException si le type de fichier spécifié n'est pas supporté
+   * @throws UnsupportedOperationException si le type de fichier spécifié n'est
+   *                                       pas supporté
    */
   static Object getDtoFromRequest(Class<?> dtoType, String contentType, String filename)
       throws UnsupportedOperationException, IOException {
     String dtoTypeName = dtoType.getSimpleName();
     switch (dtoTypeName) {
-      case "PatientRequestDto":
-        // Lis le fichier.
-        // Créer le DTO
-        Map<String, Object> patient = getParsedMapOfTheRequestedFile(
+      case "Patient":
+        return getParsedMapOfTheRequestedFile(
             contentType,
+            dtoType,
             Constants.getPatientPath() + filename);
-        return new PatientRequestDto(
-            (String) patient.get("name"),
-            (String) patient.get("surname"),
-            (String) patient.get("SSID"),
-            (String) patient.get("adress"),
-            (String) patient.get("city"));
-
-      case "HealthProfessionalRequestDto":
-        Map<String, Object> hp = getParsedMapOfTheRequestedFile(
+      case "HealthProfessional":
+        return getParsedMapOfTheRequestedFile(
             contentType,
+            dtoType,
             Constants.getHpPath() + filename);
-        return new PatientRequestDto(
-            (String) hp.get("name"),
-            (String) hp.get("surname"),
-            (String) hp.get("RPPS"),
-            (String) hp.get("adress"),
-            (String) hp.get("city"));
 
-      case "PrescriptionRequestDto":
-        Map<String, Object> prescription = getParsedMapOfTheRequestedFile(
+      case "Prescription":
+        return getParsedMapOfTheRequestedFile(
             contentType,
+            dtoType,
             Constants.getPrescriptionPath() + filename);
-        return new PrescriptionRequestDto(
-            (String) prescription.get("content"),
-            (String) prescription.get("quantite"),
-            "", // Will be generated inside the constructor.
-            (String) prescription.get("idHealthProfessionnal"),
-            (String) prescription.get("idPatient"));
 
       default:
         throw new UnsupportedOperationException(
@@ -77,15 +58,18 @@ public interface ContentNegotiator {
     }
   }
 
-  static Map<String, Object> getParsedMapOfTheRequestedFile(String contentType, String filename)
+  static Object getParsedMapOfTheRequestedFile(
+      String contentType,
+      Class<?> dtoType,
+      String pathToFile)
       throws IOException, UnsupportedOperationException {
     switch (contentType) {
       case "yml":
-        return YmlFileHandler.readToMap(filename);
+        return YmlFileHandler.readToCustomType(pathToFile, dtoType);
       case "xml":
-        return xmlSpecificReadProcess(filename); // WIP
+        return xmlSpecificReadProcess(pathToFile); // WIP
       case "json":
-        return jsonSpecificReadProcess(filename); // WIP
+        return jsonSpecificReadProcess(pathToFile); // WIP
       default:
         throw new UnsupportedEncodingException("Type " + contentType + " non supporté.");
     }

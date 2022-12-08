@@ -28,6 +28,11 @@ import org.junit.jupiter.api.Test;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 
+/**
+ * Nous testons toutes les instances de AbstractDAO car c'est un anti pattern de
+ * tester seuelemnt la classe abstraite.
+ * https://enterprisecraftsmanship.com/posts/how-to-unit-test-an-abstract-class/
+ */
 public class PatientDAOTest {
   private PatientDAO patientDAO;
 
@@ -111,7 +116,7 @@ public class PatientDAOTest {
   @DisplayName("Assert that patientDAOs properly delete an Patient with his ID")
   public void deleteById() {
     try {
-      patientDAO.deleteById(eric.getSSID());
+      patientDAO.deleteById(eric.getSsID());
     } catch (NameNotFoundException e) {
       fail("Patient not existing " + e.getMessage());
     }
@@ -134,15 +139,15 @@ public class PatientDAOTest {
   @DisplayName("Assert that DAOs properly update the Patient informations")
   public void update() {
     Patient toto = new Patient("toto", "titi",
-        eric.getSSID(), "1410 avenue jean dupont", "Jardin");
-    patientDAO.update(eric.getSSID(), toto);
+        eric.getSsID(), "1410 avenue jean dupont", "Jardin");
+    patientDAO.update(eric.getSsID(), toto);
     Patient newEric;
     try {
-      newEric = patientDAO.findOne(toto.getSSID());
+      newEric = patientDAO.findOne(toto.getSsID());
       assertAll(
           () -> assertEquals(newEric.getName(), "toto"),
           () -> assertEquals(newEric.getSurname(), "titi"),
-          () -> assertEquals(newEric.getSSID(), "0862183792365"),
+          () -> assertEquals(newEric.getSsID(), "0862183792365"),
           () -> assertEquals(newEric.getAdress(), "1410 avenue jean dupont"),
           () -> assertEquals(newEric.getCity(), "Jardin"));
     } catch (NameNotFoundException e) {
@@ -152,7 +157,7 @@ public class PatientDAOTest {
 
   @Test
   void searchForPatientAndReturnItsIdStoredInDAO() {
-    assertEquals(john.getSSID(), patientDAO.getId(john));
+    assertEquals(john.getSsID(), patientDAO.getId(john));
   }
 
   @Test
@@ -160,11 +165,11 @@ public class PatientDAOTest {
     // Given
     Set<Serializable> everySSIDStoredInDAO = patientDAO.getAllIds();
     Set<Serializable> expectedListOfIds = new HashSet<>();
-    expectedListOfIds.add(john.getSSID());
-    expectedListOfIds.add(doe.getSSID());
-    expectedListOfIds.add(jack.getSSID());
-    expectedListOfIds.add(james.getSSID());
-    expectedListOfIds.add(eric.getSSID());
+    expectedListOfIds.add(john.getSsID());
+    expectedListOfIds.add(doe.getSsID());
+    expectedListOfIds.add(jack.getSsID());
+    expectedListOfIds.add(james.getSsID());
+    expectedListOfIds.add(eric.getSsID());
     assertEquals(expectedListOfIds, everySSIDStoredInDAO);
   }
 
@@ -174,7 +179,7 @@ public class PatientDAOTest {
     Patient titi = new Patient(
         "titi", "titi", "0975310954287", "", "");
     Exception message = assertThrows(IllegalArgumentException.class, () -> {
-      patientDAO.update(eric.getSSID(), titi);
+      patientDAO.update(eric.getSsID(), titi);
     });
     String expectedMessage = "SSID must be the same.";
     String actualMessage = message.getMessage();
@@ -186,9 +191,9 @@ public class PatientDAOTest {
   @DisplayName("Assert that DAOs properly retrieve the right Patient with his id and handle errors")
   public void findOne() {
     try {
-      assertEquals(patientDAO.findOne(eric.getSSID()), eric);
-      assertNotEquals(patientDAO.findOne(eric.getSSID()), john);
-      assertNotEquals(patientDAO.findOne(john.getSSID()), eric);
+      assertEquals(patientDAO.findOne(eric.getSsID()), eric);
+      assertNotEquals(patientDAO.findOne(eric.getSsID()), john);
+      assertNotEquals(patientDAO.findOne(john.getSsID()), eric);
 
     } catch (NameNotFoundException e) {
       fail("Can't access or retrieve Patient " + e.getMessage());

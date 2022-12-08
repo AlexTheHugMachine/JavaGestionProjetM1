@@ -3,7 +3,7 @@ package fr.univ_lyon1.info.m1.mes.dto.patient;
 public class PatientRequestDto {
   private String name;
   private String surname;
-  private final String ssID;
+  private String ssID;
   private String adress;
   private String city;
 
@@ -23,7 +23,7 @@ public class PatientRequestDto {
     return name;
   }
 
-  public String getSSID() {
+  public String getSsID() {
     return ssID;
   }
 
@@ -53,5 +53,14 @@ public class PatientRequestDto {
 
   public void setCity(final String city) {
     this.city = city;
+  }
+
+  public void setssID(final String ssID) {
+    this.ssID = ssID;
+  }
+
+  // On a besoin du constructeur par défaut pour que snakeYML parse les données
+  // pour ces classes.
+  public PatientRequestDto() {
   }
 }

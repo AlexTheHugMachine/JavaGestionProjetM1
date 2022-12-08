@@ -12,19 +12,19 @@ package fr.univ_lyon1.info.m1.mes.dto.healthprofessional;
 public class HealthProfessionalRequestDto {
   private String name;
   private String surname;
-  private final String rpps;
+  private String rpps;
   private String speciality;
 
   public HealthProfessionalRequestDto(
-    final String name,
-    final String surname,
-    final String rpps,
-    final String speciality) {
-        this.name = name;
-        this.surname = surname;
-        this.rpps = rpps;
-        this.speciality = speciality;
-    }
+      final String name,
+      final String surname,
+      final String rpps,
+      final String speciality) {
+    this.name = name;
+    this.surname = surname;
+    this.rpps = rpps;
+    this.speciality = speciality;
+  }
 
   public String getName() {
     return name;
@@ -52,5 +52,12 @@ public class HealthProfessionalRequestDto {
 
   public void setSpeciality(final String speciality) {
     this.speciality = speciality;
+  }
+
+  public void setRpps(final String rpps) {
+    this.rpps = rpps;
+  }
+
+  HealthProfessionalRequestDto() {
   }
 }
