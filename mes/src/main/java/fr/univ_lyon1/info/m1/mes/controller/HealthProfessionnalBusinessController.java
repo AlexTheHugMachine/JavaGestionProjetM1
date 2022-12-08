@@ -5,6 +5,11 @@ import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
+import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
+import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
+import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.operations.HealthProfessionnalBusiness;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 
@@ -23,28 +28,47 @@ import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 public class HealthProfessionnalBusinessController {
   private HealthProfessionnalBusiness hpBusiness;
 
-  public Object handler(final String action, final Object[] args)
-      throws NameNotFoundException,
-      InvalidNameException,
-      NameAlreadyBoundException {
-    switch (action) {
-      case "getPatientBySSID":
-        return hpBusiness.getPatientBySSID((String) args[0]);
-      case "getPatientInfos":
-        return hpBusiness.getPatientInfos((String) args[0]);
-      case "addPrescription":
-        return hpBusiness.addprescription((Prescription) args[0]);
-      case "removePrescription":
-        return hpBusiness.removePrescription((String) args[0]);
-      case "createPatient":
-        return hpBusiness.createPatient((Patient) args[0]);
-      default:
-        throw new IllegalArgumentException("No valid action has been passed.");
-    }
+  public HealthProfessionnalBusinessController(
+      final HealthProfessionalDAO hpDAO,
+      final PatientDAO patientDAO,
+      final PrescriptionDAO prescriptionDAO) {
+    hpBusiness = new HealthProfessionnalBusiness(patientDAO,
+        prescriptionDAO, hpDAO);
   }
 
-  public HealthProfessionnalBusinessController(final HealthProfessionnalBusiness hpBusiness) {
-    this.hpBusiness = hpBusiness;
+  public Patient getPatientBySSID(final String patientSSID)
+      throws NameNotFoundException, InvalidNameException {
+    return hpBusiness.getPatientBySSID(patientSSID);
   }
 
+  public Patient getPatientInfos(final String idPatient)
+      throws NameNotFoundException, InvalidNameException {
+    return hpBusiness.getPatientInfos(idPatient);
+  }
+
+  public void addPrescription(final PrescriptionRequestDto prescriptionDto)
+      throws NameNotFoundException, NameAlreadyBoundException, InvalidNameException {
+    Prescription prescription = new Prescription(
+      prescriptionDto.getContent(), 
+      prescriptionDto.getQuantite(), 
+      prescriptionDto.getIdHealthProfessional(), 
+      prescriptionDto.getIdPatient());
+    hpBusiness.addprescription(prescription);
+  }
+
+  public void removePrescription(final String idPrescription)
+      throws NameNotFoundException, InvalidNameException {
+    hpBusiness.removePrescription(idPrescription);
+  }
+
+  public void createPatient(final PatientRequestDto patientDto)
+      throws NameAlreadyBoundException {
+    Patient patient = new Patient(
+      patientDto.getName(), 
+      patientDto.getSurname(), 
+      patientDto.getSSID(),
+      patientDto.getAdress(), 
+      patientDto.getCity());
+    hpBusiness.createPatient(patient);
+  }
 }

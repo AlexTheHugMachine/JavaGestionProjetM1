@@ -2,16 +2,21 @@ package fr.univ_lyon1.info.m1.mes.controller;
 
 import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.builders.HealthProfessionnal.HealthProfessionalBuilder;
 import fr.univ_lyon1.info.m1.mes.builders.Patient.PatientBuilder;
 import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Patient.operations.PatientBusiness;
+import javafx.print.Collation;
 
 /**
  * Master controler of the app.
@@ -32,8 +37,10 @@ public class MESController {
     final HealthProfessionalBuilder healthProfessionalBuilder) {
       this.patientController = new PatientController(patientDAO, prescriptionDAO,  patientBuilder);
       this.healthProfessionalController = new 
-        HealthProfessionalController(healthProfessionalDAO, 
-          prescriptionDAO, healthProfessionalBuilder);
+        HealthProfessionalController(healthProfessionalDAO, healthProfessionalBuilder);
+      this.patientBusinessController = new PatientsBusinessController(patientDAO, prescriptionDAO);
+      this.healthProfessionalBusinessController = new 
+        HealthProfessionnalBusinessController(healthProfessionalDAO, prescriptionDAO, patientDAO);
     }
 
   /*public MESController(
@@ -57,8 +64,9 @@ public class MESController {
 
   public void addPrescription(final String content, final String quantite,
       final String idPrescription, final String idHP, final String idPatient) {
-    healthProfessionalController.createDtoPrescription(content, quantite, 
-      idPrescription, idHP, idPatient);
+    PrescriptionRequestDto prescriptionRequestDto = new PrescriptionRequestDto(content, quantite, 
+    idPrescription, idHP, idPatient);
+    healthProfessionalBusinessController.addPrescription(prescriptionRequestDto);
   }
 
   public void removePatient(final String patientId) {
@@ -85,11 +93,11 @@ public class MESController {
     return patientController.getPatients();
   }
 
-  public HealthProfessional getHealthProfessional(final String healthProfessionalId) {
+  public HealthProfessional getHealthProfessional(final String healthProfessionalId) throws NameNotFoundException {
     return healthProfessionalController.getHealthProfessional(healthProfessionalId);
   }
 
-  public ArrayList<HealthProfessional> getHealthProfessionals() {
+  public Collection<HealthProfessional> getHealthProfessionals() {
     return healthProfessionalController.getHealthProfessionals();
   }
 
