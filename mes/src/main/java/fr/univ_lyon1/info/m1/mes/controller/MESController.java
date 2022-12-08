@@ -1,9 +1,5 @@
 package fr.univ_lyon1.info.m1.mes.controller;
 
-import java.lang.ProcessBuilder.Redirect;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
@@ -16,11 +12,6 @@ import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.dto.healthprofessional.HealthProfessionalRequestDto;
 import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
-import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
-import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
-import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
-import fr.univ_lyon1.info.m1.mes.model.Patient.operations.PatientBusiness;
-import javafx.print.Collation;
 
 /**
  * Master controler of the app.

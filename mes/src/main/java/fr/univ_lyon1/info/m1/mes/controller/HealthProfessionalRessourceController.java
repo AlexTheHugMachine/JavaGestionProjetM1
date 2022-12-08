@@ -1,5 +1,6 @@
 package fr.univ_lyon1.info.m1.mes.controller;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.naming.NameAlreadyBoundException;
@@ -29,8 +30,8 @@ public class HealthProfessionalRessourceController {
         healthProfessionalRessource.delete(hPDto);
     }
 
-    public void createHealthProfessional(final HealthProfessionalRequestDto hPDto) throws NameAlreadyBoundException {
-        healthProfessionalRessource.create(hPDto);
+    public Serializable createHealthProfessional(final HealthProfessionalRequestDto hPDto) throws NameAlreadyBoundException {
+        return healthProfessionalRessource.create(hPDto);
     }
 
     public HealthProfessional getHealthProfessional(final String healthProfessionalId) 
