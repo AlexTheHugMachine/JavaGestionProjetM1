@@ -8,9 +8,6 @@ import fr.univ_lyon1.info.m1.mes.builders.Patient.PatientBuilder;
 import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
-import fr.univ_lyon1.info.m1.mes.initializer.HealthProfessionalInitializer;
-import fr.univ_lyon1.info.m1.mes.initializer.PatientInitializer;
-import fr.univ_lyon1.info.m1.mes.initializer.PrescriptionInitializer;
 
 public class AppStartup extends AbstractAppStartup {
   private HealthProfessionalDAO hpDAO;

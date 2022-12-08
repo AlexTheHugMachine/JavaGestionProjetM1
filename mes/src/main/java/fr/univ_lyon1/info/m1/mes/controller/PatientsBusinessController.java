@@ -36,7 +36,7 @@ public class PatientsBusinessController {
     Patient patient = new Patient(
       patientDto.getName(),
       patientDto.getSurname(),
-      patientDto.getSSID(),
+      patientDto.getSsID(),
       patientDto.getAdress(),
       patientDto.getCity());
     return patientBusiness.getPrescriptionsPatient(patient);

@@ -43,7 +43,7 @@ public class HealthProfessionnalBusinessController {
 
   public Patient getPatientInfos(final String idPatient)
       throws NameNotFoundException, InvalidNameException {
-    return hpBusiness.getPatientInfos(idPatient);
+    return hpBusiness.getPatientBySSID(idPatient);
   }
 
   public boolean addPrescription(final PrescriptionRequestDto prescriptionDto)
@@ -53,7 +53,7 @@ public class HealthProfessionnalBusinessController {
       prescriptionDto.getQuantite(),
       prescriptionDto.getIdHealthProfessional(),
       prescriptionDto.getIdPatient());
-    return hpBusiness.addprescription(prescription);
+    return hpBusiness.addPrescription(prescription);
   }
 
   public boolean removePrescription(final String idPrescription)
@@ -66,7 +66,7 @@ public class HealthProfessionnalBusinessController {
     Patient patient = new Patient(
       patientDto.getName(),
       patientDto.getSurname(),
-      patientDto.getSSID(),
+      patientDto.getSsID(),
       patientDto.getAdress(),
       patientDto.getCity());
     return hpBusiness.createPatient(patient);
