@@ -58,37 +58,6 @@ public class PatientBusiness {
 
   }
 
-  /**
-   * @param patient Le patient dont on veut mettre à jour les données.
-   * @param adress
-   * @param city
-   * @throws InvalidNameException     Si la syntaxe de la clé n'est pas valide.
-   * @throws IllegalArgumentException message = "SSID are not the same".
-   */
-  public void changeLocationInformations(final Patient patient,
-      final String adress, final String city)
-      throws InvalidNameException, IllegalArgumentException {
-    ArgumentChecker.checkStringNotNullOrEmpty(city);
-    ArgumentChecker.checkStringNotNullOrEmpty(adress);
-    Patient patientWithUpdatedInfo = new Patient(
-        patient.getName(),
-        patient.getSurname(),
-        patient.getSSID(), adress, city);
-    patientDAO.update(patient.getSSID(), patientWithUpdatedInfo);
-  }
-
-  public void changeSurname(final Patient patient, final String surname)
-   throws InvalidNameException, IllegalArgumentException {
-    ArgumentChecker.checkStringNotNullOrEmpty(surname);
-    Patient patientWithUpdatedInfo = new Patient(
-      patient.getName(),
-      surname,
-      patient.getSSID(),
-      patient.getAdress(),
-      patient.getName());
-    patientDAO.update(patient.getSSID(), patientWithUpdatedInfo);
-  }
-
   public PatientBusiness(final PrescriptionDAO pDao, final PatientDAO patientDAO) {
     this.prescriptionDao = pDao;
     this.patientDAO = patientDAO;
