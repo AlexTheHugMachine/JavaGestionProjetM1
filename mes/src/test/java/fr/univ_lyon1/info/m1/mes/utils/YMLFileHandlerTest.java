@@ -9,33 +9,37 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.univ_lyon1.info.m1.mes.dto.healthprofessional.HealthProfessionalRequestDto;
 import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
-import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
+import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
+import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 
 public class YMLFileHandlerTest {
 
   private String testPath;
 
-  @BeforeEach
-  void setup() {
+  @BeforeAll
+  static void setup() {
     // On créer les fichiers qui serviront pour les tests.
-    testPath = "./src/test/java/fr/univ_lyon1/info/m1/mes/data/";
+    String testPath = "./src/test/java/fr/univ_lyon1/info/m1/mes/data/";
     try {
+      // Very expensive so avoid this type of solution.
       ExecuteScript.execute(testPath, "createTestFile.sh");
     } catch (IOException | InterruptedException | ExecutionException e) {
       fail("Something went wrong during the execution : " + e.getMessage());
     }
   }
 
-  @AfterEach
-  void unmount() {
+  @AfterAll
+  static void unmount() {
     // On supprime les fichiers de test.
+    String testPath = "./src/test/java/fr/univ_lyon1/info/m1/mes/data/";
     try {
       ExecuteScript.execute(testPath, "removeTestFile.sh");
     } catch (IOException | InterruptedException | ExecutionException e) {
@@ -43,8 +47,13 @@ public class YMLFileHandlerTest {
     }
   }
 
+  @BeforeEach
+  void construct() {
+    testPath = "./src/test/java/fr/univ_lyon1/info/m1/mes/data/";
+  }
+
   @Test
-  void readToCustomTypeReturnExpectedPatientDtoWithCorrectInfos() {
+  void readToCustomTypeReturnExpectedPatientWithCorrectInfos() {
     try {
       String path = testPath + "Patient.yml";
       PatientRequestDto data = (PatientRequestDto) YmlFileHandler.readToCustomType(
@@ -62,18 +71,18 @@ public class YMLFileHandlerTest {
   }
 
   @Test
-  void readToCustomTypeReturnAnHealthProfessionalDtoWithCorrespondingInfo() {
+  void readToCustomTypeReturnAnHealthProfessionalWithCorrespondingInfo() {
     try {
       String path = testPath + "HP.yml";
-      HealthProfessionalRequestDto data = (HealthProfessionalRequestDto) YmlFileHandler
+      HealthProfessional data = (HealthProfessional) YmlFileHandler
           .readToCustomType(
               path,
-              HealthProfessionalRequestDto.class);
+              HealthProfessional.class);
       assertAll(
           () -> assertEquals("Farah", data.getName()),
           () -> assertEquals("Ryan", data.getSurname()),
           () -> assertEquals("42766270552", data.getRPPS()),
-          () -> assertEquals("GENERALISTE", data.getSpeciality()));
+          () -> assertEquals(HPSpeciality.GENERALISTE, data.getSpeciality()));
     } catch (FileNotFoundException e) {
       fail("This file is existing so it should not throw this exception");
     }
@@ -83,10 +92,10 @@ public class YMLFileHandlerTest {
   void readToCustomTypeReturnPrescriptionDtoWithExpectedInfo() {
     try {
       String path = testPath + "Prescription.yml";
-      PrescriptionRequestDto data = (PrescriptionRequestDto) YmlFileHandler
+      Prescription data = (Prescription) YmlFileHandler
           .readToCustomType(
               path,
-              PrescriptionRequestDto.class);
+              Prescription.class);
       assertAll(
           () -> assertEquals("Sancturelin", data.getContent()),
           () -> assertEquals("200g", data.getQuantite()),

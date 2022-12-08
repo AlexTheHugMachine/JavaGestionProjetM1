@@ -8,11 +8,11 @@ import fr.univ_lyon1.info.m1.mes.utils.UIDGenerator;
 import fr.univ_lyon1.info.m1.mes.utils.Validator;
 
 public class Prescription {
-    private final String idPrescription;
-    private final String idPatient;
-    private final String idHealthProfessionnal;
-    private final String content;
-    private final String quantite;
+    private String idPrescription;
+    private String idPatient;
+    private String idHealthProfessionnal;
+    private String content;
+    private String quantite;
 
     public Prescription(
             final String content,
@@ -24,26 +24,6 @@ public class Prescription {
         this.idPrescription = UIDGenerator.generate();
         this.idHealthProfessionnal = idHP;
         this.idPatient = idPatient;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public String getQuantite() {
-        return this.quantite;
-    }
-
-    public String getId() {
-        return this.idPrescription;
-    }
-
-    public String getIdHealthProfessional() {
-        return this.idHealthProfessionnal;
-    }
-
-    public String getIdPatient() {
-        return this.idPatient;
     }
 
     private void checkPrescriptionParams(
@@ -66,6 +46,48 @@ public class Prescription {
                 && Validator.isNumberOfLength(idPatient, 13))) {
             throw new IllegalArgumentException(errorMessage);
         }
+    }
 
+    public String getContent() {
+        return this.content;
+    }
+
+    public String getQuantite() {
+        return this.quantite;
+    }
+
+    public String getId() {
+        return this.idPrescription;
+    }
+
+    public String getIdHealthProfessional() {
+        return this.idHealthProfessionnal;
+    }
+
+    public String getIdPatient() {
+        return this.idPatient;
+    }
+
+    public void setContent(final String content) {
+        this.content = content;
+    }
+
+    public void setQuantite(final String quantite) {
+        this.quantite = quantite;
+    }
+
+    public void setId(final String id) {
+        this.idPrescription = id;
+    }
+
+    public void setIdHealthProfessional(final String idHP) {
+        this.idHealthProfessionnal = idHP;
+    }
+
+    public void setIdPatient(final String idPatient) {
+        this.idPatient = idPatient;
+    }
+
+    Prescription() {
     }
 }

@@ -10,7 +10,7 @@ public class HealthProfessional {
     private String name;
     private String surname;
     private String rpps;
-    private final HPSpeciality speciality;
+    private HPSpeciality speciality;
 
     public HealthProfessional(final String name, final String surname, final String rpps,
             final HPSpeciality speciality)
@@ -20,22 +20,6 @@ public class HealthProfessional {
         this.surname = surname;
         this.rpps = rpps;
         this.speciality = speciality;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getRPPS() {
-        return this.rpps;
-    }
-
-    public HPSpeciality getSpeciality() {
-        return speciality;
     }
 
     private void checkHealthProfessionnalInput(final String name, final String surname,
@@ -58,5 +42,40 @@ public class HealthProfessional {
                 && spe != null)) {
             throw new IllegalArgumentException(errorMessage);
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getRPPS() {
+        return this.rpps;
+    }
+
+    public HPSpeciality getSpeciality() {
+        return speciality;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public void setSurname(final String surname) {
+        this.surname = surname;
+    }
+
+    public void setSpeciality(final HPSpeciality speciality) {
+        this.speciality = speciality;
+    }
+
+    public void setRpps(final String rpps) {
+        this.rpps = rpps;
+    }
+
+    HealthProfessional() {
     }
 }
