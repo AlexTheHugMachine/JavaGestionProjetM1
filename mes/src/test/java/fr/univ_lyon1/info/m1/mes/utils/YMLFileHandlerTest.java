@@ -56,9 +56,9 @@ public class YMLFileHandlerTest {
   void readToCustomTypeReturnExpectedPatientWithCorrectInfos() {
     try {
       String path = testPath + "Patient.yml";
-      PatientRequestDto data = (PatientRequestDto) YmlFileHandler.readToCustomType(
+      Patient data = (Patient) YmlFileHandler.readToCustomType(
           path,
-          PatientRequestDto.class);
+          Patient.class);
       assertAll(
           () -> assertEquals("Sabah", data.getName()),
           () -> assertEquals("Swift", data.getSurname()),

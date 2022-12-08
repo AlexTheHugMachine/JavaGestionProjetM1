@@ -15,7 +15,9 @@ public class PatientRessourceController {
 
     private final PatientRessource patientRessource;
 
-    public PatientRessourceController(PatientDAO patientDAO, PatientBuilder patientBuilder) {
+    public PatientRessourceController(
+            final PatientDAO patientDAO,
+            final PatientBuilder patientBuilder) {
         patientRessource = new PatientRessource(patientDAO, patientBuilder);
     }
 

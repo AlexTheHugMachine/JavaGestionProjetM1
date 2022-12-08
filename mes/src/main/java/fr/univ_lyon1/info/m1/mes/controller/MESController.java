@@ -21,8 +21,8 @@ import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 
 /**
- * Master controler of the app.
- * Problème de responsabilité ?
+ * Master Controller en charge de redirigé les requêtes venant de la vue vers le
+ * bon sous-controleur.
  */
 public class MESController {
 

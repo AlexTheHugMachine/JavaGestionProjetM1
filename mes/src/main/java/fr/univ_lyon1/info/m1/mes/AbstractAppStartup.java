@@ -3,11 +3,13 @@ package fr.univ_lyon1.info.m1.mes;
 import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 
+import javafx.stage.Stage;
+
 public abstract class AbstractAppStartup {
-  public void loadApplication() {
+  public void loadApplication(final Stage stage) {
     try {
       preLoad();
-      initializeJavafx();
+      initializeJavafx(stage);
       loadConfiguration();
       loadDynamicComponents();
     } catch (Exception ex) {
@@ -29,10 +31,13 @@ public abstract class AbstractAppStartup {
       NoSuchElementException,
       IllegalStateException;
 
-  abstract void initializeJavafx();
+  /**
+   * Create the scene for JavaFX to work.
+   */
+  abstract void initializeJavafx(Stage stage);
 
   /**
-   * Could be usedful if we save some configuration data for the app.
+   * Load config files stored locally.
    */
   abstract void loadConfiguration();
 
@@ -42,11 +47,6 @@ public abstract class AbstractAppStartup {
    * newly created components into it as a result of some user interaction.
    */
   abstract void loadDynamicComponents();
-
-  /**
-  *
-  */
-  // abstract void postApplicationLoad();
 
   abstract void handleStartupException(String message, Exception e);
 }

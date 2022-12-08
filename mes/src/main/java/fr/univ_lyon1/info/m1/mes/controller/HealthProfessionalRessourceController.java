@@ -22,19 +22,22 @@ public class HealthProfessionalRessourceController {
                 healthProfessionalDAO, healthProfessionalBuilder);
     }
 
-    public boolean removeHealthProfessionalById(final String healthProfessionalId) throws NameNotFoundException {
+    public boolean removeHealthProfessionalById(final String healthProfessionalId)
+            throws NameNotFoundException {
         return healthProfessionalRessource.deleteById(healthProfessionalId);
     }
 
-    public void removeHealthProfessional(final HealthProfessionalRequestDto hPDto) throws NameNotFoundException {
+    public void removeHealthProfessional(final HealthProfessionalRequestDto hPDto)
+            throws NameNotFoundException {
         healthProfessionalRessource.delete(hPDto);
     }
 
-    public Serializable createHealthProfessional(final HealthProfessionalRequestDto hPDto) throws NameAlreadyBoundException {
+    public Serializable createHealthProfessional(final HealthProfessionalRequestDto hPDto)
+            throws NameAlreadyBoundException {
         return healthProfessionalRessource.create(hPDto);
     }
 
-    public HealthProfessional getHealthProfessional(final String healthProfessionalId) 
+    public HealthProfessional getHealthProfessional(final String healthProfessionalId)
             throws NameNotFoundException {
         return healthProfessionalRessource.readOne(healthProfessionalId);
     }

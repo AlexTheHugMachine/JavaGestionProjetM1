@@ -5,7 +5,7 @@ package fr.univ_lyon1.info.m1.mes.constants;
  * used by multiples classes.
  */
 public final class Constants {
-  private static final String LOCAL_PATH = "./src/data/";
+  private static final String LOCAL_PATH = "./ressources/data/";
   private static final String PATIENT_PATH = LOCAL_PATH + "Patient/";
   private static final String HP_PATH = LOCAL_PATH + "HealthProfessional/";
   private static final String PRESCRIPTION_PATH = LOCAL_PATH + "Prescription/";
