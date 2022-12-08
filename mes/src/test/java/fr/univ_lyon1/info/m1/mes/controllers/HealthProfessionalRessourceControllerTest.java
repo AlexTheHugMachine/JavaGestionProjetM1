@@ -15,7 +15,6 @@ import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.dto.healthprofessional.HealthProfessionalRequestDto;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
-import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.operations.HealthProfessionalRessource;
 
 public class HealthProfessionalRessourceControllerTest {
     

@@ -77,7 +77,7 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   @Override
   public T findOne(final Serializable id) throws NameNotFoundException {
       if (!this.collection.containsKey(id)) {
-        throw new NameNotFoundException(id.toString());
+        throw new NameNotFoundException("Patient not found.");
       }
       return this.collection.get(id);
   }
