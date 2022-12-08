@@ -15,7 +15,7 @@ public abstract class Initializer<T, S> {
    * @param builder
    * @param dao
    */
-  public void initDAOs(
+ /* public void initDAOs(
       final String filename,
       final S builder,
       final AbstractMapDao<T> dao)
@@ -33,7 +33,7 @@ public abstract class Initializer<T, S> {
         throw new IllegalStateException("The element is already inside.");
       }
     });
-  }
+  }*/
 
   protected abstract T build(S builder, String[] row);
 
