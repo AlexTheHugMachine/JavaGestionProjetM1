@@ -13,6 +13,7 @@ import fr.univ_lyon1.info.m1.mes.controller.HealthProfessionnalBusinessControlle
 import fr.univ_lyon1.info.m1.mes.daos.HealthProfessionalDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
+import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 import fr.univ_lyon1.info.m1.mes.dto.prescription.PrescriptionRequestDto;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
@@ -97,6 +98,19 @@ public class HealthProfessionalBusinessControllerTest {
         }
     }
 
+    /*@Test
+    void addPrescriptionProperlyAddPrescritptionToPatient() throws NameNotFoundException, InvalidNameException {
+        PrescriptionRequestDto prescriptionDto = new PrescriptionRequestDto(
+            "Doliprane", 
+            "500mg", 
+            "12345678902",
+            "12345678901", 
+            "6968686787598");
+        hpBusinessController.addPrescription(prescriptionDto);
+        Patient patient = hpBusinessController.getPatientInfos("6968686787598");
+        assertEquals(3, patient.getPrescriptions().size());
+    }*/
+
     @Test
     void addPrescriptionThrowsNameNotFoundExceptionWhenSSIDisInvalid() throws NameAlreadyBoundException {
         PrescriptionRequestDto prescriptionDto = new PrescriptionRequestDto(
@@ -111,6 +125,33 @@ public class HealthProfessionalBusinessControllerTest {
             assertEquals("No patient or health professional found.", e.getMessage());
         } catch (InvalidNameException e) {
             e.printStackTrace();
+        }
+    }
+
+    /*@Test
+    void removePrescriptionProperlyRemove() throws NameNotFoundException, InvalidNameException {
+        hpBusinessController.removePrescription(doliprane500.getId());
+        Patient patient = hpBusinessController.getPatientInfos("6968686787598");
+        assertEquals(1, patient.getPrescriptions().size());
+    }*/
+
+    @Test
+    void createPatientProperlyCreateAPatient() throws NameAlreadyBoundException, NameNotFoundException, InvalidNameException {
+        PatientRequestDto patientDto = new PatientRequestDto(
+            "Maurice", "LaSaucisse", "6968686788888", "", "");
+        hpBusinessController.createPatient(patientDto);
+        Patient patient2 = hpBusinessController.getPatientBySSID("6968686788888");
+        assertEquals(patientDto.getSSID(), patient2.getSSID());
+    }
+
+    @Test   
+    void createPatientThrowsNameAlreadyBoundExceptionWhenSSIDisAlreadyUsed() {
+        PatientRequestDto patientDto = new PatientRequestDto(
+            "Maurice", "LaSaucisse", "6968686787598", "", "");
+        try {
+            hpBusinessController.createPatient(patientDto);
+        } catch (NameAlreadyBoundException e) {
+            assertEquals("Patient already exists.", e.getMessage());
         }
     }
 }

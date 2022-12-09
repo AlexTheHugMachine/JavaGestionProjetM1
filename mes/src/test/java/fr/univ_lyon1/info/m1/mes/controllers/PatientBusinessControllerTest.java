@@ -31,8 +31,7 @@ public class PatientBusinessControllerTest {
     private Patient doe;
     private Patient jack;
     private Patient james;
-    private Patient eric;
-    private Patient jean;   
+    private Patient eric;  
     @BeforeEach
     void setUp() {
         // In the real app we would pass this prescription like that we wouldn't create
@@ -56,7 +55,6 @@ public class PatientBusinessControllerTest {
         jack = new Patient("Jack", "Sparrow", "0975310954209", "", "");
         james = new Patient("James", "Lebron", "1678966979912", "", "");
         eric = new Patient("Eric", "Zemmour", "0862183792365", "", "");
-        jean = new Patient("Jean", "Tictac", "7214964912842", "", "");    
         try {
             patientDAO.add(john);
             patientDAO.add(doe);
@@ -87,7 +85,7 @@ public class PatientBusinessControllerTest {
         try {
             prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
         } catch (NameNotFoundException e) {
-            assertEquals(e.getMessage(), "No prescriptions have been found.");
+            assertEquals("No prescriptions have been found.", e.getMessage());
         }
     }
 
@@ -105,7 +103,7 @@ public class PatientBusinessControllerTest {
         try {
             patientBusinessController.removePrescription("12345678901", john.getSSID());
         } catch (NameNotFoundException e) {
-            assertEquals(e.getMessage(), "No prescription found for this id.");
+            assertEquals("No prescription found for this id.", e.getMessage());
         } catch (InvalidNameException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
