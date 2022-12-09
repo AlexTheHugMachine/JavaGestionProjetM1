@@ -47,12 +47,16 @@ public class PatientRessourceControllerTest {
     }
 
     @Test
-    void getPatientgetProperlyPatients() throws NameNotFoundException {
-        assertEquals(john, patientRessourceController.getPatient("6968686787598"));
-        assertEquals(doe, patientRessourceController.getPatient("7912327085687"));
-        assertEquals(jack, patientRessourceController.getPatient("0975310954209"));
-        assertEquals(james, patientRessourceController.getPatient("1678966979912"));
-        assertEquals(eric, patientRessourceController.getPatient("0862183792365"));
+    void getPatientgetProperlyPatients() {
+        try {
+            assertEquals(john, patientRessourceController.getPatient("6968686787598"));
+            assertEquals(doe, patientRessourceController.getPatient("7912327085687"));
+            assertEquals(jack, patientRessourceController.getPatient("0975310954209"));
+            assertEquals(james, patientRessourceController.getPatient("1678966979912"));
+            assertEquals(eric, patientRessourceController.getPatient("0862183792365"));
+        } catch (NameNotFoundException e) {
+            fail("Should not throw NameNotFoundException");
+        }
     }
 
     @Test
@@ -71,19 +75,23 @@ public class PatientRessourceControllerTest {
     }
 
     @Test
-    void createPatientProperlyCreatesPatient() throws NameAlreadyBoundException, NameNotFoundException {
+    void createPatientProperlyCreatesPatient() {
         PatientRequestDto newPatient = new PatientRequestDto(
             "Maurice", "LaSaucisse", "1678988889912", "", "");
-        String ssid = patientRessourceController.createPatient(newPatient);
-
+        String ssid;
         try {
-          Patient patient = patientRessourceController.getPatient(ssid);
-          assertEquals("1678988889912", ssid);
-          assertEquals(newPatient.getName(), patient.getName());
-          assertEquals(newPatient.getSurname(), patient.getSurname());
-          assertEquals(newPatient.getSsID(), patient.getSsID());
-        } catch (NameNotFoundException e) {
-          fail("The health professional was not created properly");
+            ssid = patientRessourceController.createPatient(newPatient);
+            try {
+                Patient patient = patientRessourceController.getPatient(ssid);
+                assertEquals("1678988889912", ssid);
+                assertEquals(newPatient.getName(), patient.getName());
+                assertEquals(newPatient.getSurname(), patient.getSurname());
+                assertEquals(newPatient.getSsID(), patient.getSsID());
+              } catch (NameNotFoundException e) {
+                fail("The health professional was not created properly");
+              }
+        } catch (NameAlreadyBoundException e1) {
+            fail("The patient does not exist yet.");
         }
     }
 
@@ -100,15 +108,20 @@ public class PatientRessourceControllerTest {
     }
 
     @Test
-    void updatePatientProperlyUpdatesPatient() throws NameNotFoundException {
+    void updatePatientProperlyUpdatesPatient() {
         String rppsOfEric = eric.getSsID();
         PatientRequestDto patientRequest = new PatientRequestDto(
             "Maurice", "LaSaucisse", "0862183792365", "", "");
         patientRessourceController.updatePatient(patientRequest);
-        Patient patient = patientRessourceController.getPatient(rppsOfEric);
-        assertEquals(patientRequest.getName(), patient.getName());
-        assertEquals(patientRequest.getSurname(), patient.getSurname());
-        assertEquals(patientRequest.getSsID(), patient.getSsID());
+        Patient patient;
+        try {
+            patient = patientRessourceController.getPatient(rppsOfEric);
+            assertEquals(patientRequest.getName(), patient.getName());
+            assertEquals(patientRequest.getSurname(), patient.getSurname());
+            assertEquals(patientRequest.getSsID(), patient.getSsID());
+        } catch (NameNotFoundException e) {
+            fail("The patient should be found.");
+        }
     }
 
     @Test
@@ -124,9 +137,13 @@ public class PatientRessourceControllerTest {
     }
 
     @Test
-    void removePatientByIdProperlyRemovePatient() throws NameNotFoundException {
+    void removePatientByIdProperlyRemovePatient() {
         String ssidOfEric = eric.getSsID();
-        patientRessourceController.removePatientById(ssidOfEric);
+        try {
+            patientRessourceController.removePatientById(ssidOfEric);
+        } catch (NameNotFoundException e1) {
+            fail("The patient should be found.");
+        }
         try {
             patientRessourceController.getPatient(ssidOfEric);
             fail("Should not found the patient.");
@@ -146,10 +163,14 @@ public class PatientRessourceControllerTest {
     }
 
     @Test
-    void removePatientProperlyRemovePatient() throws NameNotFoundException {
+    void removePatientProperlyRemovePatient() {
         PatientRequestDto ericDto = new PatientRequestDto(
             "Eric", "Zemmour", "0862183792365", "", "");
-        patientRessourceController.removePatient(ericDto);
+        try {
+            patientRessourceController.removePatient(ericDto);
+        } catch (NameNotFoundException e1) {
+            fail("The patient should be found.");
+        }
         try {
             patientRessourceController.getPatient(eric.getSsID());
             fail("Should not found the patient.");

@@ -2,6 +2,7 @@ package fr.univ_lyon1.info.m1.mes.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
@@ -70,12 +71,17 @@ public class PatientBusinessControllerTest {
     }
 
     @Test
-    void getPrescriptionsPatientReturnTheListOfPrescriptionsOfAPatient() throws NameNotFoundException {
+    void getPrescriptionsPatientReturnTheListOfPrescriptionsOfAPatient() {
         PatientRequestDto patientRequestDto = new PatientRequestDto("John", "Wick", "6968686787598", "", "");
-        List<Prescription> prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
-        assertEquals(2, prescriptions.size());
-        assertTrue(prescriptions.contains(doliprane500));
-        assertTrue(prescriptions.contains(eatFruit));
+        List<Prescription> prescriptions;
+        try {
+            prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
+            assertEquals(2, prescriptions.size());
+            assertTrue(prescriptions.contains(doliprane500));
+            assertTrue(prescriptions.contains(eatFruit));
+        } catch (NameNotFoundException e) {
+            fail("The patient has prescriptions.");
+        }
     }
 
     @Test
@@ -90,12 +96,21 @@ public class PatientBusinessControllerTest {
     }
 
     @Test
-    void removePrescriptionPatientRemoveThePrescriptionFromThePatient() throws NameNotFoundException, InvalidNameException, IllegalAccessException {
+    void removePrescriptionPatientRemoveThePrescriptionFromThePatient() {
         PatientRequestDto patientRequestDto = new PatientRequestDto("John", "Wick", "6968686787598", "", "");
-        patientBusinessController.removePrescription(doliprane500.getId(), john.getSsID());
-        List<Prescription> prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
-        assertEquals(1, prescriptions.size());
-        assertTrue(prescriptions.contains(eatFruit));
+        try {
+            patientBusinessController.removePrescription(doliprane500.getId(), john.getSsID());
+        } catch (NameNotFoundException | InvalidNameException | IllegalAccessException e) {
+            fail("The prescription should be found.");
+        }
+        List<Prescription> prescriptions;
+        try {
+            prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
+            assertEquals(1, prescriptions.size());
+            assertTrue(prescriptions.contains(eatFruit));
+        } catch (NameNotFoundException e) {
+            fail("The patient has prescriptions.");
+        }
     }
 
     @Test

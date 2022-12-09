@@ -44,20 +44,24 @@ public class HealthProfessionalRessourceControllerTest {
     }
 
     @Test
-    void createHealthProfessionalProperly() throws NameAlreadyBoundException {
+    void createHealthProfessionalProperly() {
       HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
             "john", "doe", "12345678919", HPSpeciality.GENERALISTE.toString());
 
-        String rppsOfJohn = (String) hpRessourceController.createHealthProfessional(hpRequest);
-
+        String rppsOfJohn;
         try {
-          HealthProfessional hp = hpRessourceController.getHealthProfessional(rppsOfJohn);
-          assertEquals("12345678919", rppsOfJohn);
-          assertEquals(hpRequest.getName(), hp.getName());
-          assertEquals(hpRequest.getSurname(), hp.getSurname());
-          assertEquals(hpRequest.getRPPS(), hp.getRPPS());
-          assertEquals(hpRequest.getSpeciality(), hp.getSpeciality().toString());
-        } catch (NameNotFoundException e) {
+          rppsOfJohn = (String) hpRessourceController.createHealthProfessional(hpRequest);
+          try {
+            HealthProfessional hp = hpRessourceController.getHealthProfessional(rppsOfJohn);
+            assertEquals("12345678919", rppsOfJohn);
+            assertEquals(hpRequest.getName(), hp.getName());
+            assertEquals(hpRequest.getSurname(), hp.getSurname());
+            assertEquals(hpRequest.getRPPS(), hp.getRPPS());
+            assertEquals(hpRequest.getSpeciality(), hp.getSpeciality().toString());
+          } catch (NameNotFoundException e) {
+            fail("The health professional was not created properly");
+          }
+        } catch (NameAlreadyBoundException e1) {
           fail("The health professional was not created properly");
         }
     }
@@ -76,7 +80,7 @@ public class HealthProfessionalRessourceControllerTest {
     }
 
     @Test
-    void createHealthProfessionalWithInvalidRPPS() throws NameAlreadyBoundException {
+    void createHealthProfessionalWithInvalidRPPS() {
       HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
             "john", "doe", "1234567891", HPSpeciality.GENERALISTE.toString());
 
@@ -85,13 +89,19 @@ public class HealthProfessionalRessourceControllerTest {
           fail("The health professional was created with an invalid RPPS");
         } catch (IllegalArgumentException e) {
           // The health professional was not created
+        } catch (NameAlreadyBoundException e) {
+          fail("The health professional was created with an invalid RPPS");
         }
     }
 
     @Test
-    void removeHealthProfessionalByIdProperly() throws NameNotFoundException {
+    void removeHealthProfessionalByIdProperly() {
       String rppsOfEric = eric.getRPPS();
-      hpRessourceController.removeHealthProfessionalById(rppsOfEric);
+      try {
+        hpRessourceController.removeHealthProfessionalById(rppsOfEric);
+      } catch (NameNotFoundException e1) {
+        fail("The health professional was not removed properly");
+      }
       try {
         hpRessourceController.getHealthProfessional(rppsOfEric);
         fail("The health professional was not removed properly");
@@ -101,7 +111,7 @@ public class HealthProfessionalRessourceControllerTest {
     }
 
     @Test
-    void removeHealthProfessionalByIdWithInvalidRPPS() throws NameNotFoundException {
+    void removeHealthProfessionalByIdWithInvalidRPPS() {
       try {
         hpRessourceController.removeHealthProfessionalById("1234567891");
         fail("The health professional was removed with an invalid RPPS");
@@ -111,10 +121,14 @@ public class HealthProfessionalRessourceControllerTest {
     }
 
     @Test
-    void removeHealthProfessionalProperly() throws NameNotFoundException {
+    void removeHealthProfessionalProperly() {
       HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
         "eric", "zemmour", "55334108515", HPSpeciality.CHIRURGIEN.toString());
-      hpRessourceController.removeHealthProfessional(hpRequest);
+      try {
+        hpRessourceController.removeHealthProfessional(hpRequest);
+      } catch (NameNotFoundException e1) {
+        fail("The health professional was not removed properly");
+      }
       try {
         hpRessourceController.getHealthProfessional(hpRequest.getRPPS());
         fail("The health professional was not removed properly");
@@ -124,7 +138,7 @@ public class HealthProfessionalRessourceControllerTest {
     }
 
     @Test
-    void removeHealthProfessionalWithInvalidRPPS() throws NameNotFoundException {
+    void removeHealthProfessionalWithInvalidRPPS() {
       HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
         "eric", "zemmour", "1234567891", HPSpeciality.CHIRURGIEN.toString());
       try {
@@ -136,27 +150,37 @@ public class HealthProfessionalRessourceControllerTest {
     }
 
     @Test
-    void updateHealthProfessionalProperly() throws NameNotFoundException {
+    void updateHealthProfessionalProperly() {
       String rppsOfEric = eric.getRPPS();
       HealthProfessionalRequestDto hpRequest = new HealthProfessionalRequestDto(
             "john", "doe", "55334108515", HPSpeciality.GENERALISTE.toString());
       hpRessourceController.updateHealthProfessional(hpRequest);
-      HealthProfessional hp = hpRessourceController.getHealthProfessional(rppsOfEric);
-      assertEquals(hpRequest.getName(), hp.getName());
-      assertEquals(hpRequest.getSurname(), hp.getSurname());
-      assertEquals(hpRequest.getRPPS(), hp.getRPPS());
-      assertEquals(hpRequest.getSpeciality(), hp.getSpeciality().toString());
+      HealthProfessional hp;
+      try {
+        hp = hpRessourceController.getHealthProfessional(rppsOfEric);
+        assertEquals(hpRequest.getName(), hp.getName());
+        assertEquals(hpRequest.getSurname(), hp.getSurname());
+        assertEquals(hpRequest.getRPPS(), hp.getRPPS());
+        assertEquals(hpRequest.getSpeciality(), hp.getSpeciality().toString());
+      } catch (NameNotFoundException e) {
+        fail("The health professional was not updated properly");
+      }
     }
 
     @Test
-    void getHealthProfessionalByIdProperly() throws NameNotFoundException {
+    void getHealthProfessionalByIdProperly() {
       String rppsOfEric = eric.getRPPS();
-      HealthProfessional hp = hpRessourceController.getHealthProfessional(rppsOfEric);
-      assertEquals(eric, hp);
+      HealthProfessional hp;
+      try {
+        hp = hpRessourceController.getHealthProfessional(rppsOfEric);
+        assertEquals(eric, hp);
+      } catch (NameNotFoundException e) {
+        fail("The health professional was not retrieved properly");
+      }
     }
 
     @Test
-    void getHealthProfessionalByIdWithInvalidRPPS() throws NameNotFoundException {
+    void getHealthProfessionalByIdWithInvalidRPPS() {
       try {
         hpRessourceController.getHealthProfessional("1234567891");
         fail("The health professional was retrieved with an invalid RPPS");
