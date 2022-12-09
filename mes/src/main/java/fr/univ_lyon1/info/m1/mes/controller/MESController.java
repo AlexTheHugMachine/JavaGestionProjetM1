@@ -72,9 +72,9 @@ public class MESController {
     healthProfessionalRessourceController.removeHealthProfessional(healthProfessionalRequestDto);
   }
 
-  public void removeHealthProfessionalById(final String healthProfessionalId) throws 
+  public boolean removeHealthProfessionalById(final String healthProfessionalId) throws 
     NameNotFoundException {
-    healthProfessionalRessourceController.removeHealthProfessionalById(healthProfessionalId);
+    return healthProfessionalRessourceController.removeHealthProfessionalById(healthProfessionalId);
   }
 
   public void removePatient(final String name, final String surname, final String ssid,
@@ -83,8 +83,8 @@ public class MESController {
     patientRessourceController.removePatient(patientRequestDto);
   }
 
-  public void removePatientById(final String patientId) throws NameNotFoundException {
-    patientRessourceController.removePatientById(patientId);
+  public boolean removePatientById(final String patientId) throws NameNotFoundException {
+    return patientRessourceController.removePatientById(patientId);
   }
 
   public boolean removePrescriptionFromHP(final String prescriptionId) throws 
@@ -97,17 +97,17 @@ public class MESController {
     return patientBusinessController.removePrescription(prescriptionId, patientId);
   }
 
-  public void updateHealthProfessional(final String name, final String surname, final String rpps,
+  public boolean updateHealthProfessional(final String name, final String surname, final String rpps,
       final String speciality) {
     HealthProfessionalRequestDto healthProfessionalRequestDto = new HealthProfessionalRequestDto(
       name, surname, rpps, speciality);
-    healthProfessionalRessourceController.updateHealthProfessional(healthProfessionalRequestDto);
+    return healthProfessionalRessourceController.updateHealthProfessional(healthProfessionalRequestDto);
   }
 
-  public void updatePatient(final String name, final String surname, final String ssid,
+  public boolean updatePatient(final String name, final String surname, final String ssid,
       final String adress, final String city) {
     PatientRequestDto patientRequestDto = new PatientRequestDto(name, surname, ssid, adress, city);
-    patientRessourceController.updatePatient(patientRequestDto);
+    return patientRessourceController.updatePatient(patientRequestDto);
   }
 
   public void getHealthProfessional(final String healthProfessionalId) throws NameNotFoundException {

@@ -22,8 +22,8 @@ public class HealthProfessionalRessourceController {
                 healthProfessionalDAO, healthProfessionalBuilder);
     }
 
-    public void removeHealthProfessionalById(final String healthProfessionalId) throws NameNotFoundException {
-        healthProfessionalRessource.deleteById(healthProfessionalId);
+    public boolean removeHealthProfessionalById(final String healthProfessionalId) throws NameNotFoundException {
+        return healthProfessionalRessource.deleteById(healthProfessionalId);
     }
 
     public void removeHealthProfessional(final HealthProfessionalRequestDto hPDto) throws NameNotFoundException {
@@ -43,7 +43,7 @@ public class HealthProfessionalRessourceController {
         return healthProfessionalRessource.readAll();
     }
 
-    public void updateHealthProfessional(final HealthProfessionalRequestDto hPDto) {
-        healthProfessionalRessource.update(hPDto);
+    public boolean updateHealthProfessional(final HealthProfessionalRequestDto hPDto) {
+        return healthProfessionalRessource.update(hPDto);
     }
 }

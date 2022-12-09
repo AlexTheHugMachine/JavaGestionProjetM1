@@ -19,8 +19,8 @@ public class PatientRessourceController {
         patientRessource = new PatientRessource(patientDAO, patientBuilder);
     }
 
-    public void createPatient(final PatientRequestDto patient) throws NameAlreadyBoundException {
-        patientRessource.create(patient);
+    public String createPatient(final PatientRequestDto patient) throws NameAlreadyBoundException {
+        return patientRessource.create(patient);
     }
 
     public Patient getPatient(final String ssid) throws NameNotFoundException {
@@ -31,15 +31,15 @@ public class PatientRessourceController {
         return patientRessource.readAll();
     }
 
-    public void updatePatient(final PatientRequestDto patient) {
-        patientRessource.update(patient);
+    public boolean updatePatient(final PatientRequestDto patient) {
+        return patientRessource.update(patient);
     }
 
     public void removePatient(final PatientRequestDto patient) throws NameNotFoundException {
         patientRessource.delete(patient);
     }
 
-    public void removePatientById(final String ssid) throws NameNotFoundException {
-        patientRessource.deleteById(ssid);
+    public boolean removePatientById(final String ssid) throws NameNotFoundException {
+        return patientRessource.deleteById(ssid);
     }
 }
