@@ -1,4 +1,4 @@
-FROM adoptopenjdk/maven-openjdk11:latest
+FROM maven:3.6.1-jdk-11
 VOLUME [ "/tmp/.X11-unix:/tmp/.X11-unix", "$HOME/.Xauthority:/root/.Xauthority"]
 
 WORKDIR /app
