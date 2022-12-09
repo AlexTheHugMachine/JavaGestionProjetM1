@@ -1,6 +1,7 @@
 package fr.univ_lyon1.info.m1.mes.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.naming.InvalidNameException;
@@ -210,6 +211,286 @@ public class MESControllerTest {
                     "John", "Wick", "6968686787599", "", "");
         } catch (NameNotFoundException e) {
             assertEquals("No prescriptions have been found.", e.getMessage());
+        }
+    }
+
+    @Test
+    void updatePatientProperlyUpdateThePatient() {
+        String ssidOfEric = eric.getSsID();
+        mesController.updatePatient(
+            "Maurice", "LaSaucisse", "0862183792365", "", "");
+        Patient patient;
+        try {
+            patient = mesController.getPatient(ssidOfEric);
+            assertEquals("Maurice", patient.getName());
+            assertEquals("LaSaucisse", patient.getSurname());
+            assertEquals("0862183792365", patient.getSsID());
+        } catch (NameNotFoundException e) {
+            fail("The patient should be found.");
+        }
+    }
+
+    @Test
+    void updatePatientThrowExceptionWhenPatientSSIDisWrong() {
+        try {
+            mesController.updatePatient(
+                    "Maurice", "LaSaucisse", "12345678901", "", "");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Les informations du patient sont invalides.", e.getMessage());
+        }
+    }
+
+    @Test
+    void updateHealthProfessionalProperlyUpdateHP() {
+        String ssidOfLebron = lebron.getRPPS();
+        mesController.updateHealthProfessional(
+            "Magic", "James", "12345678919", HPSpeciality.CHIRURGIEN.toString());
+        HealthProfessional hp;
+        try {
+            hp = mesController.getHealthProfessional(ssidOfLebron);
+            assertEquals("Magic", hp.getName());
+            assertEquals("12345678919", hp.getRPPS());
+        } catch (NameNotFoundException e) {
+            fail("The health professional should be found.");
+        }
+    }
+
+    @Test
+    void updateHealthProfessionalThrowExceptionWhenHPSSIDisWrong() {
+        try {
+            mesController.updateHealthProfessional(
+                    "Magic", "James", "12345678901", HPSpeciality.CHIRURGIEN.toString());
+        } catch (IllegalArgumentException e) {
+            assertEquals(
+                "Les informations du professionnel de santé sont invalides.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removeHealthProfessionalByIdProperlyRemoveTheHP() {
+        try {
+            mesController.removeHealthProfessionalById("12345678919");
+        } catch (NameNotFoundException e1) {
+            fail("The health professional should be found.");
+        }
+        try {
+            mesController.getHealthProfessional("12345678919");
+        } catch (NameNotFoundException e) {
+            assertEquals("No health professional found.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removeHealthProfessionalByIdThrowExceptionWhenHPNotFound() {
+        try {
+            mesController.removeHealthProfessionalById("12345678901");
+        } catch (NameNotFoundException e) {
+            assertEquals("This Health Professinal does not exist.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removeHealthProfessionalProperlyRemoveTheHP() {
+        try {
+            mesController.removeHealthProfessional(
+                "Lebron", "James", "12345678919", HPSpeciality.CHIRURGIEN.toString());
+        } catch (NameNotFoundException e1) {
+            fail("The health professional should be found.");
+        }
+        try {
+            mesController.getHealthProfessional("12345678919");
+        } catch (NameNotFoundException e) {
+            assertEquals("No health professional found.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removeHealthProfessionalThrowExceptionWhenHPNotFound() {
+        try {
+            mesController.removeHealthProfessional(
+                "Lebron", "James", "12345678901", HPSpeciality.CHIRURGIEN.toString());
+        } catch (NameNotFoundException e) {
+            assertEquals("This Health Professional does not exist.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removePatientByIdProperlyRemoveThePatient() {
+        try {
+            mesController.removePatientById("6968686787598");
+        } catch (NameNotFoundException e1) {
+            fail("The patient should be found.");
+        }
+        try {
+            mesController.getPatient("6968686787598");
+        } catch (NameNotFoundException e) {
+            assertEquals("No patient found.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removePatientByIdThrowExceptionWhenPatientNotFound() {
+        try {
+            mesController.removePatientById("12345678901");
+        } catch (NameNotFoundException e) {
+            assertEquals("This patient does not exist.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removePatientProperlyRemoveThePatient() {
+        try {
+            mesController.removePatient(
+                "John", "Wick", "6968686787598", "", "");
+        } catch (NameNotFoundException e1) {
+            fail("The patient should be found.");
+        }
+        try {
+            mesController.getPatient("6968686787598");
+        } catch (NameNotFoundException e) {
+            assertEquals("No patient found.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removePatientThrowExceptionWhenPatientNotFound() {
+        try {
+            mesController.removePatient(
+                "John", "Wick", "12345678901", "", "");
+        } catch (NameNotFoundException e) {
+            assertEquals("This patient does not exist.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removePrescriptionFromHPProperlyRemoveThePrescription() {
+        try {
+            assertTrue(mesController.removePrescriptionFromHP(doliprane500.getId()));
+        } catch (NameNotFoundException e1) {
+            fail("The health professional should be found.");
+        } catch (InvalidNameException e) {
+            fail("The prescription should be found.");
+        }
+    }
+
+    @Test
+    void removePrescriptionFromHPThrowExceptionWhenHPNotFound() {
+        try {
+            mesController.removePrescriptionFromHP("12345678901");
+        } catch (NameNotFoundException e) {
+            assertEquals("No prescription found.", e.getMessage());
+        } catch (InvalidNameException e) {
+            fail("The prescription should be found.");
+        }
+    }
+
+    @Test
+    void removePrescriptionFromPatientProperlyRemoveThePrescription() {
+        try {
+            assertTrue(mesController.removePrescriptionFromPatient(doliprane500.getId(), "6968686787598"));
+        } catch (NameNotFoundException e1) {
+            fail("The patient should be found.");
+        } catch (InvalidNameException e) {
+            fail("The prescription should be found.");
+        } catch (IllegalAccessException e) {
+            fail("The patient should be found.");
+        }
+    }
+
+    @Test
+    void removePrescriptionFromPatientThrowExceptionWhenPatientSSIDisNotTheGoodOne() {
+        try {
+            mesController.removePrescriptionFromPatient(doliprane500.getId(), "1234567890987");
+        } catch (NameNotFoundException e) {
+            fail("Should be an IllegalAccessException.");
+        } catch (InvalidNameException e) {
+            fail("Should be an IllegalAccessException.");
+        } catch (IllegalAccessException e) {
+            assertEquals("This prescription is not assign to you.", e.getMessage());
+        }
+    }
+
+    @Test
+    void addPatientFromHPproperlyAddThePatient() {
+        try {
+            mesController.addPatientFromHP(
+                "Maurice", "LaSaucisse", "6968686788888", "", "");
+        } catch (NameAlreadyBoundException e1) {
+            fail("The health professional should be found.");
+        }
+        Patient patient;
+        try {
+            patient = mesController.getPatient("6968686788888");
+            assertEquals("Maurice", patient.getName());
+            assertEquals("6968686788888", patient.getSsID());
+        } catch (NameNotFoundException e) {
+            fail("Should not throw this exception, this patient has been added.");
+        }
+    }
+
+    @Test
+    void addPatientFromHPThrowExceptionWhenPatientAlreadyExist() {
+        try {
+            mesController.addPatientFromHP(
+                "John", "Wick", "6968686787598", "", "");
+        } catch (NameAlreadyBoundException e) {
+            assertEquals("Patient already exists.", e.getMessage());
+        }
+    }
+
+    @Test
+    void addPatientFromPatientProperlyAddThePatient() {
+        try {
+            mesController.addPatientFromPatient(
+                "Maurice", "LaSaucisse", "6968686788888", "", "");
+        } catch (NameAlreadyBoundException e1) {
+            fail("The health professional should be found.");
+        }
+        Patient patient;
+        try {
+            patient = mesController.getPatient("6968686788888");
+            assertEquals("Maurice", patient.getName());
+            assertEquals("6968686788888", patient.getSsID());
+        } catch (NameNotFoundException e) {
+            fail("Should not throw this exception, this patient has been added.");
+        }
+    }
+
+    @Test
+    void addPatientFromPatientThrowExceptionWhenPatientAlreadyExist() {
+        try {
+            mesController.addPatientFromPatient(
+                "John", "Wick", "6968686787598", "", "");
+        } catch (NameAlreadyBoundException e) {
+            assertEquals("This patient already exist.", e.getMessage());
+        }
+    }
+
+    @Test
+    void addHealthProfessionalProperlyAddTheHP() {
+        try {
+            mesController.addHealthProfessional(
+                "Maurice", "LaSaucisse", "12345678901", HPSpeciality.CHIRURGIEN.toString());
+        } catch (NameAlreadyBoundException e1) {
+            fail("The health professional should be found.");
+        }
+        HealthProfessional hp;
+        try {
+            hp = mesController.getHealthProfessional("12345678901");
+            assertEquals("Maurice", hp.getName());
+            assertEquals("12345678901", hp.getRPPS());
+        } catch (NameNotFoundException e) {
+            fail("Should not throw this exception, this health professional has been added.");
+        }
+    }
+
+    @Test
+    void addHealthProfessionalThrowExceptionWhenHPAlreadyExist() {
+        try {
+            mesController.addHealthProfessional(
+                "Lebron", "James", "12345678901", HPSpeciality.CHIRURGIEN.toString());
+        } catch (NameAlreadyBoundException e) {
+            assertEquals("This health professional already exist.", e.getMessage());
         }
     }
 }

@@ -1,6 +1,7 @@
 package fr.univ_lyon1.info.m1.mes.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.naming.InvalidNameException;
@@ -145,15 +146,25 @@ public class HealthProfessionalBusinessControllerTest {
         }
     }
 
-    /*
-     * @Test
-     * void removePrescriptionProperlyRemove() throws NameNotFoundException,
-     * InvalidNameException {
-     * hpBusinessController.removePrescription(doliprane500.getId());
-     * Patient patient = hpBusinessController.getPatientInfos("6968686787598");
-     * assertEquals(1, patient.getPrescriptions().size());
-     * }
-     */
+    @Test
+    void removePrescriptionProperlyRemove() {
+        try {
+            assertTrue(hpBusinessController.removePrescription(doliprane500.getId()));
+        } catch (NameNotFoundException | InvalidNameException e) {
+            fail("This prescription has been added to the DAO, we should avoid this error.");
+        }
+    }
+
+    @Test
+    void removePrescriptionThrowsNameNotFoundExceptionWhenSSIDisInvalid() {
+        try {
+            hpBusinessController.removePrescription(doliprane500.getId());
+        } catch (NameNotFoundException e) {
+            assertEquals("No prescription found.", e.getMessage());
+        } catch (InvalidNameException e) {
+            fail("Should never throw this error here.");
+        }
+    }
 
     @Test
     void createPatientProperlyCreateAPatient() {

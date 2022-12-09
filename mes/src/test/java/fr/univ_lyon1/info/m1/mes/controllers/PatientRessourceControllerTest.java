@@ -109,13 +109,13 @@ public class PatientRessourceControllerTest {
 
     @Test
     void updatePatientProperlyUpdatesPatient() {
-        String rppsOfEric = eric.getSsID();
+        String ssidOfEric = eric.getSsID();
         PatientRequestDto patientRequest = new PatientRequestDto(
             "Maurice", "LaSaucisse", "0862183792365", "", "");
         patientRessourceController.updatePatient(patientRequest);
         Patient patient;
         try {
-            patient = patientRessourceController.getPatient(rppsOfEric);
+            patient = patientRessourceController.getPatient(ssidOfEric);
             assertEquals(patientRequest.getName(), patient.getName());
             assertEquals(patientRequest.getSurname(), patient.getSurname());
             assertEquals(patientRequest.getSsID(), patient.getSsID());
