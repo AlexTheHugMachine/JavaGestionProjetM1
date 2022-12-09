@@ -17,11 +17,11 @@ import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HPSpeciality;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 
 public class HealthProfessionalRessourceControllerTest {
-    
+
     private HealthProfessionalRessourceController hpRessourceController;
     private HealthProfessional eric;
-    private HealthProfessional michel;   
-    
+    private HealthProfessional michel;
+
     @BeforeEach
     void setUp() {
       HealthProfessionalDAO hpDAO = new HealthProfessionalDAO();
@@ -49,7 +49,7 @@ public class HealthProfessionalRessourceControllerTest {
             "john", "doe", "12345678919", HPSpeciality.GENERALISTE.toString());
 
         String rppsOfJohn = (String) hpRessourceController.createHealthProfessional(hpRequest);
-    
+
         try {
           HealthProfessional hp = hpRessourceController.getHealthProfessional(rppsOfJohn);
           assertEquals("12345678919", rppsOfJohn);

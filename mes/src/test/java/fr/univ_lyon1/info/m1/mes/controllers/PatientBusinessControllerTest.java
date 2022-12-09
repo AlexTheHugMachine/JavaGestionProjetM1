@@ -26,12 +26,12 @@ public class PatientBusinessControllerTest {
     private Prescription doliprane500;
     private Prescription doliprane1000;
     private Prescription paracetamol;
-    private Prescription eatFruit;  
+    private Prescription eatFruit;
     private Patient john;
     private Patient doe;
     private Patient jack;
     private Patient james;
-    private Patient eric;  
+    private Patient eric;
     @BeforeEach
     void setUp() {
         // In the real app we would pass this prescription like that we wouldn't create
@@ -49,7 +49,7 @@ public class PatientBusinessControllerTest {
         } catch (NameAlreadyBoundException e) {
             e.printStackTrace();
         }
-        PatientDAO patientDAO = new PatientDAO(); 
+        PatientDAO patientDAO = new PatientDAO();
         john = new Patient("John", "Wick", "6968686787598", "", "");
         doe = new Patient("John", "Doe", "7912327085687", "", "");
         jack = new Patient("Jack", "Sparrow", "0975310954209", "", "");
@@ -65,7 +65,7 @@ public class PatientBusinessControllerTest {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-        } 
+        }
         patientBusinessController = new PatientsBusinessController(prescriptionDAO, patientDAO);
     }
 
@@ -92,7 +92,7 @@ public class PatientBusinessControllerTest {
     @Test
     void removePrescriptionPatientRemoveThePrescriptionFromThePatient() throws NameNotFoundException, InvalidNameException, IllegalAccessException {
         PatientRequestDto patientRequestDto = new PatientRequestDto("John", "Wick", "6968686787598", "", "");
-        patientBusinessController.removePrescription(doliprane500.getId(), john.getSSID());
+        patientBusinessController.removePrescription(doliprane500.getId(), john.getSsID());
         List<Prescription> prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
         assertEquals(1, prescriptions.size());
         assertTrue(prescriptions.contains(eatFruit));
@@ -101,7 +101,7 @@ public class PatientBusinessControllerTest {
     @Test
     void removePrescriptionPatientThrowAnExceptionIfThePrescriptionDoesntExist() {
         try {
-            patientBusinessController.removePrescription("12345678901", john.getSSID());
+            patientBusinessController.removePrescription("12345678901", john.getSsID());
         } catch (NameNotFoundException e) {
             assertEquals("No prescription found for this id.", e.getMessage());
         } catch (InvalidNameException e) {
