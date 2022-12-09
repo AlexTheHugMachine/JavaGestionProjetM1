@@ -10,6 +10,6 @@ RUN apt update \
   && CLASSPATH="$CLASSPATH":/usr/share/java/openjfx/jre/lib/jfxswt.jar \
   && export CLASSPATH
 
-RUN mvn install compile
+RUN mvn clean compile
 
 CMD mvn exec:java
