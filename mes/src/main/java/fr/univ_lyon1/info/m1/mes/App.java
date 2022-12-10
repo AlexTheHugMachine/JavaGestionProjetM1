@@ -11,6 +11,13 @@ public class App extends Application {
   public void start(final Stage stage) throws Exception {
     AppStartup app = new AppStartup();
     app.loadApplication(stage);
+    app.writeErrorQueueToLogFile();
+
+  }
+
+  @Override
+  public void stop() {
+    // Read queues and save the new data in the correct path.
   }
 
   /**

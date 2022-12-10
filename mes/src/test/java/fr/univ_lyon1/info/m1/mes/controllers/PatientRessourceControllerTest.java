@@ -103,7 +103,7 @@ public class PatientRessourceControllerTest {
             patientRessourceController.createPatient(newPatient);
             fail("Should not create the patient.");
         } catch (NameAlreadyBoundException e) {
-            assertEquals("This patient already exist.", e.getMessage());
+            assertEquals("This ressource already exist.", e.getMessage());
         }
     }
 

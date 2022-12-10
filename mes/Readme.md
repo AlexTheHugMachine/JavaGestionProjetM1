@@ -91,6 +91,26 @@ docker build -t mes
 
 4. A la fin vous devriez avoir un message qui vous indique que le build a bien fonctionné.
 
+```
+[+] Building 60.4s (10/10) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                                                                     0.0s
+ => => transferring dockerfile: 37B                                                                                                                                                      0.0s
+ => [internal] load .dockerignore                                                                                                                                                        0.0s
+ => => transferring context: 2B                                                                                                                                                          0.0s
+ => [internal] load metadata for docker.io/library/maven:3.6.1-jdk-11                                                                                                                    1.8s
+ => [internal] load build context                                                                                                                                                        0.5s
+ => => transferring context: 12.96MB                                                                                                                                                     0.5s
+ => [1/5] FROM docker.io/library/maven:3.6.1-jdk-11@sha256:2d1abfdaa00326e66f33e8378db38ded41a3f0ce3ea973a3efa77cc0118652f9                                                              0.0s
+ => CACHED [2/5] WORKDIR /app                                                                                                                                                            0.0s
+ => [3/5] COPY . /app                                                                                                                                                                    0.4s
+ => [4/5] RUN apt update   && apt install -y openjfx   && CLASSPATH="$CLASSPATH":/usr/share/java/openjfx/jre/lib/ext/jfxrt.jar   && CLASSPATH="$CLASSPATH":/usr/share/java/openjfx/jre  34.2s
+ => [5/5] RUN mvn clean compile                                                                                                                                                         21.7s
+ => exporting to image                                                                                                                                                                   1.6s
+ => => exporting layers                                                                                                                                                                  1.6s
+ => => writing image sha256:0dbe42f89290bdd46e27cda3ccbd8c49080661871bd2ad1455cbde2a4f794990                                                                                             0.0s
+ => => naming to docker.io/library/mes
+ ```
+
 ### Run du container Docker `mes`
 
 - Vérifiez que vous avez le script `run-container.sh` et éxécutez `chmod +x ./run-container.sh`.
@@ -123,6 +143,7 @@ docker run -e DISPLAY=host.docker.internal:0 --privileged mes
 <https://medium.com/@SaravSun/running-gui-applications-inside-docker-containers-83d65c0db110>
 
 ---
+
 ## Linux
 
 Le projet utilise l'outil Maven pour la compilation.

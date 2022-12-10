@@ -9,6 +9,8 @@ public final class Constants {
   private static final String PATIENT_PATH = LOCAL_PATH + "Patient/";
   private static final String HP_PATH = LOCAL_PATH + "HealthProfessional/";
   private static final String PRESCRIPTION_PATH = LOCAL_PATH + "Prescription/";
+  private static final String LOG_PATH = "./src/main/log/";
+  private static final String DATA_TEST = "./src/test/java/fr/univ_lyon1/info/m1/mes/data/";
 
   private Constants() {
   }
@@ -27,5 +29,13 @@ public final class Constants {
 
   public static String getPrescriptionPath() {
     return PRESCRIPTION_PATH;
+  }
+
+  public static String getLogPath() {
+    return LOG_PATH;
+  }
+
+  public static String getDataTestPath() {
+    return DATA_TEST;
   }
 }

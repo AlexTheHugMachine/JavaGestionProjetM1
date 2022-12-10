@@ -35,18 +35,18 @@ public interface ContentNegotiator {
       throws UnsupportedOperationException, IOException {
     String dtoTypeName = dtoType.getSimpleName();
     switch (dtoTypeName) {
-      case "Patient":
+      case "PatientRequestDto":
         return getParsedMapOfTheRequestedFile(
             contentType,
             dtoType,
             Constants.getPatientPath() + filename);
-      case "HealthProfessional":
+      case "HealthProfessionalRequestDto":
         return getParsedMapOfTheRequestedFile(
             contentType,
             dtoType,
             Constants.getHpPath() + filename);
 
-      case "Prescription":
+      case "PrescriptionRequestDto":
         return getParsedMapOfTheRequestedFile(
             contentType,
             dtoType,

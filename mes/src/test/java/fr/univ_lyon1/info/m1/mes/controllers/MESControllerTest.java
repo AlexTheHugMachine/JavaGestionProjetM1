@@ -1,13 +1,19 @@
 package fr.univ_lyon1.info.m1.mes.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.naming.InvalidNameException;
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -185,8 +191,16 @@ public class MESControllerTest {
     @Test
     void getPrescriptionFromAPatientProperlyGetTheListOfPrescriptions() {
         try {
-            assertEquals(2, mesController.getPrescriptionFromAPatient(
-                    "John", "Wick", "6968686787598", "", "").size());
+            Collection<Prescription> listOfPrescriptions = mesController
+                    .getPrescriptionFromAPatient("6968686787598");
+            Collection<Prescription> expectedList = new ArrayList<Prescription>();
+            expectedList.add(eatFruit);
+            expectedList.add(doliprane500);
+            assertAll(
+                    () -> assertEquals(2, listOfPrescriptions.size()),
+                    () -> assertThat(listOfPrescriptions,
+                            Matchers.containsInAnyOrder(expectedList.toArray())));
+
         } catch (NameNotFoundException e) {
             fail("Should not throw this exception, these prescriptions have been added.");
         }
@@ -195,20 +209,16 @@ public class MESControllerTest {
     @Test
     void getPrescriptionFromAPatientThrowExceptionWhenPatientSSIDisWrong() {
         try {
-            mesController.getPrescriptionFromAPatient(
-                    "John", "Wick", "12345678901", "", "");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Les informations du patient sont invalides.", e.getMessage());
+            mesController.getPrescriptionFromAPatient("12345678901");
         } catch (NameNotFoundException e) {
-            fail("Should not throw this exception because the SSID is not valid.");
+            assertTrue(true, "SSID is not valid and shouldn't be able to exist.");
         }
     }
 
     @Test
     void getPrescriptionFromAPatientThrowExceptionWhenPatientNotFound() {
         try {
-            mesController.getPrescriptionFromAPatient(
-                    "John", "Wick", "6968686787599", "", "");
+            mesController.getPrescriptionFromAPatient("6968686787599");
         } catch (NameNotFoundException e) {
             assertEquals("No prescriptions have been found.", e.getMessage());
         }

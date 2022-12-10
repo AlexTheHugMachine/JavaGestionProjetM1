@@ -252,7 +252,7 @@ public class HealthProfessionalBusinessTest {
     Exception e = assertThrows(NameNotFoundException.class,
         () -> hpBusiness.removePrescription("123456789"));
 
-    String expectedMessage = "No prescription found.";
+    String expectedMessage = "No ressource found.";
     assertEquals(expectedMessage, e.getMessage());
   }
 

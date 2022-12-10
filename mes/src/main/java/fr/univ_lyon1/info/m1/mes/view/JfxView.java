@@ -24,10 +24,10 @@ public class JfxView {
 
     final HBox root = new HBox(10);
 
-    //createPatientsWidget();
+    // createPatientsWidget();
     root.getChildren().add(patients);
 
-    //createHPWidget();
+    // createHPWidget();
     root.getChildren().add(healthPro);
 
     HBox.setHgrow(patients, Priority.SOMETIMES);

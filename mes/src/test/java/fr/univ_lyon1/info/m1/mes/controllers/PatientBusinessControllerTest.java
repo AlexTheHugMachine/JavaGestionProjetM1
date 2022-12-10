@@ -33,6 +33,7 @@ public class PatientBusinessControllerTest {
     private Patient jack;
     private Patient james;
     private Patient eric;
+
     @BeforeEach
     void setUp() {
         // In the real app we would pass this prescription like that we wouldn't create
@@ -72,9 +73,10 @@ public class PatientBusinessControllerTest {
 
     @Test
     void getPrescriptionsPatientReturnTheListOfPrescriptionsOfAPatient() {
-        PatientRequestDto patientRequestDto = new PatientRequestDto("John", "Wick", "6968686787598", "", "");
-        List<Prescription> prescriptions;
+        PatientRequestDto patientRequestDto = new PatientRequestDto(
+                "John", "Wick", "6968686787598", "", "");
         try {
+            List<Prescription> prescriptions;
             prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
             assertEquals(2, prescriptions.size());
             assertTrue(prescriptions.contains(doliprane500));
@@ -86,9 +88,10 @@ public class PatientBusinessControllerTest {
 
     @Test
     void getPrescriptionsPatientReturnAnEmptyListIfThePatientHasNoPrescription() {
-        PatientRequestDto patientRequestDto = new PatientRequestDto("John", "Doe", "7912327085687", "", "");
-        List<Prescription> prescriptions;
+        PatientRequestDto patientRequestDto = new PatientRequestDto(
+                "John", "Doe", "7912327085687", "", "");
         try {
+            List<Prescription> prescriptions;
             prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
         } catch (NameNotFoundException e) {
             assertEquals("No prescriptions have been found.", e.getMessage());
@@ -97,7 +100,8 @@ public class PatientBusinessControllerTest {
 
     @Test
     void removePrescriptionPatientRemoveThePrescriptionFromThePatient() {
-        PatientRequestDto patientRequestDto = new PatientRequestDto("John", "Wick", "6968686787598", "", "");
+        PatientRequestDto patientRequestDto = new PatientRequestDto(
+                "John", "Wick", "6968686787598", "", "");
         try {
             patientBusinessController.removePrescription(doliprane500.getId(), john.getSsID());
         } catch (NameNotFoundException | InvalidNameException | IllegalAccessException e) {

@@ -332,7 +332,7 @@ public class PatientRessourceTest {
     Exception e = assertThrows(NameAlreadyBoundException.class,
         () -> patientRessource.create(patientRequest));
     String actualMessage = e.getMessage();
-    String expectedMessage = "This patient already exist.";
+    String expectedMessage = "This ressource already exist.";
     assertEquals(expectedMessage, actualMessage);
   }
 

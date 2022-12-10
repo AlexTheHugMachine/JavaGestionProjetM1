@@ -36,7 +36,7 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   public Serializable add(final T element) throws NameAlreadyBoundException {
     Serializable key = getKeyForElement(element);
     if (this.collection.containsKey(key)) {
-      throw new NameAlreadyBoundException("This patient already exist.");
+      throw new NameAlreadyBoundException("This ressource already exist.");
     }
     this.collection.put(key, element);
     return key;
@@ -54,7 +54,7 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   @Override
   public void deleteById(final Serializable id) throws NameNotFoundException {
       if (!this.collection.containsKey(id)) {
-        throw new NameNotFoundException("No prescription found.");
+        throw new NameNotFoundException("No ressource found.");
       }
       this.collection.remove(id);
   }
@@ -77,7 +77,7 @@ public abstract class AbstractMapDao<T> implements Dao<T> {
   @Override
   public T findOne(final Serializable id) throws NameNotFoundException {
       if (!this.collection.containsKey(id)) {
-        throw new NameNotFoundException("Patient not found.");
+        throw new NameNotFoundException("Ressource not found.");
       }
       return this.collection.get(id);
   }

@@ -68,6 +68,7 @@ public class Prescription {
         return this.idPatient;
     }
 
+    // Never used outside SnakeYML to instanciate this class.
     public void setContent(final String content) {
         this.content = content;
     }
@@ -76,7 +77,7 @@ public class Prescription {
         this.quantite = quantite;
     }
 
-    public void setId(final String id) {
+    public void setIdPrescription(final String id) {
         this.idPrescription = id;
     }
 

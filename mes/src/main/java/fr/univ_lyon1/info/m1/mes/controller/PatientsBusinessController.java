@@ -5,7 +5,6 @@ import java.util.List;
 import javax.naming.InvalidNameException;
 import javax.naming.NameNotFoundException;
 
-import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Patient.operations.PatientBusiness;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
@@ -18,7 +17,6 @@ import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
  * - Un patient doit pouvoir consulter les prescriptions qui lui ont étés
  * données.✅ <br>
  * - Un patient doit pouvoir supprimer lui même des prescriptions. ✅ <br>
- * - Un patient doit pouvoir changer son Adresse et sa Ville. ✅ <br>
  * - Un patient doit pouvoir se connecter. (TODO) <br>
  * - Un patient doit pouvoir se déconnecter. (TODO) <br>
  */
@@ -33,13 +31,7 @@ public class PatientsBusinessController {
 
   public List<Prescription> getPrescriptionsPatient(final PatientRequestDto patientDto)
       throws NameNotFoundException {
-    Patient patient = new Patient(
-      patientDto.getName(),
-      patientDto.getSurname(),
-      patientDto.getSsID(),
-      patientDto.getAdress(),
-      patientDto.getCity());
-    return patientBusiness.getPrescriptionsPatient(patient);
+    return patientBusiness.getPrescriptionsPatient(patientDto.getSsID());
   }
 
   public boolean removePrescription(final String idPrescription, final String idPatient)

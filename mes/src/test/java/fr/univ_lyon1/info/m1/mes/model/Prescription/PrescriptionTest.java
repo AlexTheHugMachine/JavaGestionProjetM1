@@ -27,12 +27,6 @@ public class PrescriptionTest {
   }
 
   @Test
-  void properlySetIdOfPrescription() {
-    this.prescription.setId("1");
-    assertEquals("1", this.prescription.getId());
-  }
-
-  @Test
   @DisplayName("Check Prescription Getters")
   void properlyGetAllThePrescriptionInformations() {
     assertAll(

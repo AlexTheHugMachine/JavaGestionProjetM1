@@ -5,10 +5,6 @@ import org.junit.jupiter.api.Test;
 
 public class ContentNegotiatorTest {
 
-  private
-
-  @BeforeEach
-
 
   @Test
   void properlyReadAndReturnTheDtoWeRequested() {

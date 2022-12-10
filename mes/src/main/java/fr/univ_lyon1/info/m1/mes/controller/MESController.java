@@ -156,12 +156,9 @@ public class MESController {
     return patientRessourceController.getPatients();
   }
 
-  public List<Prescription> getPrescriptionFromAPatient(
-      final String name,
-      final String surname,
-      final String ssid,
-      final String adress, final String city) throws NameNotFoundException {
-    PatientRequestDto patientRequestDto = new PatientRequestDto(name, surname, ssid, adress, city);
+  public List<Prescription> getPrescriptionFromAPatient(final String ssid)
+      throws NameNotFoundException {
+    PatientRequestDto patientRequestDto = new PatientRequestDto(null, null, ssid, null, null);
     return patientBusinessController.getPrescriptionsPatient(patientRequestDto);
   }
 }

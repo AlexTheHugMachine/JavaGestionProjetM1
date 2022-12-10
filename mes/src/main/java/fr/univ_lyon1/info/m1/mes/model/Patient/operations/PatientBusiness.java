@@ -5,7 +5,6 @@ import java.util.List;
 import javax.naming.InvalidNameException;
 import javax.naming.NameNotFoundException;
 
-import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
 import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
@@ -25,15 +24,15 @@ public class PatientBusiness {
 
   /**
    *
-   * @param patient
+   * @param patientSSID numéro de sécurité qui identifie le patient.
    * @return
    * @throws NameNotFoundException Si on ne trouve pas de prescription
    *                               correspondant à ce patient.
    */
-  public List<Prescription> getPrescriptionsPatient(final Patient patient)
+  public List<Prescription> getPrescriptionsPatient(final String patientSSID)
       throws NameNotFoundException {
     try {
-      return prescriptionDao.findByPatientId(patient.getSsID());
+      return prescriptionDao.findByPatientId(patientSSID);
     } catch (NameNotFoundException e) {
       throw new NameNotFoundException("No prescriptions have been found.");
     }

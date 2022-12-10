@@ -16,9 +16,10 @@ speciality: GENERALISTE" >>HP.yml
 
 # Creating Prescription test file
 
-echo "content: Sancturelin
-quantite: 200g
-idHealthProfessional: 60849182633
-idPatient: 3921322516464" >>Prescription.yml
+echo "content: Doliprane
+quantite: 500g
+idHealthProfessional: 36474793744
+idPatient: 2018504330565
+idPrescription: 82505548-52be-4807-83f6-a453eaf24b78" >>Prescription.yml
 
 echo "Done."

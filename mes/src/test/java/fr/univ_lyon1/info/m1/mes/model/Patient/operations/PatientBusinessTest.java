@@ -83,7 +83,7 @@ public class PatientBusinessTest {
   @Test
   void getPrescriptionsPatientReturnTheListOfPresctionGivenAPatientObject() {
     try {
-      List<Prescription> actualList = patientBusiness.getPrescriptionsPatient(john);
+      List<Prescription> actualList = patientBusiness.getPrescriptionsPatient(john.getSsID());
       List<Prescription> expectedList = new ArrayList<Prescription>();
       expectedList.add(eatFruit);
       expectedList.add(doliprane500);
@@ -101,7 +101,7 @@ public class PatientBusinessTest {
   void getPrescriptionsPatientThrowExceptionWhenPatientDoesNotExistInDAO() {
     Exception exception = assertThrows(
         NameNotFoundException.class,
-        () -> patientBusiness.getPrescriptionsPatient(jean));
+        () -> patientBusiness.getPrescriptionsPatient(jean.getSsID()));
     String actualMessage = exception.getMessage();
     String expectedMessage = "No prescriptions have been found.";
 
@@ -115,7 +115,7 @@ public class PatientBusinessTest {
       getPrescriptionsPatientReturnTheListOfPresctionGivenAPatientObject();
       patientBusiness.removePrescription(doliprane500.getId(), john.getSsID());
       assertThat("Dolprane 500 is not in the prescriptions list of the patient anymore",
-          patientBusiness.getPrescriptionsPatient(john), not(hasItem(doliprane500)));
+          patientBusiness.getPrescriptionsPatient(john.getSsID()), not(hasItem(doliprane500)));
     } catch (InvalidNameException | NameNotFoundException | IllegalAccessException e) {
       fail("Should not throw exception because the prescription is present.");
     }
