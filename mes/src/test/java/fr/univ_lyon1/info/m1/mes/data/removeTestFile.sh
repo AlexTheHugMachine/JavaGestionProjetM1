@@ -2,4 +2,4 @@
 
 # Remove all yml files used for test.
 
-rm *.yml
+rm -r *.yml Patient HP Prescription

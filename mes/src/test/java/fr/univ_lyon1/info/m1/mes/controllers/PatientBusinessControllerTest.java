@@ -1,6 +1,7 @@
 package fr.univ_lyon1.info.m1.mes.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -68,7 +69,7 @@ public class PatientBusinessControllerTest {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-        patientBusinessController = new PatientsBusinessController(prescriptionDAO, patientDAO);
+        patientBusinessController = new PatientsBusinessController(prescriptionDAO);
     }
 
     @Test
@@ -89,13 +90,16 @@ public class PatientBusinessControllerTest {
     @Test
     void getPrescriptionsPatientReturnAnEmptyListIfThePatientHasNoPrescription() {
         PatientRequestDto patientRequestDto = new PatientRequestDto(
-                "John", "Doe", "7912327085687", "", "");
-        try {
-            List<Prescription> prescriptions;
-            prescriptions = patientBusinessController.getPrescriptionsPatient(patientRequestDto);
-        } catch (NameNotFoundException e) {
-            assertEquals("No prescriptions have been found.", e.getMessage());
-        }
+                "John",
+                "Doe",
+                "7912327085687",
+                "",
+                "");
+        Exception e = assertThrows(NameNotFoundException.class,
+                () -> patientBusinessController
+                        .getPrescriptionsPatient(patientRequestDto));
+        assertEquals("No prescriptions have been found.", e.getMessage());
+
     }
 
     @Test

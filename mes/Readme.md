@@ -175,6 +175,7 @@ pour ce TP.
 | `main/config`  | Contient un fichier `checkstyle.xml`, c'est un outil de contrôle de code qui vérifie que le style est conforme à certaines règles de formattage. |
 | `main/java`  | Code Source de l'application.  |
 | `test/` | Tous les fichiers de tests unitaires JUnit. |
+| `log/` | Fichiers textes qui sont créer au lancement de l'application et à la fermeture. |
 
 ### Quelques remarques sur le Code Source
 

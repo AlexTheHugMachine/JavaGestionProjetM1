@@ -55,14 +55,10 @@ public class AppStartup extends AbstractAppStartup {
 
   @Override
   void loadConfiguration() {
-    // TODO Auto-generated method stub
-
   }
 
   @Override
   void loadDynamicComponents() {
-    // TODO Auto-generated method stub
-
   }
 
   @Override

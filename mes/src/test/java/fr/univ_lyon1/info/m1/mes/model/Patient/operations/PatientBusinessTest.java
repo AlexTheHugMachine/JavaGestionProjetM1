@@ -77,7 +77,7 @@ public class PatientBusinessTest {
       e.printStackTrace();
     }
 
-    patientBusiness = new PatientBusiness(prescriptionDAO, patientDAO);
+    patientBusiness = new PatientBusiness(prescriptionDAO);
   }
 
   @Test

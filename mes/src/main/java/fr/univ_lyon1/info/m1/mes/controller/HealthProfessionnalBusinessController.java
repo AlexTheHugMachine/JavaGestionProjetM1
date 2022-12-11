@@ -14,7 +14,7 @@ import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.operations.HealthProf
 import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
 
 /**
- * Contrôleur délégué aux CU concernant les opérations métier sur les patiens.
+ * Contrôleur délégué aux CU concernant les opérations métier sur les patients.
  * Concrètement :
  * - Un Professionnel de santé doit pouvoir chercher un patient avec son num
  * de sécurité sociale. ✅ <br>
@@ -23,7 +23,7 @@ import fr.univ_lyon1.info.m1.mes.model.Patient.Patient;
  * Patient. ✅ <br>
  * - Un Professionnel de santé doit pouvoir Supprimer une Prescription d'un
  * Patient.✅ <br>
- * - Un professionnel de santé doit pouvoir créer un Patient.✅ <br>
+ * - Un professionnel de santé doit pouvoir Créer un Patient.✅ <br>
  */
 public class HealthProfessionnalBusinessController {
   private HealthProfessionnalBusiness hpBusiness;
@@ -41,11 +41,6 @@ public class HealthProfessionnalBusinessController {
     return hpBusiness.getPatientBySSID(patientSSID);
   }
 
-  public Patient getPatientInfos(final String idPatient)
-      throws NameNotFoundException, InvalidNameException {
-    return hpBusiness.getPatientBySSID(idPatient);
-  }
-
   public boolean addPrescription(final PrescriptionRequestDto prescriptionDto)
       throws NameNotFoundException, NameAlreadyBoundException, InvalidNameException {
     Prescription prescription = new Prescription(
@@ -56,7 +51,7 @@ public class HealthProfessionnalBusinessController {
     return hpBusiness.addPrescription(prescription);
   }
 
-  public boolean removePrescription(final String idPrescription)
+  public boolean removePrescriptionById(final String idPrescription)
       throws NameNotFoundException, InvalidNameException {
     return hpBusiness.removePrescription(idPrescription);
   }

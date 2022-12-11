@@ -66,7 +66,7 @@ public class HealthProfessionalRessource
   }
 
   @Override
-  public Boolean update(final HealthProfessionalRequestDto element) 
+  public Boolean update(final HealthProfessionalRequestDto element)
     throws IllegalArgumentException {
     String name = element.getName();
     String surname = element.getSurname();

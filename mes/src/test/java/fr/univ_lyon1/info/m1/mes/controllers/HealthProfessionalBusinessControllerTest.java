@@ -1,6 +1,7 @@
 package fr.univ_lyon1.info.m1.mes.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -85,32 +86,9 @@ public class HealthProfessionalBusinessControllerTest {
         } catch (NameNotFoundException e) {
             assertEquals("No patient found.", e.getMessage());
         } catch (InvalidNameException e) {
-            e.printStackTrace();
+            fail("Should not throw this exception.");
         }
     }
-
-    @Test
-    void getPatientInfosProperly() {
-        Patient patient;
-        try {
-            patient = hpBusinessController.getPatientInfos("6968686787598");
-            assertEquals(john, patient);
-        } catch (NameNotFoundException | InvalidNameException e) {
-            fail("This patient has been added to the DAO, we should avoid this error.");
-        }
-    }
-
-    @Test
-    void getPatientInfosThrowsNameNotFoundExceptionWhenSSIDisInvalid() {
-        try {
-            hpBusinessController.getPatientInfos("6968686787599");
-        } catch (NameNotFoundException e) {
-            assertEquals("No patient found.", e.getMessage());
-        } catch (InvalidNameException e) {
-            e.printStackTrace();
-        }
-    }
-
     /*
      * @Test
      * void addPrescriptionProperlyAddPrescritptionToPatient() throws
@@ -128,12 +106,42 @@ public class HealthProfessionalBusinessControllerTest {
      */
 
     @Test
-    void addPrescriptionThrowsNameNotFoundExceptionWhenSSIDisInvalid() {
+    void addPrescriptionReturnTrueWhenCompleted() {
+        PrescriptionRequestDto presc = new PrescriptionRequestDto(
+                "Douchiprane",
+                "900gr",
+                "",
+                "12345678919",
+                "0975310954209");
+        try {
+            assertTrue(hpBusinessController.addPrescription(presc));
+        } catch (NameNotFoundException | NameAlreadyBoundException | InvalidNameException e) {
+            fail("This prescription does not exist and idPatient and hp are correct.");
+        }
+    }
+
+    @Test
+    void addPrescriptionGivenDtoThrowsIllegalArguementExceptionWhenMappingDtoToPrescription() {
         PrescriptionRequestDto prescriptionDto = new PrescriptionRequestDto(
                 "Doliprane",
                 "500mg",
-                "12345678902",
-                "12345678901",
+                "",
+                "12345678919",
+                "097531095");
+        Exception e = assertThrows(IllegalArgumentException.class,
+        () -> hpBusinessController.addPrescription(prescriptionDto));
+        String expected = "Les informations de Prescription sont invalides.";
+
+        assertEquals(expected, e.getMessage());
+    }
+
+    @Test
+    void addPrescriptionThrowsNameNotFoundExceptionWhenRPPSisInvalid() {
+        PrescriptionRequestDto prescriptionDto = new PrescriptionRequestDto(
+                "Doliprane",
+                "500mg",
+                "",
+                "12345678887",
                 "0975310954209");
         try {
             hpBusinessController.addPrescription(prescriptionDto);
@@ -147,38 +155,46 @@ public class HealthProfessionalBusinessControllerTest {
     }
 
     @Test
-    void removePrescriptionProperlyRemove() {
+    void removePrescriptionByIdReturnTrueOnComplete() {
         try {
-            assertTrue(hpBusinessController.removePrescription(doliprane500.getId()));
+            assertTrue(hpBusinessController.removePrescriptionById(doliprane500.getId()));
         } catch (NameNotFoundException | InvalidNameException e) {
             fail("This prescription has been added to the DAO, we should avoid this error.");
         }
     }
 
     @Test
-    void removePrescriptionThrowsNameNotFoundExceptionWhenSSIDisInvalid() {
+    void removePrescriptionByIdThrowsNameNotFoundExceptionWhenIdDontExist() {
         try {
-            hpBusinessController.removePrescription(doliprane500.getId());
+            hpBusinessController.removePrescriptionById("567757283413481328");
         } catch (NameNotFoundException e) {
-            assertEquals("No prescription found.", e.getMessage());
+            assertEquals("No ressource found.", e.getMessage());
         } catch (InvalidNameException e) {
             fail("Should never throw this error here.");
         }
     }
 
     @Test
-    void createPatientProperlyCreateAPatient() {
+    void removePrescriptionByIdThrowsIllegalArgumentWhenIdIsNullOrEmpty() {
+        assertThrows(IllegalArgumentException.class,
+                () -> hpBusinessController.removePrescriptionById(""));
+        assertThrows(IllegalArgumentException.class,
+                () -> hpBusinessController.removePrescriptionById(null));
+    }
+
+    @Test
+    void createPatientReturnTrueOnComplete() {
         PatientRequestDto patientDto = new PatientRequestDto(
                 "Maurice", "LaSaucisse", "6968686788888", "", "");
         try {
-            hpBusinessController.createPatient(patientDto);
+            assertTrue(hpBusinessController.createPatient(patientDto));
         } catch (NameAlreadyBoundException e) {
             fail("This patient does not exist so this exception should not be thrown.");
         }
-        Patient patient2;
+
         try {
-            patient2 = hpBusinessController.getPatientBySSID("6968686788888");
-            assertEquals(patientDto.getSsID(), patient2.getSsID());
+            Patient patientCreated = hpBusinessController.getPatientBySSID("6968686788888");
+            assertEquals(patientDto.getSsID(), patientCreated.getSsID());
         } catch (NameNotFoundException | InvalidNameException e) {
             fail("");
         }

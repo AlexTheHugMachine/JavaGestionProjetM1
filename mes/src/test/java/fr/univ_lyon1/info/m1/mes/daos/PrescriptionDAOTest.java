@@ -36,7 +36,6 @@ public class PrescriptionDAOTest {
   private Prescription doliprane500;
   private Prescription doliprane1000;
   private Prescription paracetamol;
-  private Prescription eatFruit;
   private PrescriptionDAO prescriptionDAO;
 
   @BeforeEach
@@ -45,7 +44,6 @@ public class PrescriptionDAOTest {
     doliprane500 = new Prescription("Doliprane", "500g", "12345678901", "1234567890987");
     doliprane1000 = new Prescription("Doliprane", "1000g", "12345678901", "1234567890987");
     paracetamol = new Prescription("Paracetamol", "1000mg", "12345678901", "1234567890987");
-    eatFruit = new Prescription("Fruit", "1000g", "12345678909", "1234097645123");
     try {
       prescriptionDAO.add(doliprane500);
       prescriptionDAO.add(doliprane1000);

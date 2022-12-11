@@ -41,7 +41,7 @@ public class MESController {
     this.healthProfessionalRessourceController = new HealthProfessionalRessourceController(
         healthProfessionalDAO,
         healthProfessionalBuilder);
-    this.patientBusinessController = new PatientsBusinessController(prescriptionDAO, patientDAO);
+    this.patientBusinessController = new PatientsBusinessController(prescriptionDAO);
     this.healthProfessionalBusinessController = new HealthProfessionnalBusinessController(
         healthProfessionalDAO,
         patientDAO, prescriptionDAO);
@@ -102,7 +102,7 @@ public class MESController {
 
   public boolean removePrescriptionFromHP(final String prescriptionId)
       throws NameNotFoundException, InvalidNameException {
-    return healthProfessionalBusinessController.removePrescription(prescriptionId);
+    return healthProfessionalBusinessController.removePrescriptionById(prescriptionId);
   }
 
   public boolean removePrescriptionFromPatient(final String prescriptionId, final String patientId)
@@ -129,9 +129,9 @@ public class MESController {
     return patientRessourceController.updatePatient(patientRequestDto);
   }
 
-  public HealthProfessional getHealthProfessional(final String healthProfessionalId)
+  public HealthProfessional getHealthProfessionalById(final String healthProfessionalId)
       throws NameNotFoundException {
-    return healthProfessionalRessourceController.getHealthProfessional(healthProfessionalId);
+    return healthProfessionalRessourceController.getHealthProfessionalById(healthProfessionalId);
   }
 
   public Collection<HealthProfessional> getHealthProfessionals() {
@@ -141,11 +141,6 @@ public class MESController {
   public Patient getPatientBySSID(final String ssid)
       throws NameNotFoundException, InvalidNameException {
     return healthProfessionalBusinessController.getPatientBySSID(ssid);
-  }
-
-  public Patient getPatientInfos(final String patientId) throws NameNotFoundException,
-      InvalidNameException {
-    return healthProfessionalBusinessController.getPatientInfos(patientId);
   }
 
   public Patient getPatient(final String patientId) throws NameNotFoundException {

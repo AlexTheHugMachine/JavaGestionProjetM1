@@ -3,7 +3,6 @@ package fr.univ_lyon1.info.m1.mes.utils;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -15,12 +14,15 @@ public class FileHandlerTest {
   @AfterAll
   static void unmount() {
     try {
-      ExecuteScript.execute(
-          Constants.getDataTestPath(),
-          "./removeTestFile.sh");
-    } catch (IOException | InterruptedException | ExecutionException e) {
+      FileHandler.removeFile(Constants.getDataTestPath() + "test.yml");
+    } catch (IllegalArgumentException
+        | IllegalStateException
+        | NullPointerException e) {
       fail("The execution of the script failed unexpectedly.");
+    } catch (SecurityException e) {
+      fail("Check your folder permissions and try again.");
     }
+
   }
 
   @Test

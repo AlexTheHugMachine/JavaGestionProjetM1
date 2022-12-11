@@ -12,7 +12,6 @@ public class App extends Application {
     AppStartup app = new AppStartup();
     app.loadApplication(stage);
     app.writeErrorQueueToLogFile();
-
   }
 
   @Override

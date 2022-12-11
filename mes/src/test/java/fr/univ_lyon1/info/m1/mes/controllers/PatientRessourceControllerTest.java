@@ -1,11 +1,17 @@
 package fr.univ_lyon1.info.m1.mes.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.naming.NameAlreadyBoundException;
 import javax.naming.NameNotFoundException;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +29,7 @@ public class PatientRessourceControllerTest {
     private Patient jack;
     private Patient james;
     private Patient eric;
+
     @BeforeEach
     void setup() {
         PatientDAO patientDAO = new PatientDAO();
@@ -71,13 +78,29 @@ public class PatientRessourceControllerTest {
 
     @Test
     void getPatientsReturnsAllPatients() {
-        assertEquals(5, patientRessourceController.getPatients().size());
+        Collection<Patient> patients = patientRessourceController.getPatients();
+        Collection<Patient> expectedCollection = new ArrayList<Patient>();
+        expectedCollection.add(doe);
+        expectedCollection.add(john);
+        expectedCollection.add(eric);
+        expectedCollection.add(jack);
+        expectedCollection.add(james);
+
+        assertAll(
+                () -> assertEquals(5, patients.size()),
+                () -> assertThat(
+                        patients,
+                        Matchers.containsInAnyOrder(expectedCollection.toArray())));
     }
 
     @Test
-    void createPatientProperlyCreatesPatient() {
+    void createPatientProperlyCreatesPatientAndReturnHisSSID() {
         PatientRequestDto newPatient = new PatientRequestDto(
-            "Maurice", "LaSaucisse", "1678988889912", "", "");
+                "Maurice",
+                "LaSaucisse",
+                "1678988889912",
+                "",
+                "");
         String ssid;
         try {
             ssid = patientRessourceController.createPatient(newPatient);
@@ -87,9 +110,9 @@ public class PatientRessourceControllerTest {
                 assertEquals(newPatient.getName(), patient.getName());
                 assertEquals(newPatient.getSurname(), patient.getSurname());
                 assertEquals(newPatient.getSsID(), patient.getSsID());
-              } catch (NameNotFoundException e) {
+            } catch (NameNotFoundException e) {
                 fail("The health professional was not created properly");
-              }
+            }
         } catch (NameAlreadyBoundException e1) {
             fail("The patient does not exist yet.");
         }
@@ -98,7 +121,11 @@ public class PatientRessourceControllerTest {
     @Test
     void createPatientThrowsNameAlreadyBoundExceptionWhenSSIDAlreadyExists() {
         PatientRequestDto newPatient = new PatientRequestDto(
-            "Eric", "Zemmour", "0862183792365", "", "");
+                "Eric",
+                "Zemmour",
+                "0862183792365",
+                "",
+                "");
         try {
             patientRessourceController.createPatient(newPatient);
             fail("Should not create the patient.");
@@ -111,7 +138,11 @@ public class PatientRessourceControllerTest {
     void updatePatientProperlyUpdatesPatient() {
         String ssidOfEric = eric.getSsID();
         PatientRequestDto patientRequest = new PatientRequestDto(
-            "Maurice", "LaSaucisse", "0862183792365", "", "");
+                "Maurice",
+                "LaSaucisse",
+                "0862183792365",
+                "",
+                "");
         patientRessourceController.updatePatient(patientRequest);
         Patient patient;
         try {
@@ -127,7 +158,7 @@ public class PatientRessourceControllerTest {
     @Test
     void updatePatientThrowsNameNotFoundExceptionWhenSSIDDoesNotExist() {
         PatientRequestDto patientRequest = new PatientRequestDto(
-            "Maurice", "LaSaucisse", "123456789", "", "");
+                "Maurice", "LaSaucisse", "123456789", "", "");
         try {
             patientRessourceController.updatePatient(patientRequest);
             fail("Should not update the patient.");
@@ -165,7 +196,7 @@ public class PatientRessourceControllerTest {
     @Test
     void removePatientProperlyRemovePatient() {
         PatientRequestDto ericDto = new PatientRequestDto(
-            "Eric", "Zemmour", "0862183792365", "", "");
+                "Eric", "Zemmour", "0862183792365", "", "");
         try {
             patientRessourceController.removePatient(ericDto);
         } catch (NameNotFoundException e1) {
@@ -182,7 +213,7 @@ public class PatientRessourceControllerTest {
     @Test
     void removePatientThrowsNameNotFoundExceptionWhenSSIDDoesNotExist() {
         PatientRequestDto ericDto = new PatientRequestDto(
-            "Eric", "Zemmour", "123456789", "", "");
+                "Eric", "Zemmour", "123456789", "", "");
         try {
             patientRessourceController.removePatient(ericDto);
             fail("Should not remove the patient.");

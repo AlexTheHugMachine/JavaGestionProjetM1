@@ -83,7 +83,6 @@ public class HealthProfessionnalBusiness {
     return true;
   }
 
-  // TODO : voir si on ne met pas l'update pour l'Observer ici :D .
   public boolean createPatient(final Patient patient) throws NameAlreadyBoundException {
     try {
       patientDAO.add(patient);

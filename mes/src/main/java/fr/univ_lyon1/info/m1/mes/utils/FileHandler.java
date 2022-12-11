@@ -35,4 +35,27 @@ public interface FileHandler {
     String[] fileList = stream.list();
     return fileList;
   }
+
+  /**
+   *
+   * @param pathname Combination of path + name
+   * @throws IllegalArgumentException If the argument is null or empty.
+   * @throws IllegalStateException    If the deletion failed.
+   * @throws SecurityException        Can happen if the rights of the folder are
+   *                                  strict.
+   * @throws NullPointerException     Throwed when path + filename is null.
+   */
+  static void removeFile(final String pathname)
+      throws IllegalArgumentException, IllegalStateException, NullPointerException {
+    if (pathname.isEmpty() || pathname == null) {
+      throw new IllegalArgumentException("The filename is empty or empty.");
+    }
+
+    File file = new File(pathname);
+    if (file.delete()) {
+      System.out.println("Deleted the file: " + file.getName());
+    } else {
+      throw new IllegalStateException("Failed to delete the file at : " + pathname);
+    }
+  }
 }

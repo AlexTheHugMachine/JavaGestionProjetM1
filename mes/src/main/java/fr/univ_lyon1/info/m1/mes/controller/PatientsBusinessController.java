@@ -7,7 +7,6 @@ import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Patient.operations.PatientBusiness;
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
-import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
 
@@ -17,16 +16,15 @@ import fr.univ_lyon1.info.m1.mes.dto.patient.PatientRequestDto;
  * - Un patient doit pouvoir consulter les prescriptions qui lui ont étés
  * données.✅ <br>
  * - Un patient doit pouvoir supprimer lui même des prescriptions. ✅ <br>
- * - Un patient doit pouvoir se connecter. (TODO) <br>
- * - Un patient doit pouvoir se déconnecter. (TODO) <br>
+ * - Un patient doit pouvoir se connecter.
+ * - Un patient doit pouvoir se déconnecter.
  */
 public class PatientsBusinessController {
   private PatientBusiness patientBusiness;
 
   public PatientsBusinessController(
-      final PrescriptionDAO prescriptionDAO,
-      final PatientDAO patientDAO) {
-    patientBusiness = new PatientBusiness(prescriptionDAO, patientDAO);
+      final PrescriptionDAO prescriptionDAO) {
+    patientBusiness = new PatientBusiness(prescriptionDAO);
   }
 
   public List<Prescription> getPrescriptionsPatient(final PatientRequestDto patientDto)

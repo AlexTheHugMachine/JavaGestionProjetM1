@@ -12,6 +12,10 @@ import fr.univ_lyon1.info.m1.mes.dto.healthprofessional.HealthProfessionalReques
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.HealthProfessional;
 import fr.univ_lyon1.info.m1.mes.model.HealthProfessionnal.operations.HealthProfessionalRessource;
 
+/**
+ * Classe qui sert à gérer les professionnels de santé à travers la classe
+ * Ressource.
+ */
 public class HealthProfessionalRessourceController {
 
     private final HealthProfessionalRessource healthProfessionalRessource;
@@ -37,7 +41,7 @@ public class HealthProfessionalRessourceController {
         return healthProfessionalRessource.create(hPDto);
     }
 
-    public HealthProfessional getHealthProfessional(final String healthProfessionalId)
+    public HealthProfessional getHealthProfessionalById(final String healthProfessionalId)
             throws NameNotFoundException {
         return healthProfessionalRessource.readOne(healthProfessionalId);
     }

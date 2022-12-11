@@ -6,7 +6,6 @@ import javax.naming.InvalidNameException;
 import javax.naming.NameNotFoundException;
 
 import fr.univ_lyon1.info.m1.mes.model.Prescription.Prescription;
-import fr.univ_lyon1.info.m1.mes.daos.PatientDAO;
 import fr.univ_lyon1.info.m1.mes.daos.PrescriptionDAO;
 import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
 
@@ -20,7 +19,6 @@ import fr.univ_lyon1.info.m1.mes.utils.ArgumentChecker;
  */
 public class PatientBusiness {
   private final PrescriptionDAO prescriptionDao;
-  private final PatientDAO patientDAO;
 
   /**
    *
@@ -56,8 +54,7 @@ public class PatientBusiness {
 
   }
 
-  public PatientBusiness(final PrescriptionDAO pDao, final PatientDAO patientDAO) {
+  public PatientBusiness(final PrescriptionDAO pDao) {
     this.prescriptionDao = pDao;
-    this.patientDAO = patientDAO;
   }
 }

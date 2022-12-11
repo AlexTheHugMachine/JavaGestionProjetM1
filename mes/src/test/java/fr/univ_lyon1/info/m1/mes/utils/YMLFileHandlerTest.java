@@ -49,7 +49,7 @@ public class YMLFileHandlerTest {
 
   @Test
   void readToCustomTypeReturnExpectedPatientWithCorrectInfos() {
-    testPath = Constants.getDataTestPath();
+    testPath = Constants.getDataTestPath() + "Patient/";
     try {
       String path = testPath + "Patient.yml";
       Patient data = (Patient) YmlFileHandler.readToCustomType(
@@ -68,7 +68,7 @@ public class YMLFileHandlerTest {
 
   @Test
   void readToCustomTypeReturnAnHealthProfessionalWithCorrespondingInfo() {
-    testPath = Constants.getDataTestPath();
+    testPath = Constants.getDataTestPath() + "HP/";
     try {
       String path = testPath + "HP.yml";
       HealthProfessional data = (HealthProfessional) YmlFileHandler
@@ -87,14 +87,13 @@ public class YMLFileHandlerTest {
 
   @Test
   void readToCustomTypeReturnPrescriptionWithExpectedInfo() {
-    testPath = Constants.getDataTestPath();
+    testPath = Constants.getDataTestPath() + "Prescription/";
     try {
       String path = testPath + "Prescription.yml";
       Prescription data = (Prescription) YmlFileHandler
           .readToCustomType(
               path,
               Prescription.class);
-      System.out.println("Id prescription : " + data.getId());
       assertAll(
           () -> assertEquals("82505548-52be-4807-83f6-a453eaf24b78", data.getId()),
           () -> assertEquals("Doliprane", data.getContent()),
