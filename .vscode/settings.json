@@ -1,5 +1,0 @@
-{
-  "java.checkstyle.configuration": "${workspaceFolder}/mes/src/main/config/checkstyle.xml",
-  "java.checkstyle.version": "10.3.4",
-  "java.configuration.updateBuildConfiguration": "interactive"
-}
